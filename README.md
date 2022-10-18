@@ -1,2 +1,2 @@
 # RUIM
-Repositorio para proyecto de ing de software
+Aplicacion web para la Reunion Universitaria de Investigacion de Materiales.
