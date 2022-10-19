@@ -1,7 +1,17 @@
 import express from "express";
+import dotenv from "dotenv";
+import db from "./config/db.js";
 
 //Iniciando express
 const app = express();
+
+dotenv.config();
+
+
+//Conectar a la base de datos
+db.authenticate()
+    .then(() => console.log('Base de datos conectado'))
+    .catch(error => console.log(error));
 
 //Probando que funcione el servidor
 app.use('/' , (req,res) =>{
