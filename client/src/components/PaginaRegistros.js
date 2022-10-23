@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const SeccionAvisos = () => {
   return <div>Seccion de Avisos.</div>;
@@ -16,6 +17,7 @@ const InformacionGeneral = () => {
     </div>
   );
 };
+
 const PaginaRegistros = () => {
   return (
     <div>
@@ -26,6 +28,12 @@ const PaginaRegistros = () => {
       <FechasLimite />
 
       <InformacionGeneral />
+
+      <div>
+        <li>
+          <Link to={`/forms`}>Forms</Link>
+        </li>
+      </div>
     </div>
   );
 };
