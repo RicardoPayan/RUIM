@@ -21,7 +21,7 @@ const InformacionGeneral = () => {
 const PaginaRegistros = () => {
   return (
     <div>
-      <div>Registro de Trabajos</div>
+      <div>TITULO: Registro de Trabajos</div>
 
       <SeccionAvisos />
 

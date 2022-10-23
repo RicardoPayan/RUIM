@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
 import App from "./App";
 import PaginaRegistros from "./components/PaginaRegistros";
 import Forms from "./components/Forms";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const router = createBrowserRouter([
   {
