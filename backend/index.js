@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import db from "./config/db.js";
+import ruimMainRoutes from "./routes/ruimMainRoutes.js";
 
 //Iniciando express
 const app = express();
@@ -18,9 +19,7 @@ db.authenticate()
     .catch(error => console.log(error));
 
 //Probando que funcione el servidor
-app.use('/' , (req,res) =>{
-    res.send('Hola mundo');
-});
+app.use('/api/ruimMain', ruimMainRoutes);
 
 //Definiendo el servidor de desarrollo para el backend
 app.listen(4000, ()=>{

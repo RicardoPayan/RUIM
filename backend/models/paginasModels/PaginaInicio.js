@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import db from "../config/db.js";
+import db from "../../config/db.js";
 
 export const PaginaInicio = db.define("paginaInicio",{
    nombreEvento: {
@@ -15,10 +15,11 @@ export const PaginaInicio = db.define("paginaInicio",{
     },
     
      parrafo1: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+         allowNull : false
     },
     
      parrafo2: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
     },
 })
