@@ -3,7 +3,8 @@ import {
     obtenerPaginaInicio,
     obtenerPaginaUbicacion,
     obtenerPaginaPrograma,
-    obtenerPaginaContacto}
+    obtenerPaginaContacto,
+    obtenerPaginaPoster}
     from "../controllers/ruimMainControllers.js";
 
 const router = express.Router();
@@ -12,6 +13,7 @@ const router = express.Router();
 
 router.get('/', obtenerPaginaInicio);
 router.get('/programa', obtenerPaginaPrograma );
+router.get('/poster', obtenerPaginaPoster );
 router.get('/contacto', obtenerPaginaContacto);
 router.get('/ubicacion', obtenerPaginaUbicacion);
 

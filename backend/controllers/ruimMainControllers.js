@@ -2,6 +2,8 @@ import {PaginaInicio} from "../models/paginasModels/PaginaInicio.js";
 import {PaginaUbicacion} from "../models/paginasModels/PaginaUbicacion.js";
 import {PaginaPrograma} from "../models/paginasModels/PaginaPrograma.js";
 import {PaginaContacto} from "../models/paginasModels/PaginaContacto.js";
+import {PaginaPoster} from "../models/paginasModels/PaginaPoster.js";
+
 import {ultimoRegistro} from "../helpers/buscarUltimoRegistro.js"; //Funcion para obtener el ultimo registro de la base de datos
 
 const obtenerPaginaInicio = async (req, res) =>{
@@ -20,6 +22,17 @@ const obtenerPaginaPrograma = async (req,res) =>{
     try {
         //Buscamos el ultimo registros den la base de datos
         const cuerpoPagina = await ultimoRegistro(PaginaPrograma);
+        res.json(cuerpoPagina);
+
+    }catch (error){
+        console.log(error);
+    }
+}
+
+const obtenerPaginaPoster = async (req,res)=>{
+    try {
+        //Buscamos el ultimo registros den la base de datos
+        const cuerpoPagina = await ultimoRegistro(PaginaPoster);
         res.json(cuerpoPagina);
 
     }catch (error){
@@ -52,4 +65,5 @@ const obtenerPaginaUbicacion = async (req, res) =>{
 export {obtenerPaginaInicio,
     obtenerPaginaUbicacion,
     obtenerPaginaContacto,
-    obtenerPaginaPrograma}
+    obtenerPaginaPrograma,
+    obtenerPaginaPoster}

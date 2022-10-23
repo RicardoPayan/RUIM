@@ -1,8 +1,8 @@
 import { Sequelize } from "sequelize";
 import db from "../../config/db.js";
 
-export const PaginaPrograma = db.define("paginaPrograma",{
-    posterReferencia: {
+export const PaginaPoster = db.define("paginaposter",{
+    referencia: {
         type: Sequelize.STRING
     },
 
