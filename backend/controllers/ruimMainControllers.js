@@ -1,12 +1,27 @@
 import {PaginaInicio} from "../models/paginasModels/PaginaInicio.js";
 import {PaginaUbicacion} from "../models/paginasModels/PaginaUbicacion.js";
+import {ultimoRegistro} from "../helpers/buscarUltimoRegistro.js"; //Funcion para obtener el ultimo registro de la base de datos
 
-const obtenerPaginaInicio = (req, res) =>{
-    res.send("Desde /api/obtenerInicio");
+const obtenerPaginaInicio = async (req, res) =>{
+    try {
+        //Buscamos el ultimo registros den la base de datos
+        const cuerpoPagina = await ultimoRegistro(PaginaInicio);
+        res.json(cuerpoPagina);
+
+    }catch (error){
+        console.log(error);
+    }
 }
 
-const obtenerPaginaUbicacion = (req, res) =>{
-    res.send("Desde /api/obtenerUbicacion");
+const obtenerPaginaUbicacion = async (req, res) =>{
+    try {
+        //Buscamos el ultimo registros den la base de datos
+        const cuerpoPagina = await ultimoRegistro(PaginaUbicacion);
+        res.json(cuerpoPagina);
+
+    }catch (error){
+        console.log(error);
+    }
 }
 
 export {obtenerPaginaInicio, obtenerPaginaUbicacion}

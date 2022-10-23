@@ -1,7 +1,8 @@
 import { Sequelize } from "sequelize";
 import db from "../../config/db.js";
 
-export const PaginaInicio = db.define("paginaInicio",{
+export const PaginaInicio = db.define("paginainicio",{
+
    nombreEvento: {
         type: Sequelize.STRING
     },

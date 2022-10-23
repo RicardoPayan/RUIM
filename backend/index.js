@@ -18,7 +18,7 @@ db.authenticate()
     .then(() => console.log('Base de datos conectado'))
     .catch(error => console.log(error));
 
-//Probando que funcione el servidor
+//Rutas de la seccion publica
 app.use('/api/ruimMain', ruimMainRoutes);
 
 //Definiendo el servidor de desarrollo para el backend

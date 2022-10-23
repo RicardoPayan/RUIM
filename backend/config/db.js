@@ -1,14 +1,15 @@
 import  Sequelize  from "sequelize";
 
 const db = new Sequelize({
-    database : process.env.DB_NAME,
+    database : 'ruim',
     username : 'root',
     password : 'root',
     host:'localhost',
     port: '3306',
     dialect: 'mysql',
     define:{
-        timestamps: false
+        timestamps: false,
+        freezeTableName: true
     },
     pool:{
         max:5,
