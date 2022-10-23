@@ -5,6 +5,10 @@ import db from "./config/db.js";
 //Iniciando express
 const app = express();
 
+
+//Diciendole a express que enviaremos respuestas de tipo JSON
+app.use(express.json());
+
 dotenv.config();
 
 
@@ -16,7 +20,7 @@ db.authenticate()
 //Probando que funcione el servidor
 app.use('/' , (req,res) =>{
     res.send('Hola mundo');
-})
+});
 
 //Definiendo el servidor de desarrollo para el backend
 app.listen(4000, ()=>{
