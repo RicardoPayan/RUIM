@@ -4,8 +4,8 @@ import Nav from "react-bootstrap/Nav";
 
 const App = () => {
   return (
-    <>
-      <Nav variant="tabs">
+    <div>
+      <Nav>
         <Nav.Item>
           <Nav.Link as={Link} to={`/`}>
             Home
@@ -21,7 +21,7 @@ const App = () => {
       <div>
         <Outlet />
       </div>
-    </>
+    </div>
   );
 };
 

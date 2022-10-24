@@ -5,6 +5,7 @@ import App from "./App";
 import PaginaRegistros from "./components/PaginaRegistros";
 import Forms from "./components/Forms";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./styles.css";
 
 const router = createBrowserRouter([
   {

@@ -71,7 +71,7 @@ const InformacionGeneral = () => {
 const PaginaRegistros = () => {
   return (
     <div>
-      <h1 className="fw-bold">Registro de Trabajos</h1>
+      <div id="Titulo">Registro de Trabajos</div>
 
       <SeccionAvisos />
 
