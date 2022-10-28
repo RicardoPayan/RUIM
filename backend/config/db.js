@@ -1,7 +1,7 @@
 import  Sequelize  from "sequelize";
 
 const db = new Sequelize({
-    database : process.env.DB_NAME,
+    database : "RUIM",
     username : 'root',
     password : 'root',
     host:'localhost',
