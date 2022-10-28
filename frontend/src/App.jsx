@@ -1,11 +1,20 @@
-import { Button } from 'react-bootstrap';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import RuimMainLayout from './layouts/RuimMainLayout';
+import Inicio from './paginas/Inicio';
+
+
 
 function App() {
   
 
   return (
-   
-   <h1>Hola RUIM</h1>
+   <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<RuimMainLayout />}>
+            <Route index element={<Inicio />}/>
+        </Route>
+      </Routes>
+   </BrowserRouter>
   )
 }
 
