@@ -4,6 +4,7 @@ import {PaginaPrograma} from "../models/paginasModels/PaginaPrograma.js";
 import {PaginaContacto} from "../models/paginasModels/PaginaContacto.js";
 import {PaginaPoster} from "../models/paginasModels/PaginaPoster.js";
 
+
 import {ultimoRegistro} from "../helpers/buscarUltimoRegistro.js"; //Funcion para obtener el ultimo registro de la base de datos
 
 const obtenerPaginaInicio = async (req, res) =>{

@@ -1,5 +1,5 @@
 import {useState, useEffect, createContext} from "react";
-import clienteAxios from "../../config/axios.jsx";
+import clienteAxios from "../../../config/axios.jsx";
 import data from "bootstrap/js/src/dom/data.js";
 
 const Inicio = () =>{
@@ -30,7 +30,6 @@ const Inicio = () =>{
     }, [])
 
     const {nombreEvento, fechas,lugar, parrafo1, parrafo2} = cuerpoPagina;
-    console.log(nombreEvento);
 
   return(
     <>
