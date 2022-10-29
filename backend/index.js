@@ -10,7 +10,7 @@ const app = express();
 
 //Diciendole a express que enviaremos respuestas de tipo JSON
 app.use(express.json());
-app.use(cors());
+
 
 dotenv.config();
 
@@ -19,6 +19,24 @@ dotenv.config();
 db.authenticate()
     .then(() => console.log('Base de datos conectado'))
     .catch(error => console.log(error));
+
+//Permitir al front hacer request al backend
+
+
+//TODO Checar este codigo
+/*const corsOptions = {
+    origin : function (origin, callback) {
+        if(dominiosPermitidos.indexOf(origin) !== -1){
+            //El origen del request esta permitido
+            callback(null, true);
+        }else{
+            callback(new Error('No permitido por CORS'))
+        }
+    }
+}*/
+app.use(cors());
+
+
 
 //Rutas de la seccion publica
 app.use('/api/ruimMain', ruimMainRoutes);
