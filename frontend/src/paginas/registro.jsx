@@ -9,6 +9,7 @@ import axios from "axios"
 import Alert from "react-bootstrap/Alert"
 import OverlayTrigger from "react-bootstrap/OverlayTrigger"
 import Tooltip from 'react-bootstrap/Tooltip';
+import clienteAxios from "../../config/axios.jsx";
 const registro = () => {
     const [counter, setCounter] = useState([]);
     const [members, setMembers] = useState([]);
@@ -54,7 +55,7 @@ const registro = () => {
         const data = {
             titulo: titulo,
             representante: representante,
-            nombres: JSON.stringify(members),
+            autores: members,
             institucion: institucion,
             departamento: departamento,
             gradoAcademico: grado,
@@ -63,7 +64,7 @@ const registro = () => {
             estado: 0,
             resumenReferencia: file}
         try{
-            const response = await axios.post("http://localhost:4000/api/ruimMain/registro", data);
+            const response = await clienteAxios.post("/ruimMain/registro", data);
         }catch(error){
             console.log(error);
         }
@@ -84,7 +85,7 @@ const registro = () => {
         formData.append("resumen",
             fileState.selectedFile);
         formData.append("filename", fileState.selectedFile.name)
-        var res = await axios.post("http://localhost:4000/api/ruimMain/registro/upload", formData)
+        var res = await clienteAxios.post("/ruimMain/registro/upload", formData)
         return res.data;
     }
     const renderTooltip = (props) => (

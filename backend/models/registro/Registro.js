@@ -10,10 +10,6 @@ const Registro = db.define("registros",{
         type: Sequelize.STRING,
         required: true
     },
-    nombres: {
-        type: Sequelize.STRING,
-        required : true
-    },
     institucion: {
         type: Sequelize.STRING,
         required : true

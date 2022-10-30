@@ -69,13 +69,13 @@ const guardarResumen = async (req, res) => {
         console.log("no file");
     } else {
         console.log(req.file.filename)
-        var img = "http://127.0.0.1:4000/uploads/resumenes/" + req.file.filename
+        var img = `${process.env.FRONTEND_URL}/uploads/resumenes/` + req.file.filename
         res.send(img);
     }
 
 }
 const registrarParticipacion = async (req,res) =>{
-    const {nombres, apellidoPaterno, apellidoMaterno, institucion, departamento
+    const {apellidoPaterno, apellidoMaterno, institucion, departamento
     , gradoAcademico, modalidad, correo, estado, resumenReferencia, autores, titulo, representante} = req.body;
 
 
@@ -83,7 +83,6 @@ const registrarParticipacion = async (req,res) =>{
 
     try{
         const registro =  await Registro.create({
-            nombres,
             apellidoPaterno,
             apellidoMaterno,
             institucion,
@@ -98,13 +97,13 @@ const registrarParticipacion = async (req,res) =>{
             }
         );
 
-
-       /* for ( let autor of autores){
+        //Guardadno autores en su propia tabla, con el id del registro para relacionarlos
+        for ( let autor of autores){
             await Autor.create({
                 nombre: autor,
                 registroId : registro.id
             });
-        }*/
+        }
 
         res.json({msg : "Registro exitoso"});
     }catch (error){
