@@ -1,6 +1,7 @@
 import { Sequelize } from "sequelize";
 import db from "../../config/db.js";
 
+
 export const Autor = db.define("autores",{
     nombre: {
         type: Sequelize.STRING
@@ -11,3 +12,5 @@ export const Autor = db.define("autores",{
     },
 
 })
+
+await Autor.sync({alter: true});
