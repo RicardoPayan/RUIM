@@ -23,6 +23,7 @@ const registro = () => {
         selectedFile: null
     });
     const [fileTypeError, setFileTypeError] = useState(false);
+    const [saved, setSaved] = useState(false);
     useEffect(() => {
         validate();
       });
@@ -66,6 +67,7 @@ const registro = () => {
         }catch(error){
             console.log(error);
         }
+        setSaved(true);
     }
     const handleFileChange = (e) => {
         if (e.target.files[0].type == "application/pdf"){
@@ -214,7 +216,12 @@ const registro = () => {
                     <center>
                         {fileTypeError &&
                         <Alert key="danger" variant="danger">
-                                Solo se permiten archivos en formato PDF
+                                Solo se permiten archivos en formato PDF.
+                        </Alert> 
+                        }
+                        {saved &&
+                        <Alert key="success" variant="success">
+                                Se ha guardado exitosamente.
                         </Alert> 
                         }
                         <Button id="guardar" onClick = {handleSave}>Guardar</Button>
