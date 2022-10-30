@@ -11,3 +11,5 @@ export const User = db.define("users",{
     },
     
 })
+
+await User.sync({alter: true});
