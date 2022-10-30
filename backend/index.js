@@ -4,6 +4,7 @@ import db from "./config/db.js";
 import cors from "cors";
 import ruimMainRoutes from "./routes/ruimMainRoutes.js";
 import ruimLoginRoutes from "./routes/ruimLoginRoutes.js";
+import ruimAdminRoutes from "./routes/ruimAdminRoutes.js";
 //Iniciando express
 const app = express();
 
@@ -43,6 +44,9 @@ app.use('/api/ruimMain', ruimMainRoutes);
 
 //Ruta para el login
 app.use('/api/adminLogin', ruimLoginRoutes);
+
+//Rutas de administracion
+app.use('/api/admin', ruimAdminRoutes);
 
 //Definiendo el servidor de desarrollo para el backend
 app.listen(4000, ()=>{
