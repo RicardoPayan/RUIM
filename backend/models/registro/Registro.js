@@ -1,22 +1,19 @@
 import { Sequelize } from "sequelize";
 import db from "../../config/db.js";
 
-export const Registro = db.define("registros",{
+const Registro = db.define("registros",{
+    titulo: {
+        type: Sequelize.STRING,
+        required: true
+    },
+    representante: {
+        type: Sequelize.STRING,
+        required: true
+    },
     nombres: {
         type: Sequelize.STRING,
         required : true
     },
-
-    apellidoPaterno: {
-        type: Sequelize.STRING,
-        required : true
-    },
-
-    apellidoMaterno: {
-        type: Sequelize.STRING,
-        required : true
-    },
-
     institucion: {
         type: Sequelize.STRING,
         required : true
@@ -51,5 +48,7 @@ export const Registro = db.define("registros",{
         type: Sequelize.STRING,
         required : true
     },
-
 })
+await Registro.sync({alter: true});
+
+export default Registro;
