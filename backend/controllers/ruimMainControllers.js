@@ -3,7 +3,8 @@ import {PaginaUbicacion} from "../models/paginasModels/PaginaUbicacion.js";
 import {PaginaPrograma} from "../models/paginasModels/PaginaPrograma.js";
 import {PaginaContacto} from "../models/paginasModels/PaginaContacto.js";
 import {PaginaPoster} from "../models/paginasModels/PaginaPoster.js";
-
+import {Registro} from "../models/registro/Registro.js";
+import {Autor} from "../models/registro/Autor.js";
 
 import {ultimoRegistro} from "../helpers/buscarUltimoRegistro.js"; //Funcion para obtener el ultimo registro de la base de datos
 
@@ -63,8 +64,45 @@ const obtenerPaginaUbicacion = async (req, res) =>{
     }
 }
 
+const registrarParticipacion = async (req,res) =>{
+    const {nombres, apellidoPaterno, apellidoMaterno, institucion, departamento
+    , gradoAcademico, modalidad, correo, estado, resumenReferencia, autores} = req.body;
+
+
+    //TODO Implementar validacion para que los campos no esten vacios
+
+    try{
+        const registro =  await Registro.create({
+            nombres,
+            apellidoPaterno,
+            apellidoMaterno,
+            institucion,
+            departamento,
+            gradoAcademico,
+            modalidad,
+            correo,
+            estado,
+            resumenReferencia
+            }
+        );
+
+
+        for ( let autor of autores){
+            await Autor.create({
+                nombre: autor,
+                registroId : registro.id
+            });
+        }
+
+        res.json({msg : "Registro exitoso"});
+    }catch (error){
+        console.log(error);
+    }
+}
+
 export {obtenerPaginaInicio,
     obtenerPaginaUbicacion,
     obtenerPaginaContacto,
     obtenerPaginaPrograma,
-    obtenerPaginaPoster}
+    obtenerPaginaPoster,
+    registrarParticipacion}

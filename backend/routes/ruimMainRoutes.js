@@ -4,17 +4,18 @@ import {
     obtenerPaginaUbicacion,
     obtenerPaginaPrograma,
     obtenerPaginaContacto,
-    obtenerPaginaPoster}
+    obtenerPaginaPoster,
+    registrarParticipacion}
     from "../controllers/ruimMainControllers.js";
 
 const router = express.Router();
 
-//TODO Pagina del poster
 
 router.get('/', obtenerPaginaInicio);
 router.get('/programa', obtenerPaginaPrograma );
 router.get('/poster', obtenerPaginaPoster );
 router.get('/contacto', obtenerPaginaContacto);
 router.get('/ubicacion', obtenerPaginaUbicacion);
+router.post('/registro', registrarParticipacion);
 
 export default router;
