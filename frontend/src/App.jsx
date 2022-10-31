@@ -10,7 +10,7 @@ import Programa from "./paginas/publico/Programa.jsx";
 import Poster from "./paginas/publico/Poster.jsx";
 import Ubicacion from "./paginas/publico/Ubicacion.jsx";
 import Contacto from "./paginas/publico/Contacto.jsx";
-
+import Lista from "./paginas/admin/lista.jsx"
 import AdminLogin from './paginas/admin/login'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -32,7 +32,9 @@ function App() {
             <Route path="/contacto"  element={<Contacto />}/>
 
         </Route>
-        <Route path="/admin" element={<RuimAdminLayout />}/>
+        <Route path="/admin/*" element={<RuimAdminLayout/>}>
+        </Route>
+
       </Routes>
    </BrowserRouter>
   )
