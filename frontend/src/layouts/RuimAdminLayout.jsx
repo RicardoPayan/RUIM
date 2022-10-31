@@ -1,6 +1,6 @@
 import {Outlet} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import AdminLogin from '../paginas/login.jsx'
+import AdminLogin from '../paginas/admin/login.jsx'
 import React, { useState } from 'react';
 import {
     BrowserRouter,
