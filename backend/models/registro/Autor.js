@@ -1,4 +1,5 @@
 import { Sequelize } from "sequelize";
+import Registro from "./Registro.js";
 import db from "../../config/db.js";
 
 
@@ -12,5 +13,11 @@ export const Autor = db.define("autores",{
     },
 
 })
+
+Registro.hasMany(Autor, {
+    foreignKey : "registroId",
+    onDelete : "SET NULL",
+})
+Autor.belongsTo(Registro);
 
 await Autor.sync({alter: true});
