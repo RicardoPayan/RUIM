@@ -9,7 +9,7 @@ import axios from "axios"
 import Alert from "react-bootstrap/Alert"
 import OverlayTrigger from "react-bootstrap/OverlayTrigger"
 import Tooltip from 'react-bootstrap/Tooltip';
-import clienteAxios from "../../config/axios.jsx";
+import Modal from 'react-bootstrap/Modal';
 const registro = () => {
     const [counter, setCounter] = useState([]);
     const [members, setMembers] = useState([]);
@@ -18,13 +18,14 @@ const registro = () => {
     const [correo, setCorreo] = useState("");
     const [institucion, setInstitucion] = useState("");
     const [departamento, setDepartamento] = useState("");
-    const [grado, setGrado] = useState("");
-    const [modalidad, setModalidad] = useState("");
+    const [grado, setGrado] = useState("Estudiante");
+    const [modalidad, setModalidad] = useState("Cartel");
     const [fileState, setFileState] = useState({
         selectedFile: null
     });
     const [fileTypeError, setFileTypeError] = useState(false);
     const [saved, setSaved] = useState(false);
+    const [shModal, setModal] = useState(false);
     useEffect(() => {
         validate();
       });
@@ -64,11 +65,12 @@ const registro = () => {
             estado: 0,
             resumenReferencia: file}
         try{
-            const response = await clienteAxios.post("/ruimMain/registro", data);
+            const response = await axios.post("http://localhost:4000/api/ruimMain/registro", data);
         }catch(error){
             console.log(error);
         }
         setSaved(true);
+        closeModal();
     }
     const handleFileChange = (e) => {
         if (e.target.files[0].type == "application/pdf"){
@@ -85,7 +87,7 @@ const registro = () => {
         formData.append("resumen",
             fileState.selectedFile);
         formData.append("filename", fileState.selectedFile.name)
-        var res = await clienteAxios.post("/ruimMain/registro/upload", formData)
+        var res = await axios.post("http://localhost:4000/api/ruimMain/registro/upload", formData)
         return res.data;
     }
     const renderTooltip = (props) => (
@@ -93,10 +95,16 @@ const registro = () => {
           Solo se aceptan archivos en formato .PDF
         </Tooltip>
       );
+    const showModal = () =>{
+        setModal(true);
+    }
+    const closeModal = () => {
+        setModal(false);
+    }
     return (
         <div className= "d-flex h-100 w-100 justify-content-center">
             <Form className = "justify-content-center w-75">
-                <center><h1 className="mb-5 mt-5">Registro de ponencia</h1></center>
+                <center><h1 className="mb-5 mt-5">Registro de participación</h1></center>
                 <div>
                     <h6 class=" text-uppercase">Información del proyecto</h6>
                     <hr class="dashed"/>
@@ -129,7 +137,10 @@ const registro = () => {
                     <Col>
                             <Form.Group>
                                     <Form.Label>Modalidad</Form.Label>
-                                    <Form.Control onChange = {(e) => setModalidad(e.target.value)}/>
+                                    <Form.Select onChange = {(e) => setModalidad(e.target.value)}>
+                                        <option>Cartel</option>
+                                        <option>Ponencia</option>
+                                    </Form.Select>
                             </Form.Group>
                             </Col>
                             <Col/>
@@ -171,7 +182,13 @@ const registro = () => {
                             <Col>
                                 <Form.Group>
                                     <Form.Label>Grado academico</Form.Label>
-                                    <Form.Control onChange = {(e) => setGrado(e.target.value)}/>
+                                    <Form.Select onChange = {(e) => setGrado(e.target.value)}>
+                                        <option>Estudiante</option>
+                                        <option>Licenciatura</option>
+                                        <option>Ingeniería</option>
+                                        <option>Maestría</option>
+                                        <option>Doctorado</option>
+                                    </Form.Select>
                                 </Form.Group>
                             </Col>
                             <Col/>
@@ -222,13 +239,28 @@ const registro = () => {
                         }
                         {saved &&
                         <Alert key="success" variant="success">
-                                Se ha guardado exitosamente.
+                                Se ha guardado exitosamente. Recibirá confirmación así como actualizaciones de su registro mediante correo electrónico.
                         </Alert> 
                         }
-                        <Button id="guardar" onClick = {handleSave}>Guardar</Button>
+                        <Button id="guardar" onClick = {showModal}>Enviar</Button>
                     </center>
                 </div>
             </Form>
+            <Modal show={shModal} onHide={closeModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>¿Desea confirmar este correo electrónico?</Modal.Title>
+                </Modal.Header>
+                <Modal.Body><p>{correo}</p>
+                <p>Este correo será utilizado para informarle acerca del proceso de su registro.</p></Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={closeModal}>
+                    Cerrar
+                </Button>
+                <Button variant="primary" onClick={handleSave}>
+                    Confirmar
+                </Button>
+                </Modal.Footer>
+          </Modal>
         </div>)
 }
 

@@ -3,7 +3,7 @@ import RuimMainLayout from './layouts/RuimMainLayout';
 import RuimAdminLayout from './layouts/RuimAdminLayout';
 
 
-import Registro from './paginas/registro'
+import Registro from './paginas/publico/registro'
 
 import Inicio from "./paginas/publico/Inicio.jsx";
 import Programa from "./paginas/publico/Programa.jsx";
@@ -11,7 +11,7 @@ import Poster from "./paginas/publico/Poster.jsx";
 import Ubicacion from "./paginas/publico/Ubicacion.jsx";
 import Contacto from "./paginas/publico/Contacto.jsx";
 
-import AdminLogin from './paginas/login'
+import AdminLogin from './paginas/admin/login'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 
