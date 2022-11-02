@@ -13,6 +13,7 @@ import {
   } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import AdminDashboard from '../paginas/admin/dashboard.jsx';
+import ModPagina from '../paginas/admin/modPagina.jsx';
 const RuimAdminLayout = () =>{
     const [token, setToken] = useState("n");
     if(token=="n"){
@@ -23,13 +24,14 @@ const RuimAdminLayout = () =>{
         <div className="App w-100 h-100">
             <Container fluid className="ms-0 h-100 ps-0">
                 <Row className="h-100">
-                    <Col xs={2}>
+                    <Col className="p-0 ps-0" xs={2}>
                         <AdminNav/>  
                     </Col>
-                    <Col>
+                    <Col className="ps-0">
                         <Routes>
                             <Route exact path ="/" element = {<AdminDashboard/>}/>
                             <Route exact path ="/lista" element = {<Lista/>}/>
+                            <Route exact path ="/mod/*" element = {<ModPagina/>}/>
                         </Routes>
                     </Col>
                     <Outlet />

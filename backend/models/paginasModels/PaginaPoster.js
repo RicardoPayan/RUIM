@@ -7,3 +7,4 @@ export const PaginaPoster = db.define("paginaposter",{
     },
 
 })
+await PaginaPoster.sync({alter: true});
