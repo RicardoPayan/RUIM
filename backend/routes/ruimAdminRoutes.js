@@ -1,5 +1,11 @@
 import express from "express";
-import {obtenerRegistros} from "../controllers/ruimAdminControllers.js";
+import {obtenerRegistros,
+        editarPaginaInicio,
+        editarPaginaContacto,
+        editarPaginaUbicacion,
+        editarPaginaPoster,
+        editarPaginaPrograma
+} from "../controllers/ruimAdminControllers.js";
 
 const router = express.Router();
 
@@ -7,5 +13,12 @@ const router = express.Router();
 // router.get('/', dashBoard);
 
 router.get('/registros', obtenerRegistros);
+
+//Edicion de paginas
+router.post('/edit-pagina-inicio',editarPaginaInicio);
+router.post('/edit-pagina-poster',editarPaginaPoster);
+router.post('/edit-pagina-programa',editarPaginaPrograma);
+router.post('/edit-pagina-contacto',editarPaginaContacto);
+router.post('/edit-pagina-ubicacion',editarPaginaUbicacion);
 
 export default router;
