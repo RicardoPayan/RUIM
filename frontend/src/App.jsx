@@ -1,7 +1,7 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import RuimMainLayout from './layouts/RuimMainLayout';
 import RuimAdminLayout from './layouts/RuimAdminLayout';
-
+import './app.css';
 
 import Registro from './paginas/publico/registro'
 
@@ -13,6 +13,7 @@ import Contacto from "./paginas/publico/Contacto.jsx";
 import Lista from "./paginas/admin/lista.jsx"
 import AdminLogin from './paginas/admin/login'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import Header from './components/Header';
 
 
 function App() {
@@ -34,8 +35,8 @@ function App() {
         </Route>
         <Route path="/admin/*" element={<RuimAdminLayout/>}>
         </Route>
-
       </Routes>
+
    </BrowserRouter>
   )
 }

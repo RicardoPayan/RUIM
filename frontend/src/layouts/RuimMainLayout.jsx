@@ -1,11 +1,14 @@
+import { Container } from 'react-bootstrap';
 import {Outlet} from 'react-router-dom'
+import Header from '../components/Header';
+
 
 const RuimMainLayout = () =>{
   return(
-    <>
-      <h1>Desde RuinMainLayout </h1>
-      <Outlet />
-    </>
+    <Container fluid className="ms-0 h-100 ps-0">
+    <Header/>
+      <Outlet/>
+    </Container>
   ) 
 }
 
