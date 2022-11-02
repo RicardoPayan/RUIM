@@ -13,10 +13,9 @@ const ModInicio = () => {
 
     return(
         <>
-        <div className= "d-flex h-100 w-100">
-            <div>webos</div>
-            <div>
+        <div className= "d-flex h-100 w-100 me-5 ms-2 mt-5">
                 <Form className="w-100">
+                    <center><h1>Modificar pagina de Inicio</h1></center>
                     <Row>
                         <Form.Group>
                             <Form.Label>Nombre de la reunión</Form.Label>
@@ -42,16 +41,17 @@ const ModInicio = () => {
                             onChange={(e) => setParrafo(e.target.value)}></Form.Control>
                         </Form.Group>
                     </Row>
-                    <Row>
+                    <Row className="mb-3">
                         <Form.Group>
                             <Form.Label>Informacion adicional:</Form.Label>
                             <Form.Control as="textarea" rows={5} default = "Informacion que será mostrada como un parrafo adicional en la pagina"
                             onChange={(e) => setParrafo2(e.target.value)}></Form.Control>
                         </Form.Group>
                     </Row>
+                    
+                    <center><Button>Guardar</Button></center>
                 </Form>
             </div>
-        </div>
         </>
     )
 }

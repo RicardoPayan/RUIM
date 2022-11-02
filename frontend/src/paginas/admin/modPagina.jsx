@@ -9,7 +9,6 @@ import ModInicio from "../../components/modInicio.jsx"
 function ModPagina(){
     return(
         <>
-            <ModHeader/>
             <div className="w-100">
                 <Routes>
                     <Route exact path ="/inicio" element = {<ModInicio/>}/>
