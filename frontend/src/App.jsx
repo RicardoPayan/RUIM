@@ -13,7 +13,7 @@ import Contacto from "./paginas/publico/Contacto.jsx";
 import Lista from "./paginas/admin/lista.jsx"
 import AdminLogin from './paginas/admin/login'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Header from './components/Header';
+
 
 
 function App() {
