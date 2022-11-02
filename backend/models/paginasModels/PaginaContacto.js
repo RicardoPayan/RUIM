@@ -11,3 +11,5 @@ export const PaginaContacto = db.define("paginaContacto",{
     },
     
 })
+
+await PaginaContacto.sync({alter: true});
