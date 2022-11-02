@@ -7,3 +7,5 @@ export const PaginaPrograma = db.define("paginaPrograma",{
     },
     
 })
+
+await PaginaPrograma.sync({alter: true});

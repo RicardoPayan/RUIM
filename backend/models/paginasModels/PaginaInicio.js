@@ -24,3 +24,4 @@ export const PaginaInicio = db.define("paginainicio",{
         type: Sequelize.STRING,
     },
 })
+await PaginaInicio.sync({alter: true});
