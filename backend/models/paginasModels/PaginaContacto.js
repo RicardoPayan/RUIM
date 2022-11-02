@@ -3,7 +3,7 @@ import db from "../../config/db.js";
 
 export const PaginaContacto = db.define("paginaContacto",{
    instrucciones: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT('tiny')
     },
     
     contacto: {

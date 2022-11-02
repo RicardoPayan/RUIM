@@ -1,6 +1,9 @@
 import Registro from "../models/registro/Registro.js";
 import {PaginaInicio} from "../models/paginasModels/PaginaInicio.js";
 import {PaginaPoster} from "../models/paginasModels/PaginaPoster.js";
+import {PaginaPrograma} from "../models/paginasModels/PaginaPrograma.js";
+import {PaginaContacto} from "../models/paginasModels/PaginaContacto.js";
+import {PaginaUbicacion} from "../models/paginasModels/PaginaUbicacion.js";
 
 const obtenerRegistros = async (req,res) =>{
     try{
@@ -50,15 +53,51 @@ const editarPaginaPoster = async (req,res) => {
 }
 
 const editarPaginaPrograma = async (req,res) => {
+    try {
+        //Borramos la version pasada de la pagina
+        await PaginaPrograma.destroy({
+            truncate: true
+        });
 
+        //Creamos la nueva
+        await PaginaPrograma.create(req.body);
+    }catch (error){
+        console.log(error);
+    }
+
+    res.json({msg : "Actualizacion exitosa"});
 }
 
 const editarPaginaContacto = async (req,res) => {
+    try {
+        //Borramos la version pasada de la pagina
+        await PaginaContacto.destroy({
+            truncate: true
+        });
 
+        //Creamos la nueva
+        await PaginaContacto.create(req.body);
+    }catch (error){
+        console.log(error);
+    }
+
+    res.json({msg : "Actualizacion exitosa"});
 }
 
 const editarPaginaUbicacion = async (req,res) => {
+    try {
+        //Borramos la version pasada de la pagina
+        await PaginaUbicacion.destroy({
+            truncate: true
+        });
 
+        //Creamos la nueva
+        await PaginaUbicacion.create(req.body);
+    }catch (error){
+        console.log(error);
+    }
+
+    res.json({msg : "Actualizacion exitosa"});
 }
 
 

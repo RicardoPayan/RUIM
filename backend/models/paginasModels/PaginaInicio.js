@@ -16,12 +16,12 @@ export const PaginaInicio = db.define("paginainicio",{
     },
     
      parrafo1: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
          allowNull : false
     },
     
      parrafo2: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
     },
 })
 await PaginaInicio.sync({alter: true});

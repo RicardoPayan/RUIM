@@ -4,12 +4,30 @@ import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import axios from "axios"
 import Form from "react-bootstrap/Form";
+import clienteAxios from "../../config/axios.jsx";
 const ModInicio = () => {
     const [nombreEvento, setNombre] = useState("");
     const [fechas, setFecha] = useState("");
     const [lugar, setLugar] = useState("");
     const [parrafo1, setParrafo] = useState("");
     const [parrafo2, setParrafo2] = useState("");
+
+    const handleSave = async (e) =>{
+        e.preventDefault();
+        const data = {
+            nombreEvento,
+            fechas,
+            lugar,
+            parrafo1,
+            parrafo2
+        }
+
+        try {
+            await clienteAxios.post('/admin/edit-pagina-inicio', data);
+        }catch (error) {
+            console.log(error)
+        }
+    }
 
     return(
         <>
@@ -49,7 +67,7 @@ const ModInicio = () => {
                         </Form.Group>
                     </Row>
                     
-                    <center><Button>Guardar</Button></center>
+                    <center><Button onClick={handleSave}>Guardar</Button></center>
                 </Form>
             </div>
         </>
