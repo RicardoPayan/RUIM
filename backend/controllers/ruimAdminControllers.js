@@ -1,5 +1,6 @@
 import Registro from "../models/registro/Registro.js";
 import {PaginaInicio} from "../models/paginasModels/PaginaInicio.js";
+import {PaginaPoster} from "../models/paginasModels/PaginaPoster.js";
 
 const obtenerRegistros = async (req,res) =>{
     try{
@@ -33,7 +34,19 @@ const editarPaginaInicio = async (req,res) =>{
 }
 
 const editarPaginaPoster = async (req,res) => {
+    try {
+        //Borramos la version pasada de la pagina
+        await PaginaPoster.destroy({
+            truncate: true
+        });
 
+        //Creamos la nueva
+        await PaginaPoster.create(req.body);
+    }catch (error){
+        console.log(error);
+    }
+
+    res.json({msg : "Actualizacion exitosa"});
 }
 
 const editarPaginaPrograma = async (req,res) => {

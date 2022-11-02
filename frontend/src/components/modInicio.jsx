@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col"
 import axios from "axios"
 import Form from "react-bootstrap/Form";
 const ModInicio = () => {
-    const [nombre, setNombre] = useState("");
+    const [nombreEvento, setNombre] = useState("");
     const [fechas, setFecha] = useState("");
     const [lugar, setLugar] = useState("");
     const [parrafo1, setParrafo] = useState("");
