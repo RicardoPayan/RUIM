@@ -6,7 +6,8 @@ import Nav from 'react-bootstrap/Nav';
 const Header = () => {
 
     return (
-      <main class="container-fluid">
+      <div className="w-100 h-100">
+      <main class="container m-0 bg-dark text-white " style={{width: "15%", height: "100%"}}>
       <div class="row">        
           <Nav id="tmSidebar" class="tm-bg-black-transparent tm-sidebar">
             <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
@@ -69,7 +70,8 @@ const Header = () => {
           </Nav>
           
         </div>
-        </main>  
+        </main> 
+        </div>
   );
 }
 
