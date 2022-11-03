@@ -33,11 +33,21 @@ const Inicio = () =>{
 
   return(
     <>
-      <h1> {nombreEvento}</h1>
-      <p>{fechas}</p>
-      <p>{lugar}</p>
-      <p>{parrafo1}</p>
-      <p>{parrafo2}</p>
+
+      <div class="tm-bg-white-transparent tm-intro">
+                        <h1 class="tm-section-title mb-5 text-uppercase tm-color-primary">{nombreEvento}</h1>
+                        <p class="tm-color-gray">
+                        {parrafo1}
+                        </p>
+                        <p class="tm-color-gray">
+                        {parrafo2}
+                        </p>
+                        <p>{fechas}</p>
+                        <p>{lugar}</p>
+                        
+                    </div> 
+
+          
     </>
   ) 
 }
