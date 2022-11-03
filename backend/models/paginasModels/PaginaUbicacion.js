@@ -19,4 +19,5 @@ export const PaginaUbicacion = db.define("paginaUbicacion",{
     },
     
 })
+
 await PaginaUbicacion.sync({alter: true});
