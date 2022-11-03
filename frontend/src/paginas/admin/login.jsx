@@ -28,19 +28,19 @@ const AdminLogin = ({setToken}) => {
         <div className= "d-flex h-100 w-100 justify-content-center">
             
             <Form className= "w-20 center mx-auto my-auto" onSubmit={handleLogin}>
-            <h1 className="mb-3">RUIM</h1>
+            <h1 className="mb-3 text-dark">RUIM</h1>
             <Container className="p-0">
                 <Col>
                     <Row>
                         <Form.Group>
-                            <Form.Label>Usuario</Form.Label>
+                            <Form.Label className="text-dark">Usuario</Form.Label>
                             <Form.Control className="mb-3" placeholder = "" onChange = {(e) => setUsername(e.target.value)}/>
                         </Form.Group>
                     </Row>
                     <Row>
                         <Form.Group>
-                            <Form.Label>Contraseña</Form.Label>
-                            <Form.Control className="mb-3" placeholder = "" onChange = {(e) => setPassword(e.target.value)}/>
+                            <Form.Label className="text-dark">Contraseña</Form.Label>
+                            <Form.Control className="mb-3" type = "password" placeholder = "" onChange = {(e) => setPassword(e.target.value)}/>
                         </Form.Group>
                     </Row>
                 </Col>

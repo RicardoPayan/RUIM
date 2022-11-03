@@ -7,7 +7,7 @@ function Title (props){
                 
                 <div className="w-100">
                     <center>
-                        <h1 className='mt-4 ms-4 w-100'>{props.title}</h1>
+                        <h1 className='mt-4 ms-4 w-100 text-dark'>{props.title}</h1>
                     </center>
                 </div>
                 
