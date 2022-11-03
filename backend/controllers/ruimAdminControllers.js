@@ -20,6 +20,33 @@ const obtenerRegistros = async (req,res) =>{
     }
 }
 
+const obtenerRegistrosPendientes = async (req,res) =>{
+    try{
+        const registros = await Registro.findAll({where : {estado : 0}});
+        res.json(registros);
+    }catch (error) {
+        console.log(error)
+    }
+}
+
+const obtenerRegistrosAceptados = async (req,res) =>{
+    try{
+        const registros = await Registro.findAll({where : {estado : 1}});
+        res.json(registros);
+    }catch (error) {
+        console.log(error)
+    }
+}
+
+const obtenerRegistrosRechazados = async (req,res) =>{
+    try{
+        const registros = await Registro.findAll({where : {estado : -1}});
+        res.json(registros);
+    }catch (error) {
+        console.log(error)
+    }
+}
+
 const editarPaginaInicio = async (req,res) =>{
     try {
         //Borramos la version pasada de la pagina
@@ -103,6 +130,9 @@ const editarPaginaUbicacion = async (req,res) => {
 
 export  {
     obtenerRegistros,
+    obtenerRegistrosPendientes,
+    obtenerRegistrosAceptados,
+    obtenerRegistrosRechazados,
     editarPaginaInicio,
     editarPaginaPrograma,
     editarPaginaPoster,
