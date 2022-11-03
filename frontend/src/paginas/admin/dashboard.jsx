@@ -1,9 +1,10 @@
-
+import Nav from 'react-bootstrap/Nav';
+import Title from '../../components/title.jsx'
 function AdminDashboard(){
     return(
-        <center>
-            <h1 className='mt-3'>Página de Administrador</h1>
-        </center>
+        <>
+        <Title title="Pagina de Administrador"/>
+        </>
     )
 }
 export default AdminDashboard;

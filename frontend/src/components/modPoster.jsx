@@ -18,18 +18,22 @@ const ModPoster = () => {
     }
     return(
         <>
-        <div className= "d-flex h-100 w-100 me-5 ms-2 mt-5">
-                <Form className="w-100 pe-5 ps-5">
-                    <center><h1>Modificar página para el Poster</h1></center>
-                    <Row>
+        <div className= "d-flex h-100 w-100 me-5 ms-5 mt-5">
+            <Col>
+                <Form className="w-100">
+                <h3 className="text-secondary">Modificar página del Poster</h3>
                         <Form.Group className="mb-3">
                             <Form.Label>Archivo del poster</Form.Label>
                             <Form.Control name="poster" onChange = {handleFileChange} type ="file" accept = "application/pdf" controlId=""/>
                         </Form.Group>
-                    </Row>
-                    
-                    <center><Button>Guardar</Button></center>
+                <div className="d-flex justify-content-end w-100">
+                    <Button className="btn-light">Guardar</Button>
+                </div>
                 </Form>
+                
+            </Col>
+            <Col>
+            </Col>
             </div>
         </>
     )

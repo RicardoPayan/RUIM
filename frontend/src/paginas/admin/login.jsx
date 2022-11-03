@@ -29,7 +29,7 @@ const AdminLogin = ({setToken}) => {
             
             <Form className= "w-20 center mx-auto my-auto" onSubmit={handleLogin}>
             <h1 className="mb-3">RUIM</h1>
-            <Container>
+            <Container className="p-0">
                 <Col>
                     <Row>
                         <Form.Group>
@@ -45,10 +45,10 @@ const AdminLogin = ({setToken}) => {
                     </Row>
                 </Col>
                 <Row>
-                    <div class = "mt-2">
-                        <Button variant = "primary" type = "submit">
+                    <div className = "mt-2">
+                        <center><Button className="bg-dark" variant = "primary" type = "submit">
                             Iniciar sesion
-                        </Button>
+                        </Button></center>
                     </div>
                 </Row>
             </Container>

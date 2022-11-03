@@ -106,10 +106,10 @@ const registro = () => {
             <Form className = "justify-content-center w-75">
                 <center><h1 className="mb-5 mt-5">Registro de participación</h1></center>
                 <div>
-                    <h6 class=" text-uppercase">Información del proyecto</h6>
-                    <hr class="dashed"/>
+                    <h6 className=" text-uppercase">Información del proyecto</h6>
+                    <hr className="dashed"/>
                 </div>
-                <div class="mb-5">
+                <div className="mb-5">
                     <Row >
                         <Col>
                             <Form.Group>
@@ -146,11 +146,11 @@ const registro = () => {
                             <Col/>
                     </Row>
                 </div>
-                <div class="mb-2">
+                <div className="mb-2">
                     <Row>
-                    <div class="mb-2">
-                        <h6 class=" text-uppercase">Información del representante</h6>
-                        <hr class="dashed"/>
+                    <div className="mb-2">
+                        <h6 className=" text-uppercase">Información del representante</h6>
+                        <hr className="dashed"/>
                     </div>
                             <Col>
                                 <Form.Group>
@@ -195,11 +195,11 @@ const registro = () => {
                     </Row>
                 </div>
                 <br></br>
-                <div class="mb-2">
+                <div className="mb-2">
                     <Row>
-                    <div class="mb-2">
-                        <h6 class=" text-uppercase">Información del equipo</h6>
-                        <hr class="dashed"/>
+                    <div className="mb-2">
+                        <h6 className=" text-uppercase">Información del equipo</h6>
+                        <hr className="dashed"/>
                     </div>
                     </Row>
                 </div>
@@ -263,8 +263,4 @@ const registro = () => {
           </Modal>
         </div>)
 }
-
-registro.propTypes = {
-    setToken: PropTypes.func.isRequired
-  }
 export default registro;
