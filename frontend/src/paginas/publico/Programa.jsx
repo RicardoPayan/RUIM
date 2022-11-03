@@ -33,7 +33,17 @@ const Programa = () =>{
 
     return(
         <>
-            <h1> Programa</h1>
+            <div class="col-xl-6">
+                <div class="tm-section-half">    
+                        <div><i class="fas fa-6x fa-balance-scale mb-5 tm-section-icon"></i></div>                        
+                        <h2 class="tm-section-title tm-color-primary mb-5">Programa</h2>
+                        <p class="mb-5">
+                    </p>
+                </div>
+              </div>
+           
+            
+         
             <img src={`../../../archivos/posterPrograma/${posterReferencia}`}/>
 
         </>

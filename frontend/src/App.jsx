@@ -23,14 +23,12 @@ function App() {
    <BrowserRouter>
       <Routes>
         <Route path="/" element={<RuimMainLayout />}>
-            <Route index element={<Inicio />}/>
-
-            <Route path="/registro" element = {<Registro/>}/>
-
+            
             <Route path="/programa"  element={<Programa />}/>
             <Route path="/poster"  element={<Poster />}/>
             <Route path="/ubicacion"  element={<Ubicacion />}/>
             <Route path="/contacto"  element={<Contacto />}/>
+            <Route path="/registro" element = {<Registro/>}/>
 
         </Route>
         <Route path="/admin/*" element={<RuimAdminLayout/>}>

@@ -1,9 +1,9 @@
 body {
     font-family: "Open Sans", Arial, Helvetica, sans-serif;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 400;
     overflow-x: hidden;
-    color: white;
+    color: black;
     background-color: floralwhite;
   }
   
@@ -47,20 +47,50 @@ body {
     padding: 55px;
     margin-right: 0;
     margin-left: auto;
+    
   }
   
   .tm-section-title {
-    font-size: 1.6rem;
+    font-size: 3rem;
   }
   
   .parallax-window {
     min-height: 662px;
     background: transparent;
+    background-image : url('../archivos/Universidad/Unison.jpg');
+    width: 100%;
+
+/* Add the blur effect */
+      filter: blur(8px);
+      -webkit-filter: blur(8px);
+
+/* Center and scale the image nicely */
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+    
   }
+  .parallax-window::before{
+    z-index: -3;
+    content: '';
+    width: 100%;
+    min-height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+
+  .logo{
+    font-size: 120px;
+    display:  flex;
+    align-items: center;
+    color: #369;
+  }
+ 
   
   .tm-section {
     display: flex;
-    align-items: center;
+    align-items :center;
     height: auto;
     max-width: 1275px;
     padding: 66px 60px;
@@ -243,7 +273,7 @@ body {
   /* Our Work */
   
   .tm-gallery-wrap {
-    max-width: 1040px;
+    max-width: 1080px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -297,10 +327,7 @@ body {
     opacity: 1;
   }
   
-  /* 
-    Gallery Item Hover Effect
-    https://tympanus.net/codrops/2014/06/19/ideas-for-subtle-hover-effects/
-  */
+ 
   
   /* Common style */
   .tm-gallery-item figure {
