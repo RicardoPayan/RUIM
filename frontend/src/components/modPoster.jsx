@@ -21,13 +21,13 @@ const ModPoster = () => {
         <div className= "d-flex h-100 w-100 me-5 ms-5 mt-5">
             <Col>
                 <Form className="w-100">
-                <h3 className="text-secondary">Modificar página del Poster</h3>
+                <h3 className="text-dark">Modificar página del Poster</h3>
                         <Form.Group className="mb-3">
-                            <Form.Label>Archivo del poster</Form.Label>
+                            <Form.Label className="text-dark">Archivo del poster</Form.Label>
                             <Form.Control name="poster" onChange = {handleFileChange} type ="file" accept = "application/pdf" controlId=""/>
                         </Form.Group>
                 <div className="d-flex justify-content-end w-100">
-                    <Button className="btn-light">Guardar</Button>
+                    <Button className="btn-secondary">Guardar</Button>
                 </div>
                 </Form>
                 

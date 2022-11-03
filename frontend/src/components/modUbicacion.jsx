@@ -15,33 +15,34 @@ const ModUbicacion = () => {
         <div className= "d-flex h-100 w-100 me-5 ms-5 mt-5">
                 <Col>
                     <Form className="w-100">
-                    <h3 className="text-secondary">Modificar página de Ubicación</h3>
+                    <h3 className="text-dark">Modificar página de Ubicación</h3>
                         <Row>
                             <Form.Group>
-                                <Form.Label>Nombre de la Ubicacion</Form.Label>
+                                <Form.Label className="text-dark">Nombre de la Ubicacion</Form.Label>
                                 <Form.Control onChange={(e) => setNombre(e.target.value)}></Form.Control>
                             </Form.Group>
                         </Row>
                         <Row>
                             <Form.Group>
-                                    <Form.Label>Direccion</Form.Label>
+                                    <Form.Label className="text-dark">Direccion</Form.Label>
                                     <Form.Control onChange={(e) => setDireccion(e.target.value)}></Form.Control>
                             </Form.Group>
                         </Row>
                         <Row>
                             <Form.Group>
-                                <Form.Label>Colonia</Form.Label>
+                                <Form.Label className="text-dark">Colonia</Form.Label>
                                 <Form.Control onChange={(e) => setColonia(e.target.value)}></Form.Control>
                             </Form.Group>
                         </Row>
                         <Row>
                             <Form.Group>
-                                <Form.Label>Ciudad</Form.Label>
+                                <Form.Label className="text-dark">Ciudad</Form.Label>
                                 <Form.Control onChange={(e) => setCiudad(e.target.value)}></Form.Control>
                             </Form.Group>
                         </Row>
-                        
-                        <center><Button className="mt-2 btn-light">Guardar</Button></center>
+                        <div className="d-flex justify-content-end w-100">
+                            <Button className="mt-2 btn-secondary">Guardar</Button>
+                        </div>
                     </Form>
                 </Col>
                 <Col>
