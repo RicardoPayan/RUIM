@@ -18,18 +18,22 @@ const ModPrograma = () => {
     }
     return(
         <>
-        <div className= "d-flex h-100 w-100 me-5 ms-2 mt-5">
-                <Form className="w-100 pe-5 ps-5">
-                    <center><h1>Modificar página para el Prorama</h1></center>
-                    <Row>
+        <div className= "d-flex h-100 w-100 me-5 ms-5 mt-5">
+        <Col>
+                <Form className="w-100">
+                <h3 className="text-secondary">Modificar página del Programa</h3>
+                    
                         <Form.Group className="mb-3">
                             <Form.Label>Archivo del programa</Form.Label>
                             <Form.Control name="poster" onChange = {handleFileChange} type ="file" accept = "application/pdf" controlId=""/>
                         </Form.Group>
-                    </Row>
+                        <div className="d-flex justify-content-end w-100">
+                          <Button className="btn-light">Guardar</Button>
+                        </div>
                     
-                    <center><Button>Guardar</Button></center>
                 </Form>
+                </Col>
+                <Col></Col>
             </div>
         </>
     )

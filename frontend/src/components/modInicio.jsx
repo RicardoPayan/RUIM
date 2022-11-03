@@ -31,9 +31,10 @@ const ModInicio = () => {
 
     return(
         <>
-        <div className= "d-flex h-100 w-100 me-5 ms-2 mt-5">
+        <div className= "d-flex h-100 w-100 me-5 ms-5 mt-5">
+            <Col>
                 <Form className="w-100">
-                    <center><h1>Modificar pagina de Inicio</h1></center>
+                    <h3 className="text-secondary">Modificar pagina de Inicio</h3>
                     <Row>
                         <Form.Group>
                             <Form.Label>Nombre de la reunión</Form.Label>
@@ -66,9 +67,13 @@ const ModInicio = () => {
                             onChange={(e) => setParrafo2(e.target.value)}></Form.Control>
                         </Form.Group>
                     </Row>
-                    
-                    <center><Button onClick={handleSave}>Guardar</Button></center>
+                    <div className="d-flex justify-content-end w-100">
+                        <Button onClick={handleSave} className="btn-light">Guardar</Button>
+                    </div>
                 </Form>
+            </Col>
+            <Col>
+            </Col>
             </div>
         </>
     )
