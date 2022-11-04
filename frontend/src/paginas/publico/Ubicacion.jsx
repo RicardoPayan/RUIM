@@ -1,6 +1,8 @@
 import {useState, useEffect, createContext} from "react";
 import clienteAxios from "../../../config/axios.jsx";
 import data from "bootstrap/js/src/dom/data.js";
+import { BsGeoAltFill } from 'react-icons/bs';
+
 
 const Ubicacion = () =>{
 
@@ -32,12 +34,24 @@ const Ubicacion = () =>{
 
     return(
         <>
-            <h1> Ubicacion</h1>
-            <p> {nombreLugar}</p>
-            <p>{ciudad}</p>
-            <p>{colonia}</p>
-            <p>{direccion}</p>
+    
 
+                <div class="col-xl-6">
+                <div class="tm-section-half">    
+                    <div class='logo'><BsGeoAltFill/></div>                        
+                    <h2 class="tm-section-title tm-color-primary mb-5">Ubicación</h2>
+                    <p class="mb-5">
+                    {nombreLugar}
+                    </p>
+                    <p>
+                    {ciudad}
+                    </p>
+                    <p class="mb-3">{colonia}</p>
+                    <p class="mb-3">{direccion}</p>
+                </div>
+                </div>
+
+                
 
         </>
     )
