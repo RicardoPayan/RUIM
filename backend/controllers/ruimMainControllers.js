@@ -104,7 +104,7 @@ const registrarParticipacion = async (req,res) =>{
             });
         }
         
-        await emailRegistro({
+        emailRegistro({
             correo,
             representante,
             titulo
