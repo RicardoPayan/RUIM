@@ -14,10 +14,10 @@ const emailRegistro = async (datos) =>{
 
     //Enviar email
     const info = await transport.sendMail({
-        from: "APV - Administrador de Pacientes de Veterinaria ",
+        from: "RUIM 2022",
         to: correo,
-        subject : "Comprueba tu cuenta en APV",
-        text : "Comprueba tue cuenta en APV",
+        subject : "Registro de participacion",
+        text : "Registro de participacion",
         html : `<p>Hola ${representante}, tu registro de ${titulo}</p>`
     });
 
