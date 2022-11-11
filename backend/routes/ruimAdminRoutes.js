@@ -1,9 +1,7 @@
 import express from "express";
 import {
         obtenerRegistros,
-        obtenerRegistrosPendientes,
-        obtenerRegistrosAceptados,
-        obtenerRegistrosRechazados,
+        obtenerRegistrosFiltrados,
         editarPaginaInicio,
         editarPaginaContacto,
         editarPaginaUbicacion,
@@ -17,10 +15,9 @@ const router = express.Router();
 // router.get('/', dashBoard);
 
 //Filtros para registros
-router.get('/registros', obtenerRegistros);
-router.get('/registros-pendientes', obtenerRegistrosPendientes);
-router.get('/registros-aceptados', obtenerRegistrosAceptados);
-router.get('/registros-rechazados', obtenerRegistrosRechazados);
+router.get('/registros-todos', obtenerRegistros);
+router.post('/registros-filtrados', obtenerRegistrosFiltrados);
+
 
 //Edicion de paginas
 router.post('/edit-pagina-inicio',editarPaginaInicio);

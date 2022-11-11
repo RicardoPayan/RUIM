@@ -20,32 +20,26 @@ const obtenerRegistros = async (req,res) =>{
     }
 }
 
-const obtenerRegistrosPendientes = async (req,res) =>{
+const obtenerRegistrosFiltrados = async (req,res) =>{
+
+    const {estado} = req.body; //Extrayendo que tipo de registro quiere el usuario.
+
     try{
-        const registros = await Registro.findAll({where : {estado : 0}});
+        const registros = await Registro.findAll({where : {estado}});
+
+        //Si no hay registros, devolvemos mensaje de advertencia
+        if(!Object.keys(registros).length){
+            return res.json({msg : "No hay registros"});
+        }
+
         res.json(registros);
+        
     }catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }
 
-const obtenerRegistrosAceptados = async (req,res) =>{
-    try{
-        const registros = await Registro.findAll({where : {estado : 1}});
-        res.json(registros);
-    }catch (error) {
-        console.log(error)
-    }
-}
 
-const obtenerRegistrosRechazados = async (req,res) =>{
-    try{
-        const registros = await Registro.findAll({where : {estado : -1}});
-        res.json(registros);
-    }catch (error) {
-        console.log(error)
-    }
-}
 
 const editarPaginaInicio = async (req,res) =>{
     try {
@@ -130,12 +124,10 @@ const editarPaginaUbicacion = async (req,res) => {
 
 export  {
     obtenerRegistros,
-    obtenerRegistrosPendientes,
-    obtenerRegistrosAceptados,
-    obtenerRegistrosRechazados,
+    obtenerRegistrosFiltrados,
     editarPaginaInicio,
     editarPaginaPrograma,
     editarPaginaPoster,
     editarPaginaUbicacion,
-    editarPaginaContacto
+    editarPaginaContacto,
 }
