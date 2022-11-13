@@ -4,6 +4,7 @@ import {PaginaPoster} from "../models/paginasModels/PaginaPoster.js";
 import {PaginaPrograma} from "../models/paginasModels/PaginaPrograma.js";
 import {PaginaContacto} from "../models/paginasModels/PaginaContacto.js";
 import {PaginaUbicacion} from "../models/paginasModels/PaginaUbicacion.js";
+import emailCambioEstado from "../helpers/emailCambioEstado.js";
 
 const obtenerRegistros = async (req,res) =>{
     try{
@@ -39,6 +40,28 @@ const obtenerRegistrosFiltrados = async (req,res) =>{
     }
 }
 
+//Funcion para cambiar el estado de un registro
+const editarEstadoRegistro = async (req,res) =>{
+
+    const {id, nuevoEstado} = req.body;
+
+    const registro = await Registro.findOne({where : {id}});
+
+    if(!registro){
+        const error = new Error('No existe el registro');
+        return res.status(400).json({msg : error.message});
+    }
+
+    try{
+        await Registro.update({estado : nuevoEstado}, {where : {id}});
+
+        res.json({msg : "Registro actualizado"});
+
+    }catch (error) {
+        console.log(error);
+    }
+
+}
 
 
 const editarPaginaInicio = async (req,res) =>{
@@ -125,6 +148,7 @@ const editarPaginaUbicacion = async (req,res) => {
 export  {
     obtenerRegistros,
     obtenerRegistrosFiltrados,
+    editarEstadoRegistro,
     editarPaginaInicio,
     editarPaginaPrograma,
     editarPaginaPoster,

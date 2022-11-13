@@ -2,6 +2,7 @@ import express from "express";
 import {
         obtenerRegistros,
         obtenerRegistrosFiltrados,
+        editarEstadoRegistro,
         editarPaginaInicio,
         editarPaginaContacto,
         editarPaginaUbicacion,
@@ -17,6 +18,9 @@ const router = express.Router();
 //Filtros para registros
 router.get('/registros-todos', obtenerRegistros);
 router.post('/registros-filtrados', obtenerRegistrosFiltrados);
+
+//Cambiar estado de registro
+router.post('/editar-estado', editarEstadoRegistro);
 
 
 //Edicion de paginas
