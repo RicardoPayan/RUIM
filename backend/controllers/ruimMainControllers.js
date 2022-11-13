@@ -12,7 +12,7 @@ import {ultimoRegistro} from "../helpers/buscarUltimoRegistro.js"; //Funcion par
 const obtenerPaginaInicio = async (req, res) =>{
     try {
         //Buscamos el ultimo registros den la base de datos
-        const cuerpoPagina = await ultimoRegistro(PaginaInicio);
+        const cuerpoPagina = await ultimoRegistro(PaginaInicio,1);
         res.json(cuerpoPagina);
 
     }catch (error){
@@ -24,7 +24,7 @@ const obtenerPaginaInicio = async (req, res) =>{
 const obtenerPaginaPrograma = async (req,res) =>{
     try {
         //Buscamos el ultimo registros den la base de datos
-        const cuerpoPagina = await ultimoRegistro(PaginaPrograma);
+        const cuerpoPagina = await ultimoRegistro(PaginaPrograma,1);
         res.json(cuerpoPagina);
 
     }catch (error){
@@ -35,7 +35,7 @@ const obtenerPaginaPrograma = async (req,res) =>{
 const obtenerPaginaPoster = async (req,res)=>{
     try {
         //Buscamos el ultimo registros den la base de datos
-        const cuerpoPagina = await ultimoRegistro(PaginaPoster);
+        const cuerpoPagina = await ultimoRegistro(PaginaPoster,1);
         res.json(cuerpoPagina);
 
     }catch (error){
@@ -46,7 +46,7 @@ const obtenerPaginaPoster = async (req,res)=>{
 const obtenerPaginaContacto = async (req,res) =>{
     try {
         //Buscamos el ultimo registros den la base de datos
-        const cuerpoPagina = await ultimoRegistro(PaginaContacto);
+        const cuerpoPagina = await ultimoRegistro(PaginaContacto,1);
         res.json(cuerpoPagina);
 
     }catch (error){
@@ -57,7 +57,7 @@ const obtenerPaginaContacto = async (req,res) =>{
 const obtenerPaginaUbicacion = async (req, res) =>{
     try {
         //Buscamos el ultimo registros den la base de datos
-        const cuerpoPagina = await ultimoRegistro(PaginaUbicacion);
+        const cuerpoPagina = await ultimoRegistro(PaginaUbicacion,1);
         res.json(cuerpoPagina);
 
     }catch (error){
