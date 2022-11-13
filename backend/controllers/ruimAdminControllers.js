@@ -5,6 +5,31 @@ import {PaginaPrograma} from "../models/paginasModels/PaginaPrograma.js";
 import {PaginaContacto} from "../models/paginasModels/PaginaContacto.js";
 import {PaginaUbicacion} from "../models/paginasModels/PaginaUbicacion.js";
 import emailCambioEstado from "../helpers/emailCambioEstado.js";
+import {where} from "sequelize";
+
+
+const resumenDashboard = async (req,res)=>{
+
+    const promiseDB = []; //Arreglo para ejecutar todos los awaits al mismo tiempo
+
+    promiseDB.push(Registro.findAll());
+    promiseDB.push(Registro.findAll({where : {estado : 1}}));
+    promiseDB.push(Registro.findAll({where : {estado : -1}}));
+
+    try{
+
+        const resultado = await Promise.all(promiseDB);
+
+        res.json({
+            registrosTotales :  Object.keys(resultado[0]).length,
+            registrosAceptados :  Object.keys(resultado[1]).length,
+            registrosRechazados :  Object.keys(resultado[2]).length
+        });
+    }catch (error) {
+        console.log(error);
+    }
+
+}
 
 const obtenerRegistros = async (req,res) =>{
     try{
@@ -157,6 +182,7 @@ const editarPaginaUbicacion = async (req,res) => {
 
 
 export  {
+    resumenDashboard,
     obtenerRegistros,
     obtenerRegistrosFiltrados,
     editarEstadoRegistro,

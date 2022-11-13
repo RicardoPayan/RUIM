@@ -1,5 +1,6 @@
 import express from "express";
 import {
+        resumenDashboard,
         obtenerRegistros,
         obtenerRegistrosFiltrados,
         editarEstadoRegistro,
@@ -12,8 +13,8 @@ import {
 
 const router = express.Router();
 
-//todo El dashboard sera la pagina principal de esta seccion de rutas
-// router.get('/', dashBoard);
+
+ router.get('/', resumenDashboard);
 
 //Filtros para registros
 router.get('/registros-todos', obtenerRegistros);
