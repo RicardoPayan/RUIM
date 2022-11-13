@@ -13,16 +13,6 @@ const ModPoster = () => {
         selectedFile: null
     })
     const [saved, setSaved] = useState(false);
-    useEffect(() => {
-        validate();
-      });
-      const validate = () => {
-        if (fileState===initFileState){
-            document.getElementById("guardar3").disabled=true;
-        } else {
-            document.getElementById("guardar3").disabled=false;
-        }
-    }
     const handleFileChange = (e) => {
         if (e.target.files[0].type == "image/png"){
             setFileState({selectedFile: e.target.files[0]});
@@ -54,7 +44,7 @@ const ModPoster = () => {
                 <Form className="w-100">
                 <h3 className="text-dark">Modificar página del Poster</h3>
                         <Form.Group className="mb-3">
-                            <Form.Label className="text-dark">Archivo del poster *</Form.Label>
+                            <Form.Label className="text-dark">Archivo del poster * (.png)</Form.Label>
                             <Form.Control name="poster" onChange = {handleFileChange} type ="file" accept = "image/png" controlId=""/>
                         </Form.Group>
                         <Form.Text className="text-muted">
@@ -66,7 +56,7 @@ const ModPoster = () => {
                         </Alert> 
                         }
                 <div className="d-flex justify-content-end w-100">
-                    <Button id="guardar3" className="btn-secondary" onClick={handleSave}>Guardar</Button>
+                    <Button id="guardar3" className="btn-secondary" onClick={handleSave} disabled="true">Guardar</Button>
                 </div>
                 </Form>
                 
