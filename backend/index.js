@@ -5,6 +5,7 @@ import cors from "cors";
 import ruimMainRoutes from "./routes/ruimMainRoutes.js";
 import ruimLoginRoutes from "./routes/ruimLoginRoutes.js";
 import ruimAdminRoutes from "./routes/ruimAdminRoutes.js";
+
 //Iniciando express
 const app = express();
 
@@ -48,6 +49,10 @@ app.use('/api/adminLogin', ruimLoginRoutes);
 //Rutas de administracion
 app.use('/api/admin', ruimAdminRoutes);
 
+
+//Ruta publica
+
+app.use("/uploads", express.static(process.cwd() + '/uploads'))
 //Definiendo el servidor de desarrollo para el backend
 app.listen(4000, ()=>{
     console.log('Servidor funcionando en el puerto 4000');
