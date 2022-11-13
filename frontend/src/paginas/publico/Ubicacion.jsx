@@ -29,8 +29,8 @@ const Ubicacion = () =>{
         obtenerCuerpoPagina();
     }, [])
 
-    const {nombreLugar,ciudad,colonia,direccion, link} = cuerpoPagina;
-    
+    const {nombreLugar,ciudad,colonia,direccion} = cuerpoPagina;
+    const link = cuerpoPagina.link;
     return(
         <>
             <div className="w-100 d-flex justify-content-start">
