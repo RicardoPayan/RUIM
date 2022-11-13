@@ -24,6 +24,13 @@ const ModPrograma = () => {
         var res = await axios.post("http://localhost:4000/api/admin/save-programa", formData)
         return res.data;
     }
+    const handleSave = async () => {
+        var posterReferencia = await handleFileUpload();
+        console.log(posterReferencia);
+        var res = await axios.post("http://localhost:4000/api/admin/edit-pagina-programa", {
+            posterReferencia: posterReferencia
+        });
+    }
     return(
         <>
         <div className= "d-flex h-100 w-100 me-5 ms-5 mt-5">
@@ -36,7 +43,7 @@ const ModPrograma = () => {
                             <Form.Control name="poster" onChange = {handleFileChange} type ="file" accept = "image/png" controlId=""/>
                         </Form.Group>
                         <div className="d-flex justify-content-end w-100">
-                          <Button id="guardar" className="btn-secondary" onClick={handleFileUpload}>Guardar</Button>
+                          <Button id="guardar" className="btn-secondary" onClick={handleSave}>Guardar</Button>
                         </div>
                     
                 </Form>
