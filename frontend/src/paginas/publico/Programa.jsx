@@ -1,13 +1,12 @@
 import {useState, useEffect, createContext} from "react";
 import clienteAxios from "../../../config/axios.jsx";
 import data from "bootstrap/js/src/dom/data.js";
-import programa from "../../../archivos/posterPrograma/algobien.png"
 const Programa = () =>{
 
     //Solicitando cuerpo de la paginas desde el servidor
 
     const [cuerpoPagina, setCuerpoPagina] = useState({});
-
+    const [programa, setPrograma] = useState("");
     useEffect(() =>{
         const obtenerCuerpoPagina = async  () =>{
 
@@ -20,13 +19,15 @@ const Programa = () =>{
                 const {data} = await clienteAxios('/ruimMain/programa', config);
                 console.log(data)
                 setCuerpoPagina(data);
-
+                setPrograma(data.posterReferencia);
+                console.log(programa);
             }catch (error){
                 console.log(error);
             }
 
         }
         obtenerCuerpoPagina();
+        
     }, [])
 
     const {posterReferencia} = cuerpoPagina;
