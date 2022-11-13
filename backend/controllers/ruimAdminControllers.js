@@ -6,15 +6,21 @@ import {PaginaContacto} from "../models/paginasModels/PaginaContacto.js";
 import {PaginaUbicacion} from "../models/paginasModels/PaginaUbicacion.js";
 import emailCambioEstado from "../helpers/emailCambioEstado.js";
 import {where} from "sequelize";
+import {ultimoRegistro} from "../helpers/buscarUltimoRegistro.js";
 
 
 const resumenDashboard = async (req,res)=>{
 
     const promiseDB = []; //Arreglo para ejecutar todos los awaits al mismo tiempo
 
+    //Todos los registros de un tipo
     promiseDB.push(Registro.findAll());
+    promiseDB.push(Registro.findAll({where : {estado : 0}}));
     promiseDB.push(Registro.findAll({where : {estado : 1}}));
     promiseDB.push(Registro.findAll({where : {estado : -1}}));
+
+    //Los ultimos 5 de un tipo
+    promiseDB.push(ultimoRegistro(Registro, 5));
 
     try{
 
@@ -22,8 +28,10 @@ const resumenDashboard = async (req,res)=>{
 
         res.json({
             registrosTotales :  Object.keys(resultado[0]).length,
-            registrosAceptados :  Object.keys(resultado[1]).length,
-            registrosRechazados :  Object.keys(resultado[2]).length
+            registrosPendientes :  Object.keys(resultado[1]).length,
+            registrosAceptados :  Object.keys(resultado[2]).length,
+            registrosRechazados :  Object.keys(resultado[3]).length,
+            ultimosRegistros : resultado[4]
         });
     }catch (error) {
         console.log(error);
