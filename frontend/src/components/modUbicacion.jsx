@@ -29,6 +29,16 @@ const ModUbicacion = () => {
             console.log(error)
         }
     }
+    useEffect(() => {
+        validate();
+      });
+      const validate = () => {
+        if (nombreLugar==""||direccion==""||colonia==""||ciudad==""){
+            document.getElementById("guardar5").disabled=true;
+        } else {
+            document.getElementById("guardar5").disabled=false;
+        }
+    }
     return(
         <>
         <div className= "d-flex h-100 w-100 me-5 ms-5 mt-5">
@@ -74,7 +84,7 @@ const ModUbicacion = () => {
                         </Alert> 
                         }
                         <div className="d-flex justify-content-end w-100">
-                            <Button className="mt-2 btn-secondary" onClick={handleSave}>Guardar</Button>
+                            <Button className="mt-2 btn-secondary" onClick={handleSave} id="guardar5" disabled="">Guardar</Button>
                         </div>
                     </Form>
                 </Col>
