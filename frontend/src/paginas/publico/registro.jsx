@@ -26,14 +26,26 @@ const registro = () => {
     const [fileTypeError, setFileTypeError] = useState(false);
     const [saved, setSaved] = useState(false);
     const [shModal, setModal] = useState(false);
+    const [email, setEmail] = useState(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+    const [badMail, setBM] = useState(false);
     useEffect(() => {
         validate();
       });
     const validate = () => {
-        if (titulo==""||representante==""||correo==""||institucion==""||departamento==""||grado==""||modalidad==""||fileState.selectedFile==null){
+        if (titulo==""||representante==""||correo==""||institucion==""||departamento==""||grado==""||modalidad==""||fileState.selectedFile==null||!email.test(correo)){
             document.getElementById("guardar").disabled=true;
+            setBM(false);
         } else {
             document.getElementById("guardar").disabled=false;
+        }
+        if(!email.test(correo)&&correo!=""){
+            setBM(true);
+        }
+        if(email.test(correo)&&correo!=""){
+            setBM(false);
+        }
+        if(correo==""){
+            setBM(false);
         }
     }
     const addField = () => {
@@ -62,7 +74,7 @@ const registro = () => {
             gradoAcademico: grado,
             modalidad: modalidad,
             correo: correo,
-            estado: 0,
+            estado: -1,
             resumenReferencia: file}
         try{
             const response = await axios.post("http://localhost:4000/api/ruimMain/registro", data);
@@ -161,6 +173,7 @@ const registro = () => {
                             <Col>
                                 <Form.Label>Correo electronico</Form.Label>
                                 <Form.Control type="email" placeholder="Correo electronico del representante" onChange = {(e) => setCorreo(e.target.value)}/>
+                                {badMail && <Form.Label class="text-danger">Formato incorrecto!</Form.Label>}
                             </Col>
                             
                     </Row>
