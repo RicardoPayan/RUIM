@@ -55,7 +55,18 @@ const editarEstadoRegistro = async (req,res) =>{
     try{
         await Registro.update({estado : nuevoEstado}, {where : {id}});
 
-        res.json({msg : "Registro actualizado"});
+        const {correo, representante, titulo} = registro
+
+        console.log(nuevoEstado);
+
+        emailCambioEstado({
+            correo,
+            representante,
+            titulo,
+            nuevoEstado
+        })
+
+        res.json({msg : "Registro actualizado. Se le notifico al participante por email"});
 
     }catch (error) {
         console.log(error);
