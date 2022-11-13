@@ -18,7 +18,7 @@ const emailRegistro = async (datos) =>{
         to: correo,
         subject : "Registro de participacion",
         text : "Registro de participacion",
-        html : `<p>Hola ${representante}, tu registro de ${titulo}</p>`
+        html : `<p>Hola ${representante}, tu registro de ${titulo} se ha enviado con exito</p>`
     });
 
     console.log('Mensaje enviado: %s', info.messageId)
