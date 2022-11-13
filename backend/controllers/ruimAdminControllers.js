@@ -126,7 +126,7 @@ const guardarPrograma = async (req, res) => {
         console.log("no file");
     } else {
         console.log(req.file.filename)
-        var img = `${process.env.FRONTEND_URL}/uploads/programas/` + req.file.filename
+        var img = `${process.env.BACKEND_URL}/uploads/programas/` + req.file.filename
         res.send(img);
     }
 }
