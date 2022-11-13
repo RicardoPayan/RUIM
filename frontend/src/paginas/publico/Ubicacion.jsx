@@ -8,7 +8,7 @@ const Ubicacion = () =>{
     //Solicitando cuerpo de la paginas desde el servidor
 
     const [cuerpoPagina, setCuerpoPagina] = useState({});
-
+    const [parse, setParse] = useState("");
     useEffect(() =>{
         const obtenerCuerpoPagina = async  () =>{
 
@@ -29,12 +29,10 @@ const Ubicacion = () =>{
         obtenerCuerpoPagina();
     }, [])
 
-    const {nombreLugar,ciudad,colonia,direccion,link} = cuerpoPagina;
-
+    const {nombreLugar,ciudad,colonia,direccion, link} = cuerpoPagina;
+    
     return(
         <>
-    
-
             <div className="w-100 d-flex justify-content-start">
             <div class="">   
                 <div className="p-5 w-100">                        
@@ -51,7 +49,7 @@ const Ubicacion = () =>{
                         <iframe 
                         width="1000" 
                         height="450"
-                        src={{link}}></iframe>
+                        src={link}></iframe>
                     </div>
                 </div>
                 </div>
