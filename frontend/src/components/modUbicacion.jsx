@@ -5,12 +5,14 @@ import Col from "react-bootstrap/Col"
 import axios from "axios"
 import clienteAxios from "../../config/axios.jsx";
 import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert";
 const ModUbicacion = () => {
     const [nombreLugar, setNombre] = useState("");
     const [direccion, setDireccion] = useState("");
     const [colonia, setColonia] = useState("");
     const [ciudad, setCiudad] = useState("");
     const [link, setLink] = useState("");
+    const [saved, setSaved] = useState("");
     const handleSave = async (e) =>{
         e.preventDefault();
         const data = {
@@ -35,34 +37,42 @@ const ModUbicacion = () => {
                     <h3 className="text-dark">Modificar página de Ubicación</h3>
                         <Row>
                             <Form.Group>
-                                <Form.Label className="text-dark">Nombre de la Ubicacion</Form.Label>
+                                <Form.Label className="text-dark">Nombre de la Ubicacion *</Form.Label>
                                 <Form.Control onChange={(e) => setNombre(e.target.value)}></Form.Control>
                             </Form.Group>
                         </Row>
                         <Row>
                             <Form.Group>
-                                    <Form.Label className="text-dark">Direccion</Form.Label>
+                                    <Form.Label className="text-dark">Direccion *</Form.Label>
                                     <Form.Control onChange={(e) => setDireccion(e.target.value)}></Form.Control>
                             </Form.Group>
                         </Row>
                         <Row>
                             <Form.Group>
-                                <Form.Label className="text-dark">Colonia</Form.Label>
+                                <Form.Label className="text-dark">Colonia *</Form.Label>
                                 <Form.Control onChange={(e) => setColonia(e.target.value)}></Form.Control>
                             </Form.Group>
                         </Row>
                         <Row>
                             <Form.Group>
-                                <Form.Label className="text-dark">Ciudad</Form.Label>
+                                <Form.Label className="text-dark">Ciudad *</Form.Label>
                                 <Form.Control onChange={(e) => setCiudad(e.target.value)}></Form.Control>
                             </Form.Group>
                         </Row>
                         <Row>
                             <Form.Group>
-                                <Form.Label className="text-dark">Link a Google Maps</Form.Label>
+                                <Form.Label className="text-dark">Link a Google Maps *</Form.Label>
                                 <Form.Control onChange={(e) => setLink(e.target.value)}></Form.Control>
                             </Form.Group>
                         </Row>
+                        <Form.Text className="text-muted">
+                        Los campos con * deben ser llenados para que se active el botón de guardar.
+                    </Form.Text>
+                        {saved &&
+                        <Alert key="success" variant="success">
+                                Se ha guardado exitosamente. Los cambios han sido reflejados en el sitio público.
+                        </Alert> 
+                        }
                         <div className="d-flex justify-content-end w-100">
                             <Button className="mt-2 btn-secondary" onClick={handleSave}>Guardar</Button>
                         </div>

@@ -1,9 +1,8 @@
 import {useState, useEffect, createContext} from "react";
 import clienteAxios from "../../../config/axios.jsx";
 import data from "bootstrap/js/src/dom/data.js";
-import programa from "../../../archivos/poster/poster.png"
 const Poster = () =>{
-
+    const [programa, setPrograma] = useState("");
     //Solicitando cuerpo de la paginas desde el servidor
 
     const [cuerpoPagina, setCuerpoPagina] = useState({});
@@ -20,7 +19,7 @@ const Poster = () =>{
                 const {data} = await clienteAxios('/ruimMain/poster', config);
                 console.log(data)
                 setCuerpoPagina(data);
-
+                setPrograma(data.referencia);
             }catch (error){
                 console.log(error);
             }

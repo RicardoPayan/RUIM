@@ -138,5 +138,5 @@ export  {
     editarPaginaPoster,
     editarPaginaUbicacion,
     editarPaginaContacto,
-    guardarPrograma
+    guardarPrograma,
 }
