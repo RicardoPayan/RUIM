@@ -5,6 +5,7 @@ import {PaginaContacto} from "../models/paginasModels/PaginaContacto.js";
 import {PaginaPoster} from "../models/paginasModels/PaginaPoster.js";
 import Registro from "../models/registro/Registro.js";
 import {Autor} from "../models/registro/Autor.js";
+import emailRegistro from "../helpers/emailRegistro.js";
 
 import {ultimoRegistro} from "../helpers/buscarUltimoRegistro.js"; //Funcion para obtener el ultimo registro de la base de datos
 
@@ -75,7 +76,7 @@ const guardarResumen = async (req, res) => {
 
 }
 const registrarParticipacion = async (req,res) =>{
-    const {apellidoPaterno, apellidoMaterno, institucion, departamento
+    const {institucion, departamento
     , gradoAcademico, modalidad, correo, estado, resumenReferencia, autores, titulo, representante} = req.body;
 
 
@@ -83,8 +84,6 @@ const registrarParticipacion = async (req,res) =>{
 
     try{
         const registro =  await Registro.create({
-            apellidoPaterno,
-            apellidoMaterno,
             institucion,
             departamento,
             gradoAcademico,
@@ -104,8 +103,14 @@ const registrarParticipacion = async (req,res) =>{
                 registroId : registro.id
             });
         }
+        
+        emailRegistro({
+            correo,
+            representante,
+            titulo
+        })
 
-        res.json({msg : "Registro exitoso"});
+        res.json({msg : "Registro exitoso, verifica tu email"});
     }catch (error){
         console.log(error);
     }
