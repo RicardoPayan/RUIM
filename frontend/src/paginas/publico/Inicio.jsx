@@ -1,7 +1,7 @@
 import {useState, useEffect, createContext} from "react";
 import clienteAxios from "../../../config/axios.jsx";
 import data from "bootstrap/js/src/dom/data.js";
-
+import programa from "../../../archivos/posterPrograma/banner.png"
 const Inicio = () =>{
   
   //Solicitando cuerpo de la paginas desde el servidor
@@ -33,8 +33,10 @@ const Inicio = () =>{
 
   return(
     <>
-
-      <div class="tm-bg-white-transparent tm-intro">
+      <div className="w-100 d-flex justify-content-center">
+      <div class="">
+        <div className="p-5">
+        <img src={programa}></img>
                         <h1 class="tm-section-title mb-5 text-uppercase tm-color-primary">{nombreEvento}</h1>
                         <p class="tm-color-gray">
                         {parrafo1}
@@ -45,8 +47,9 @@ const Inicio = () =>{
                         <p>{fechas}</p>
                         <p>{lugar}</p>
                         
-                    </div> 
-
+        </div> 
+        </div>
+        </div>
           
     </>
   ) 

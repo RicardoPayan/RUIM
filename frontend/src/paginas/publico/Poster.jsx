@@ -1,7 +1,7 @@
 import {useState, useEffect, createContext} from "react";
 import clienteAxios from "../../../config/axios.jsx";
 import data from "bootstrap/js/src/dom/data.js";
-
+import programa from "../../../archivos/poster/poster.png"
 const Poster = () =>{
 
     //Solicitando cuerpo de la paginas desde el servidor
@@ -33,12 +33,12 @@ const Poster = () =>{
 
     return(
         <>
-            <div class="col-xl-6">
-                <div class="tm-section-half">    
-                        <div><i class="fas fa-6x fa-balance-scale mb-5 tm-section-icon"></i></div>                        
-                        <h2 class="tm-section-title tm-color-primary mb-5">Poster</h2>
-                        <p class="mb-5">
-                    </p>
+            <div className="w-100 d-flex justify-content-start">
+                <div class="">   
+                <div className="p-5">               
+                        <h1 class="tm-section-title mb-5 text-uppercase tm-color-primary">Poster</h1>
+                        <img src={programa}></img>
+                    </div>
                 </div>
               </div>
 

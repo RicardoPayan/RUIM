@@ -1,7 +1,6 @@
 import {useState, useEffect, createContext} from "react";
 import clienteAxios from "../../../config/axios.jsx";
 import data from "bootstrap/js/src/dom/data.js";
-import { BsGeoAltFill } from 'react-icons/bs';
 
 
 const Ubicacion = () =>{
@@ -30,17 +29,17 @@ const Ubicacion = () =>{
         obtenerCuerpoPagina();
     }, [])
 
-    const {nombreLugar,ciudad,colonia,direccion} = cuerpoPagina;
+    const {nombreLugar,ciudad,colonia,direccion,link} = cuerpoPagina;
 
     return(
         <>
     
 
-                <div class="col-xl-6">
-                <div class="tm-section-half">    
-                    <div class='logo'><BsGeoAltFill/></div>                        
-                    <h2 class="tm-section-title tm-color-primary mb-5">Ubicación</h2>
-                    <p class="mb-5">
+            <div className="w-100 d-flex justify-content-start">
+            <div class="">   
+                <div className="p-5 w-100">                        
+                <h1 class="w-100 tm-section-title mb-5 text-uppercase tm-color-primary">Ubicación</h1>
+                    <p class="">
                     {nombreLugar}
                     </p>
                     <p>
@@ -48,6 +47,13 @@ const Ubicacion = () =>{
                     </p>
                     <p class="mb-3">{colonia}</p>
                     <p class="mb-3">{direccion}</p>
+                    <div className="w-100 d-flex justify-content-center">
+                        <iframe 
+                        width="1000" 
+                        height="450"
+                        src={{link}}></iframe>
+                    </div>
+                </div>
                 </div>
                 </div>
 

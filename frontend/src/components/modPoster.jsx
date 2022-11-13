@@ -7,7 +7,7 @@ import Form from "react-bootstrap/Form";
 const ModPoster = () => {
     const [file, setFileState] = useState("");
     const handleFileChange = (e) => {
-        if (e.target.files[0].type == "application/pdf"){
+        if (e.target.files[0].type == "image/png"){
             setFileState({selectedFile: e.target.files[0]});
             document.getElementById("guardar").disabled=false;
             setFileTypeError(false);
