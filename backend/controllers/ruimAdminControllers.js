@@ -121,7 +121,15 @@ const editarPaginaUbicacion = async (req,res) => {
     res.json({msg : "Actualizacion exitosa"});
 }
 
-
+const guardarPrograma = async (req, res) => {
+    if(!req.file){
+        console.log("no file");
+    } else {
+        console.log(req.file.filename)
+        var img = `${process.env.FRONTEND_URL}/uploads/programas/` + req.file.filename
+        res.send(img);
+    }
+}
 export  {
     obtenerRegistros,
     obtenerRegistrosFiltrados,
@@ -130,4 +138,5 @@ export  {
     editarPaginaPoster,
     editarPaginaUbicacion,
     editarPaginaContacto,
+    guardarPrograma
 }

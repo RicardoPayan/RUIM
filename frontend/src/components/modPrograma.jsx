@@ -5,16 +5,24 @@ import Col from "react-bootstrap/Col"
 import axios from "axios"
 import Form from "react-bootstrap/Form";
 const ModPrograma = () => {
-    const [file, setFileState] = useState("");
+    const [fileState, setFileState] = useState({
+        selectedFile: null
+    });
     const handleFileChange = (e) => {
-        if (e.target.files[0].type == "application/pdf"){
+        if (e.target.files[0].type == "image/png"){
             setFileState({selectedFile: e.target.files[0]});
             document.getElementById("guardar").disabled=false;
-            setFileTypeError(false);
         } else {
             document.getElementById("guardar").disabled=true;
-            setFileTypeError(true);
         }
+    }
+    const handleFileUpload = async () => {
+        const formData = new FormData();
+        formData.append("programa",
+            fileState.selectedFile);
+        formData.append("filename", fileState.selectedFile.name)
+        var res = await axios.post("http://localhost:4000/api/admin/save-programa", formData)
+        return res.data;
     }
     return(
         <>
@@ -25,10 +33,10 @@ const ModPrograma = () => {
                     
                         <Form.Group className="mb-3">
                             <Form.Label className="text-dark">Archivo del programa</Form.Label>
-                            <Form.Control name="poster" onChange = {handleFileChange} type ="file" accept = "application/pdf" controlId=""/>
+                            <Form.Control name="poster" onChange = {handleFileChange} type ="file" accept = "image/png" controlId=""/>
                         </Form.Group>
                         <div className="d-flex justify-content-end w-100">
-                          <Button className="btn-secondary">Guardar</Button>
+                          <Button id="guardar" className="btn-secondary" onClick={handleFileUpload}>Guardar</Button>
                         </div>
                     
                 </Form>
