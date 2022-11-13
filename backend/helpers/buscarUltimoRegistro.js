@@ -1,6 +1,7 @@
 
-export const ultimoRegistro =  (modelo) =>{
-        return modelo.findOne({
+export const ultimoRegistro =  (modelo, limite) =>{
+        return modelo.findAll({
+        limit: limite,
         order: [ [ 'id', 'DESC' ]],
     });
 

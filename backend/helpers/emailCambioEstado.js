@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-const emailRegistro = async (datos) =>{
+const emailCambioEstado = async (datos) =>{
     const transport = nodemailer.createTransport({
         host: process.env.EMAIL_HOST,
         port: process.env.EMAIL_PORT,
@@ -10,19 +10,20 @@ const emailRegistro = async (datos) =>{
         }
     });
 
-    const {correo, representante, titulo} = datos;
+    const {correo, representante, titulo, nuevoEstado} = datos;
+
 
     //Enviar email
     const info = await transport.sendMail({
         from: "RUIM 2022",
         to: correo,
-        subject : "Registro de participacion",
-        text : "Registro de participacion",
-        html : `<p>Hola ${representante}, tu registro de ${titulo} se ha enviado con exito</p>`
+        subject : "Estado de registro",
+        text : "Estado de registro",
+        html : `<p>Hola ${representante}, tu registro de ${titulo} ha sido ${nuevoEstado === "1" ? "Aceptado" : "Rechazado" }</p>`
     });
 
     console.log('Mensaje enviado: %s', info.messageId)
 
 };
 
-export default emailRegistro;
+export default emailCambioEstado;

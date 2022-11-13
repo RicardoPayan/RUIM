@@ -4,6 +4,40 @@ import {PaginaPoster} from "../models/paginasModels/PaginaPoster.js";
 import {PaginaPrograma} from "../models/paginasModels/PaginaPrograma.js";
 import {PaginaContacto} from "../models/paginasModels/PaginaContacto.js";
 import {PaginaUbicacion} from "../models/paginasModels/PaginaUbicacion.js";
+import emailCambioEstado from "../helpers/emailCambioEstado.js";
+import {where} from "sequelize";
+import {ultimoRegistro} from "../helpers/buscarUltimoRegistro.js";
+
+
+const resumenDashboard = async (req,res)=>{
+
+    const promiseDB = []; //Arreglo para ejecutar todos los awaits al mismo tiempo
+
+    //Todos los registros de un tipo
+    promiseDB.push(Registro.findAll());
+    promiseDB.push(Registro.findAll({where : {estado : 0}}));
+    promiseDB.push(Registro.findAll({where : {estado : 1}}));
+    promiseDB.push(Registro.findAll({where : {estado : -1}}));
+
+    //Los ultimos 5 de un tipo
+    promiseDB.push(ultimoRegistro(Registro, 5));
+
+    try{
+
+        const resultado = await Promise.all(promiseDB);
+
+        res.json({
+            registrosTotales :  Object.keys(resultado[0]).length,
+            registrosPendientes :  Object.keys(resultado[1]).length,
+            registrosAceptados :  Object.keys(resultado[2]).length,
+            registrosRechazados :  Object.keys(resultado[3]).length,
+            ultimosRegistros : resultado[4]
+        });
+    }catch (error) {
+        console.log(error);
+    }
+
+}
 
 const obtenerRegistros = async (req,res) =>{
     try{
@@ -39,6 +73,39 @@ const obtenerRegistrosFiltrados = async (req,res) =>{
     }
 }
 
+//Funcion para cambiar el estado de un registro
+const editarEstadoRegistro = async (req,res) =>{
+
+    const {id, nuevoEstado} = req.body;
+
+    const registro = await Registro.findOne({where : {id}});
+
+    if(!registro){
+        const error = new Error('No existe el registro');
+        return res.status(400).json({msg : error.message});
+    }
+
+    try{
+        await Registro.update({estado : nuevoEstado}, {where : {id}});
+
+        const {correo, representante, titulo} = registro
+
+        console.log(nuevoEstado);
+
+        emailCambioEstado({
+            correo,
+            representante,
+            titulo,
+            nuevoEstado
+        })
+
+        res.json({msg : "Registro actualizado. Se le notifico al participante por email"});
+
+    }catch (error) {
+        console.log(error);
+    }
+
+}
 
 
 const editarPaginaInicio = async (req,res) =>{
@@ -131,8 +198,10 @@ const guardarPrograma = async (req, res) => {
     }
 }
 export  {
+    resumenDashboard,
     obtenerRegistros,
     obtenerRegistrosFiltrados,
+    editarEstadoRegistro,
     editarPaginaInicio,
     editarPaginaPrograma,
     editarPaginaPoster,

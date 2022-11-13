@@ -1,8 +1,10 @@
 import express from "express";
 import path from "path";
 import {
+        resumenDashboard,
         obtenerRegistros,
         obtenerRegistrosFiltrados,
+        editarEstadoRegistro,
         editarPaginaInicio,
         editarPaginaContacto,
         editarPaginaUbicacion,
@@ -13,12 +15,13 @@ import {
 import multer from "multer";
 const router = express.Router();
 
-//todo El dashboard sera la pagina principal de esta seccion de rutas
-// router.get('/', dashBoard);
+
+ router.get('/', resumenDashboard);
 
 //Filtros para registros
 router.get('/registros-todos', obtenerRegistros);
 router.post('/registros-filtrados', obtenerRegistrosFiltrados);
+
 
 var storage = multer.diskStorage({
         destination: (req, file, callBack) => {
@@ -31,6 +34,11 @@ var storage = multer.diskStorage({
     var upload = multer({
         storage: storage
     });
+
+//Cambiar estado de registro
+router.post('/editar-estado', editarEstadoRegistro);
+
+
 
 //Edicion de paginas
 router.post('/edit-pagina-inicio',editarPaginaInicio);
