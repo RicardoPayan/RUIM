@@ -1,13 +1,12 @@
 import {useState, useEffect, createContext} from "react";
 import clienteAxios from "../../../config/axios.jsx";
 import data from "bootstrap/js/src/dom/data.js";
-
 const Programa = () =>{
 
     //Solicitando cuerpo de la paginas desde el servidor
 
     const [cuerpoPagina, setCuerpoPagina] = useState({});
-
+    const [programa, setPrograma] = useState("");
     useEffect(() =>{
         const obtenerCuerpoPagina = async  () =>{
 
@@ -20,32 +19,29 @@ const Programa = () =>{
                 const {data} = await clienteAxios('/ruimMain/programa', config);
                 console.log(data)
                 setCuerpoPagina(data);
-
+                setPrograma(data.posterReferencia);
+                console.log(programa);
             }catch (error){
                 console.log(error);
             }
 
         }
         obtenerCuerpoPagina();
+        
     }, [])
 
     const {posterReferencia} = cuerpoPagina;
 
     return(
         <>
-            <div class="col-xl-6">
-                <div class="tm-section-half">    
-                        <div><i class="fas fa-6x fa-balance-scale mb-5 tm-section-icon"></i></div>                        
-                        <h2 class="tm-section-title tm-color-primary mb-5">Programa</h2>
-                        <p class="mb-5">
-                    </p>
+             <div className="w-100 d-flex justify-content-start">
+                <div class="">   
+                <div className="p-5">               
+                        <h1 class="tm-section-title mb-5 text-uppercase tm-color-primary">Programa</h1>
+                        <img src={programa}></img>
+                    </div>
                 </div>
               </div>
-           
-            
-         
-            <img src={`../../../archivos/posterPrograma/${posterReferencia}`}/>
-
         </>
     )
 }

@@ -17,7 +17,9 @@ export const PaginaUbicacion = db.define("paginaUbicacion",{
     ciudad: {
         type: Sequelize.STRING
     },
-    
+    link: {
+        type: Sequelize.TEXT('long')
+    }
 })
 
 await PaginaUbicacion.sync({alter: true});
