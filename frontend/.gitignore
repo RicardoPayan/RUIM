@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 .env
+archivos/constancias
 
 # Editor directories and files
 .vscode/*
