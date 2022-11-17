@@ -45,6 +45,15 @@ function Lista () {
         setData(response.data);
         console.log(response.data);
     }
+    const changeStatus = async (id, estado) => {
+        const response = await axios.post("http://localhost:4000/api/admin/editar-estado", {
+            id: id,
+            nuevoEstado: estado
+        });
+        handleFilter(document.getElementById("select").value);
+        alert("Se ha guardado el cambio. Se le notificará al representante por correo electronico.");
+        handleClose();
+    }
     return(
         <>
             <Title title="Lista de Registros"/>
@@ -53,7 +62,7 @@ function Lista () {
                     <Row>
                         <Form.Label className="text-dark">Filtrar por:</Form.Label>
                     </Row>
-                    <Form.Select onChange={(e) => handleFilter(e.target.value)}className="w-75">
+                    <Form.Select id="select" onChange={(e) => handleFilter(e.target.value)}className="w-75">
                         <option value="3">Todos</option>
                         <option value="0">Pendiente</option>
                         <option value="1">Aceptado</option>
@@ -134,13 +143,13 @@ function Lista () {
                     <p>Departamento: {modalData.departamento}</p>
                     <p>Grado academico: {modalData.gradoAcademico}</p></Modal.Body>
                 <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
+                <a href={modalData.resumenReferencia} target="blank_"><Button variant="secondary">
                     Revisar resumen
-                </Button>
-                <Button variant="danger">
+                </Button></a>
+                <Button variant="danger" onClick={() => changeStatus(modalData.id, -1)}>
                     Rechazar
                 </Button>
-                <Button variant="success">
+                <Button variant="success" onClick={() => changeStatus(modalData.id, 1)}>
                     Aceptar
                 </Button>
                 </Modal.Footer>
