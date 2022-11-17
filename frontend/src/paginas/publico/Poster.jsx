@@ -18,8 +18,8 @@ const Poster = () =>{
                 }
                 const {data} = await clienteAxios('/ruimMain/poster', config);
                 console.log(data)
-                setCuerpoPagina(data);
-                setPrograma(data.referencia);
+                setCuerpoPagina(data[0]);
+                setPrograma(data[0].referencia);
             }catch (error){
                 console.log(error);
             }

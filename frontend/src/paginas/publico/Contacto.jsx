@@ -18,7 +18,7 @@ const Contacto= () =>{
                 }
                 const {data} = await clienteAxios('/ruimMain/contacto', config);
                 console.log(data)
-                setCuerpoPagina(data);
+                setCuerpoPagina(data[0]);
 
             }catch (error){
                 console.log(error);
@@ -32,10 +32,11 @@ const Contacto= () =>{
 
     return(
         <>
-                <div class="col-xl-6">
-                <div class="tm-section-half">
-                    <h2 class="tm-section-title tm-color-primary mb-5">Contacto</h2>
-                    <p class="mb-5">
+                <div className="w-100 d-flex justify-content-start">
+            <div class="">   
+                <div className="p-5 w-100"> 
+                    <h2 class="tm-section-title tm-color-primary mb-5">CONTACTO</h2>
+                    <p class="mb-3">
                      {instrucciones}
                     </p>
                     <p>
@@ -43,6 +44,7 @@ const Contacto= () =>{
                     </p>
                 </div>
               </div>    
+              </div>  
         </>
     )
 }

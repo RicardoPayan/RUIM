@@ -39,7 +39,7 @@ const Header = () => {
               <ul id="tmMainNav" class="nav flex-column text-uppercase text-right tm-main-nav">
                 <li class="nav-item">
                   <Link to="/" class="nav-link active">
-                    <span class="d-inline-block mr-3">Intro</span>
+                    <span class="d-inline-block mr-3">Inicio</span>
                     <span class="d-inline-block tm-white-rect"></span>
                   </Link>
                 </li>
