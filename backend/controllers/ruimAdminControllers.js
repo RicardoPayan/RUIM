@@ -59,7 +59,7 @@ const obtenerRegistrosFiltrados = async (req,res) =>{
     const {estado} = req.body; //Extrayendo que tipo de registro quiere el usuario.
 
     try{
-        const registros = await Registro.findAll({where : {estado}});
+        const registros = await Registro.findAll({where : {estado: estado}});
 
         //Si no hay registros, devolvemos mensaje de advertencia
         if(!Object.keys(registros).length){

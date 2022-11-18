@@ -4,47 +4,56 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row'
 import axios from "axios";
 import Title from '../../components/title.jsx'
+import Col from "react-bootstrap/Col"
 import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert"
+import Button from "react-bootstrap/Button"
+import Modal from "react-bootstrap/Modal"
 function Lista () {
     const [data, setData] = useState([]);
+    const [empty, setEmpty] = useState(false);
+    const [show, setShow] = useState(false);
+    const [modalData, setModalData] = useState([]);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     useEffect(() => {
         getData();
     }, []);
     const handleFilter = (filter) =>{
         if (filter == 3){
             getData();
-        } else if (filter == 0){
-            getPendientes();
-        } else if (filter == 1){
-            getAceptados();
-        } else if (filter == 2 ){
-            getRechazados();
+        } else {
+            getFiltered(filter);
         }
     }
     const getData = async () => {
-        const response = await axios.get("http://localhost:4000/api/admin/registros");
+        const response = await axios.get("http://localhost:4000/api/admin/registros-todos");
         setData(response.data);
         console.log(response.data);
         console.log(data);
     };
-    const getPendientes = async () => {
-        const response = await axios.get("http://localhost:4000/api/admin/registros-pendientes");
+    const getFiltered = async (filter) => {
+        const response = await axios.post("http://localhost:4000/api/admin/registros-filtrados", {
+            estado: filter
+        });
+        if(response.data.hasOwnProperty('msg')){
+            setEmpty(true);
+        } else {
+            setEmpty(false);
+        }
+
         setData(response.data);
         console.log(response.data);
-        console.log(data);
-    };
-    const getAceptados = async () => {
-        const response = await axios.get("http://localhost:4000/api/admin/registros-aceptados");
-        setData(response.data);
-        console.log(response.data);
-        console.log(data);
-    };
-    const getRechazados = async () => {
-        const response = await axios.get("http://localhost:4000/api/admin/registros-rechazados");
-        setData(response.data);
-        console.log(response.data);
-        console.log(data);
-    };
+    }
+    const changeStatus = async (id, estado) => {
+        const response = await axios.post("http://localhost:4000/api/admin/editar-estado", {
+            id: id,
+            nuevoEstado: estado
+        });
+        handleFilter(document.getElementById("select").value);
+        alert("Se ha guardado el cambio. Se le notificará al representante por correo electronico.");
+        handleClose();
+    }
     return(
         <>
             <Title title="Lista de Registros"/>
@@ -53,11 +62,11 @@ function Lista () {
                     <Row>
                         <Form.Label className="text-dark">Filtrar por:</Form.Label>
                     </Row>
-                    <Form.Select onChange={(e) => handleFilter(e.target.value)}className="w-75">
-                        <option val="3">Todos</option>
+                    <Form.Select id="select" onChange={(e) => handleFilter(e.target.value)}className="w-75">
+                        <option value="3">Todos</option>
                         <option value="0">Pendiente</option>
                         <option value="1">Aceptado</option>
-                        <option value="2">Rechazado</option>
+                        <option value="-1">Rechazado</option>
                     </Form.Select>
                 </Form>
             </div>
@@ -72,56 +81,79 @@ function Lista () {
                                         #
                                     </th>
                                     <th>
-                                        Institucion
-                                    </th>
-                                    <th>
-                                        Departamento
-                                    </th>
-                                    <th>
-                                        Grado Academico
-                                    </th>
-                                    <th>
-                                        Modalidad
-                                    </th>
-                                    <th>
-                                        Correo del representante
-                                    </th>
-                                    <th>
-                                        Estado
-                                    </th>
-                                    <th>
                                         Titulo
                                     </th>
                                     <th>
                                         Representante
                                     </th>
+                                    <th>
+                                        Modalidad
+                                    </th>
+                                    <th>
+                                        Estado
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                             {
+                                !empty &&
                                         data.map((data, index) => (
-                                            <tr key={data.id}>
+                                            <tr onClick={()=> {
+                                                setModalData(data);
+                                                setShow(true);
+                                            }} key={data.id}>
                                                 <td>{data.id}</td>
-                                                <td>{data.institucion}</td>
-                                                <td>{data.departamento}</td>
-                                                <td>{data.gradoAcademico}</td>
+                                                <td>{data.titulo}</td>
+                                                <td>{data.representante}</td>
                                                 <td>{data.modalidad}</td>
-                                                <td>{data.correo}</td>
                                                 <td>{data.estado == 0
                                                     ? "Pendiente"
                                                     : data.estado == 1
                                                     ? "Aceptado"
                                                     : "Rechazado"}</td>
-                                                <td>{data.titulo}</td>
-                                                <td>{data.representante}</td>
                                             </tr>
                                         ))
                                     }
                             </tbody>
                         </Table>
+                        {
+                                    empty &&
+                                        <Alert key="info" variant="info">
+                                            No se han encontrado registros
+                                        </Alert> 
+                                }
                     </Row>
                 </Container>
             </div>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                <Modal.Title>Revisar registro</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <p>Titulo: {modalData.titulo}</p>
+                    <p>Representante: {modalData.representante}</p>
+                    <p>Modalidad: {modalData.modalidad}</p>
+                    <p>Estado: {modalData.estado == 0
+                                                    ? "Pendiente"
+                                                    : modalData.estado == 1
+                                                    ? "Aceptado"
+                                                    : "Rechazado"}</p>
+                    <p>Correo del representante: {modalData.correo}</p>
+                    <p>Institucion: {modalData.institucion}</p>
+                    <p>Departamento: {modalData.departamento}</p>
+                    <p>Grado academico: {modalData.gradoAcademico}</p></Modal.Body>
+                <Modal.Footer>
+                <a href={modalData.resumenReferencia} target="blank_"><Button variant="secondary">
+                    Revisar resumen
+                </Button></a>
+                <Button variant="danger" onClick={() => changeStatus(modalData.id, -1)}>
+                    Rechazar
+                </Button>
+                <Button variant="success" onClick={() => changeStatus(modalData.id, 1)}>
+                    Aceptar
+                </Button>
+                </Modal.Footer>
+      </Modal>
         </>
     )
 }
