@@ -1,4 +1,5 @@
 import Registro from "../models/registro/Registro.js";
+import Fechas from "../models/registro/Fechas.js";
 import {Autor} from "../models/registro/Autor.js";
 import {PaginaInicio} from "../models/paginasModels/PaginaInicio.js";
 import {PaginaPoster} from "../models/paginasModels/PaginaPoster.js";
@@ -6,8 +7,8 @@ import {PaginaPrograma} from "../models/paginasModels/PaginaPrograma.js";
 import {PaginaContacto} from "../models/paginasModels/PaginaContacto.js";
 import {PaginaUbicacion} from "../models/paginasModels/PaginaUbicacion.js";
 import emailCambioEstado from "../helpers/emailCambioEstado.js";
-import {where} from "sequelize";
 import {ultimoRegistro} from "../helpers/buscarUltimoRegistro.js";
+
 
 
 const resumenDashboard = async (req,res)=>{
@@ -84,6 +85,17 @@ const obtenerAutores = async (req,res) =>{
     }catch(error){
         console.log(error);
     }
+}
+
+
+const obtenerFechasValidas = async (req,res)=>{
+
+    const periodo = await Fechas.findAll();
+    const todayFormat = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+
+    const valido = !(todayFormat<periodo.fechaInicio && todayFormat>=periodo.fechaFinal)
+
+    res.json(valido);
 }
 
 //Funcion para cambiar el estado de un registro
@@ -211,6 +223,23 @@ const guardarPrograma = async (req, res) => {
     }
 }
 
+const editarFechas = async (req,res) =>{
+    try {
+        //Borramos la version pasada de la pagina
+        await Fechas.destroy({
+            truncate: true
+        });
+
+        //Creamos la nueva
+        await Fechas.create(req.body);
+    }catch (error){
+        console.log(error);
+    }
+
+    res.json({msg : "Actualizacion exitosa"});
+}
+
+
 const descargarPdf = async(req,res)=>{
     const{routePdf} = req.body;
     res.download(routePdf);
@@ -227,12 +256,14 @@ export  {
     obtenerRegistros,
     obtenerRegistrosFiltrados,
     obtenerAutores,
+    obtenerFechasValidas,
     editarEstadoRegistro,
     editarPaginaInicio,
     editarPaginaPrograma,
     editarPaginaPoster,
     editarPaginaUbicacion,
     editarPaginaContacto,
+    editarFechas,
     guardarPrograma,
     descargarPdf,
     sendPdf
