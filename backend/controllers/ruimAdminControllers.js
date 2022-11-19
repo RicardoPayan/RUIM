@@ -1,4 +1,5 @@
 import Registro from "../models/registro/Registro.js";
+import {Autor} from "../models/registro/Autor.js";
 import {PaginaInicio} from "../models/paginasModels/PaginaInicio.js";
 import {PaginaPoster} from "../models/paginasModels/PaginaPoster.js";
 import {PaginaPrograma} from "../models/paginasModels/PaginaPrograma.js";
@@ -69,6 +70,18 @@ const obtenerRegistrosFiltrados = async (req,res) =>{
         res.json(registros);
         
     }catch (error) {
+        console.log(error);
+    }
+}
+
+
+const obtenerAutores = async (req,res) =>{
+    const {idRegistro} = req.body;
+
+    try{
+        const autores = await Autor.findAll({where : {registroId : idRegistro}});
+        res.json(autores);
+    }catch(error){
         console.log(error);
     }
 }
@@ -197,10 +210,23 @@ const guardarPrograma = async (req, res) => {
         res.send(img);
     }
 }
+
+const descargarPdf = async(req,res)=>{
+    const{routePdf} = req.body;
+    res.download(routePdf);
+}
+
+const sendPdf = async(req,res)=>{
+    const{routePdf} = req.body;
+    res.sendFile(routePdf);
+}
+
+
 export  {
     resumenDashboard,
     obtenerRegistros,
     obtenerRegistrosFiltrados,
+    obtenerAutores,
     editarEstadoRegistro,
     editarPaginaInicio,
     editarPaginaPrograma,
@@ -208,4 +234,6 @@ export  {
     editarPaginaUbicacion,
     editarPaginaContacto,
     guardarPrograma,
+    descargarPdf,
+    sendPdf
 }
