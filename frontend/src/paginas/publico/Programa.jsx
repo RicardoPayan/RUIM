@@ -19,7 +19,7 @@ const Programa = () =>{
                 const {data} = await clienteAxios('/ruimMain/programa', config);
                 console.log(data)
                 setCuerpoPagina(data);
-                setPrograma(data.posterReferencia);
+                setPrograma(data[0].posterReferencia);
                 console.log(programa);
             }catch (error){
                 console.log(error);

@@ -55,7 +55,7 @@ const ModPrograma = () => {
                         </Alert> 
                         }
                         <div className="d-flex justify-content-end w-100">
-                          <Button id="guardar4" className="btn-secondary" onClick={handleSave} disabled="true">Guardar</Button>
+                          <Button id="guardar4" className="btn-secondary" onClick={handleSave}>Guardar</Button>
                         </div>
                         
                 </Form>

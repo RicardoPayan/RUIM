@@ -7,11 +7,12 @@ function AdminNav(){
     return(
         <>
       
-      <Nav defaultActiveKey="/home" className=" text-white bg-dark flex-column shadow-sm ps-3" style={{height: "100%", width: "100%"}}>
+      <Nav defaultActiveKey="/home" className=" text-white bg-dark flex-column shadow-sm ps-3" style={{height: "100%", width: "15%", position: 'fixed'}}>
         <Link to="/admin" style={{ textDecoration: 'none', color:'white' }}><center><h1 className='mt-4'>RUIM</h1></center></Link>
         <hr></hr>
         <Link to="lista" className='ms-2 mt-2 mb-3' style={{ textDecoration: 'none', color:'white'}}><h5>Lista de registros</h5></Link>
-        <Link to="mod" className='ms-2' style={{ textDecoration: 'none' , color:'white'}}><h5>Modificar contenido de la pagina</h5></Link>
+        <Link to="mod" className='ms-2 mb-3' style={{ textDecoration: 'none' , color:'white'}}><h5>Modificar contenido de la pagina</h5></Link>
+        <Link to="constancias" className='ms-2' style={{ textDecoration: 'none' , color:'white'}}><h5>Generar constancias</h5></Link>
     </Nav>
       </>)
 }

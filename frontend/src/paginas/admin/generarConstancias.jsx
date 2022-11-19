@@ -1,0 +1,209 @@
+import React, { useEffect, useState } from "react";
+import Table from 'react-bootstrap/Table';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row'
+import axios from "axios";
+import Title from '../../components/title.jsx'
+import Constancia from "../../components/Constancia.jsx";
+import Col from "react-bootstrap/Col"
+import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert"
+import Button from "react-bootstrap/Button"
+import Modal from "react-bootstrap/Modal"
+import { jsPDF } from "jspdf";
+import domtoimage from 'dom-to-image';
+
+function GenerarConstancias () {
+    const [data, setData] = useState([]);
+    const [empty, setEmpty] = useState(false);
+    const [show, setShow] = useState(false);
+    const [modalData, setModalData] = useState([]);
+    const handleClose = () => setShow(false);
+    
+    const handleShow = () => setShow(true);
+    useEffect(() => {
+        getData();
+    }, []);
+    const [fileState, setFileState] = useState({
+        selectedFile: null
+    });
+    const [initFileState, setInitFileState] = useState({
+        selectedFile: null
+    })
+    const handleFileChange = (e) => {
+        if (e.target.files[0].type == "image/png"){
+            setFileState({selectedFile: e.target.files[0]});
+            document.getElementById("guardar4").disabled=false;
+        } else {
+            document.getElementById("guardar4").disabled=true;
+        }
+    }
+    const [saved, setSaved] = useState(false);
+    const [imgReferencia, setReferencia] = useState("");
+    const handleIMG = async () => {
+        handleFileChange();
+        handleFileUpload();
+    }
+    const handleFileUpload = async () => {
+        const formData = new FormData();
+        formData.append("programa",
+            fileState.selectedFile);
+            console.log(fileState.selectedFile);
+        formData.append("filename", fileState.selectedFile.name)
+        var res = await axios.post("http://localhost:4000/api/admin/save-programa", formData)
+        setReferencia(res.data);
+        console.log(res.data);
+    }
+    const handleSave = async () => {
+        var posterReferencia = await handleFileUpload();
+        console.log(posterReferencia);
+        var res = await axios.post("http://localhost:4000/api/admin/edit-pagina-programa", {
+            posterReferencia: posterReferencia
+        });
+    }
+    const getData = async () => {
+        const response = await axios.post("http://localhost:4000/api/admin/registros-filtrados", {
+            estado: 1
+        });
+        if(response.data.hasOwnProperty('msg')){
+            setEmpty(true);
+        } else {
+            setEmpty(false);
+        }
+
+        setData(response.data);
+        console.log(response.data);
+    };
+
+    const createPDF = async () => {
+        console.log(imgReferencia);
+        const input = document.getElementById('print');
+        const pdf = new jsPDF('l');
+        if (pdf) {
+            domtoimage.toPng(input)
+            .then(
+                imgData=>{
+                    pdf.addImage(imgData, 'PNG', 0, 0);
+                    var file = new File([pdf.output('blob')], "cosa.pdf",{type:"application/pdf", lastModified:new Date().getTime()})
+                    setFileState(file);
+                }
+            )
+        }
+    }
+    const handlePDFUpload = async () => {
+        const formData = new FormData();
+        formData.append("resumen",
+            fileState);
+        formData.append("filename", fileState.name)
+        console.log(formData);
+        var res = await axios.post("http://localhost:4000/api/ruimMain/registro/upload", formData)
+        return res.data;
+    }
+
+    const createsendPDF = async () =>{
+        await createPDF();
+        await handlePDFUpload();
+    }
+    return(
+        <>             
+        <Title title="Generación de constancias"/>
+        <div id="" className="mt-2">
+        
+            <Container>
+            <h5 className="text-dark">Fondo para la constancia: </h5>
+                    <Form.Group className="mb-3">
+                        <Form.Label className="text-dark">Archivo del fondo * (.png)</Form.Label>
+                        <Form.Control name="poster" onChange = {handleFileChange} type ="file" accept = "image/png" controlId=""/>
+                    </Form.Group>
+                    <Button onClick={handleFileUpload}>Guardar</Button>
+        <hr></hr>
+        <h3>Registros aceptados</h3>
+                <Row>
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Titulo
+                                </th>
+                                <th>
+                                    Representante
+                                </th>
+                                <th>
+                                    Modalidad
+                                </th>
+                                <th>
+                                    Estado
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            !empty &&
+                                    data.map((data, index) => (
+                                        <tr onClick={()=> {
+                                            setModalData(data);
+                                            setShow(true);
+                                        }} key={data.id}>
+                                            <td>{data.id}</td>
+                                            <td>{data.titulo}</td>
+                                            <td>{data.representante}</td>
+                                            <td>{data.modalidad}</td>
+                                            <td>{data.estado == 0
+                                                ? "Pendiente"
+                                                : data.estado == 1
+                                                ? "Aceptado"
+                                                : "Rechazado"}</td>
+                                        </tr>
+                                    ))
+                                }
+                        </tbody>
+                    </Table>
+                    {
+                                empty &&
+                                    <Alert key="info" variant="info">
+                                        No se han encontrado registros
+                                    </Alert> 
+                            }
+                </Row>
+            </Container>
+        </div>
+        <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+            <Modal.Title>Revisar registro</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <p>Titulo: {modalData.titulo}</p>
+                <p>Representante: {modalData.representante}</p>
+                <p>Modalidad: {modalData.modalidad}</p>
+                <p>Estado: {modalData.estado == 0
+                                                ? "Pendiente"
+                                                : modalData.estado == 1
+                                                ? "Aceptado"
+                                                : "Rechazado"}</p>
+                <p>Correo del representante: {modalData.correo}</p>
+                <p>Institucion: {modalData.institucion}</p>
+                <p>Departamento: {modalData.departamento}</p>
+                <p>Grado academico: {modalData.gradoAcademico}</p></Modal.Body>
+            <Modal.Footer>
+            <Button variant="secondary" onClick={createsendPDF}>
+                Generar constancia
+            </Button>
+            </Modal.Footer>
+  </Modal>
+  <div className="w-100 h-100" style={{visibility: 'hidden'}}>
+        <div id="print" className="h-100 d-flex flex-column align-items-center justify-content-center" style={{width: 1123, height: 794, backgroundImage: `url(${imgReferencia})`}}>
+            <div className="w-100 p-5">
+            <div className="mb-5"><center><h4>{modalData.representante}</h4></center></div>
+            <div className="mt-3"><center><h5>Por su {modalData.modalidad} {modalData.titulo} presentada en la XXV Reunión Universitaria de Investigación en Materiales realizado del 26 al 28 de mayo del 2022.</h5></center>
+            </div>
+            </div>
+        </div>
+        </div>
+    </>
+    )
+}
+
+export default GenerarConstancias;

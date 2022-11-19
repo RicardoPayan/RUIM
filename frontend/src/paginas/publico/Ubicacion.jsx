@@ -19,7 +19,7 @@ const Ubicacion = () =>{
                     }
                 }
                 const {data} = await clienteAxios('/ruimMain/ubicacion', config);
-                setCuerpoPagina(data);
+                setCuerpoPagina(data[0]);
 
             }catch (error){
                 console.log(error);

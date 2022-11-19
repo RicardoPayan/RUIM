@@ -116,7 +116,7 @@ const registro = () => {
     return (
         <div className= "d-flex h-100 w-100 justify-content-center">
             <Form className = "justify-content-center w-75">
-                <center><h1 className="mb-5 mt-5">Registro de participación</h1></center>
+            <h1 class="tm-section-title mb-5 mt-5 text-uppercase tm-color-primary">REGISTRO DE PARTICIPACIÓN</h1>
                 <div>
                     <h6 className=" text-uppercase">Información del proyecto</h6>
                     <hr className="dashed"/>
