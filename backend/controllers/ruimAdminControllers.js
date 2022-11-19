@@ -95,7 +95,10 @@ const obtenerFechasValidas = async (req,res)=>{
 
     const valido = !(todayFormat<periodo.fechaInicio && todayFormat>=periodo.fechaFinal)
 
-    res.json(valido);
+    res.json(
+        {fechas : periodo,
+        todayFormat}
+    );
 }
 
 //Funcion para cambiar el estado de un registro
