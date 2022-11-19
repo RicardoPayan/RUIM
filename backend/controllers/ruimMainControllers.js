@@ -70,7 +70,7 @@ const guardarResumen = async (req, res) => {
         console.log("no file");
     } else {
         console.log(req.file.filename)
-        var img = `${process.env.FRONTEND_URL}/uploads/resumenes/` + req.file.filename
+        var img = process.cwd()+`/uploads/resumenes/` + req.file.filename
         res.send(img);
     }
 

@@ -213,11 +213,13 @@ const guardarPrograma = async (req, res) => {
 
 const descargarPdf = async(req,res)=>{
     const{routePdf} = req.body;
+    res.contentType("application/pdf");
     res.download(routePdf);
 }
 
 const sendPdf = async(req,res)=>{
     const{routePdf} = req.body;
+    res.contentType("application/pdf");
     res.sendFile(routePdf);
 }
 
