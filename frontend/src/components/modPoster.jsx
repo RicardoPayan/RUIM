@@ -30,6 +30,7 @@ const ModPoster = () => {
         return res.data;
     }
     const handleSave = async () => {
+        console.log('cringe');
         var posterReferencia = await handleFileUpload();
         console.log(posterReferencia);
         var res = await axios.post("http://localhost:4000/api/admin/edit-pagina-poster", {
@@ -56,7 +57,7 @@ const ModPoster = () => {
                         </Alert> 
                         }
                 <div className="d-flex justify-content-end w-100">
-                    <Button id="guardar3" className="btn-secondary" onClick={handleSave} disabled="true">Guardar</Button>
+                    <Button id="guardar3" className="btn-secondary" onClick={handleSave}>Guardar</Button>
                 </div>
                 </Form>
                 

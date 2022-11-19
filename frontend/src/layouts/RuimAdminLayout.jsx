@@ -13,7 +13,9 @@ import {
   } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import AdminDashboard from '../paginas/admin/dashboard.jsx';
+import GenerarConstancias from '../paginas/admin/generarConstancias.jsx';
 import ModPagina from '../paginas/admin/modPagina.jsx';
+import Constancia from "../components/Constancia.jsx"
 const RuimAdminLayout = () =>{
     const [token, setToken] = useState("n");
     if(token=="n"){
@@ -32,6 +34,8 @@ const RuimAdminLayout = () =>{
                             <Route exact path ="/" element = {<AdminDashboard/>}/>
                             <Route exact path ="/lista" element = {<Lista/>}/>
                             <Route exact path ="/mod/*" element = {<ModPagina/>}/>
+                            <Route exact path ="/constancias" element = {<GenerarConstancias/>}/>
+                            <Route exact path ="/bolas" element = {<Constancia/>}/>
                         </Routes>
                     </Col>
                     <Outlet />
