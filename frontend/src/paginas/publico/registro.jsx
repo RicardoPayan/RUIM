@@ -54,7 +54,7 @@ const registro = () => {
             arr.push("")
             setCounter(arr);
         } else {
-            document.getElementById("add").disabled=false;
+            document.getElementById("add").disabled=true;
         }
     }
     const handleMembers = (id, val) => {
