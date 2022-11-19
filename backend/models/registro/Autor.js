@@ -21,3 +21,4 @@ Registro.hasMany(Autor, {
 Autor.belongsTo(Registro);
 
 await Autor.sync({alter: true});
+

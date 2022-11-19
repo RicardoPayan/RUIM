@@ -1,4 +1,5 @@
 import Registro from "../models/registro/Registro.js";
+import {Autor} from "../models/registro/Autor.js";
 import {PaginaInicio} from "../models/paginasModels/PaginaInicio.js";
 import {PaginaPoster} from "../models/paginasModels/PaginaPoster.js";
 import {PaginaPrograma} from "../models/paginasModels/PaginaPrograma.js";
@@ -69,6 +70,18 @@ const obtenerRegistrosFiltrados = async (req,res) =>{
         res.json(registros);
         
     }catch (error) {
+        console.log(error);
+    }
+}
+
+
+const obtenerAutores = async (req,res) =>{
+    const {idRegistro} = req.body;
+
+    try{
+        const autores = await Autor.findAll({where : {registroId : idRegistro}});
+        res.json(autores);
+    }catch(error){
         console.log(error);
     }
 }
@@ -201,6 +214,7 @@ export  {
     resumenDashboard,
     obtenerRegistros,
     obtenerRegistrosFiltrados,
+    obtenerAutores,
     editarEstadoRegistro,
     editarPaginaInicio,
     editarPaginaPrograma,
