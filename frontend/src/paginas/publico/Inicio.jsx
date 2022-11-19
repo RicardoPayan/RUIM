@@ -8,6 +8,7 @@ const Inicio = () =>{
 
     const [cuerpoPagina, setCuerpoPagina] = useState({});
     const [done, setDone] = useState(false);
+    const [banner, setBanner] = useState("");
     useEffect(() =>{
         const obtenerCuerpoPagina = async  () =>{
 
@@ -20,6 +21,8 @@ const Inicio = () =>{
                 const {data} = await clienteAxios('/ruimMain', config);
                 console.log(data)
                 setCuerpoPagina(data[0]);
+                setBanner(data[0].banner);
+                console.log(data[0].banner)
                 setDone(true);
             }catch (error){
                 console.log(error);
@@ -36,7 +39,7 @@ const Inicio = () =>{
       <div className="w-100 d-flex justify-content-center">
       <div class="">
         <div className="p-5">
-        <img src={programa}></img>
+        <img src={banner}></img>
                         <h1 class="tm-section-title mt-3 mb-2 text-uppercase tm-color-primary">{nombreEvento}</h1> 
                         <p class="tm-color-gray">
                         {parrafo1}

@@ -7,6 +7,9 @@ import Form from "react-bootstrap/Form";
 import clienteAxios from "../../config/axios.jsx";
 import Alert from "react-bootstrap/Alert"
 const ModInicio = () => {
+    const [fileState, setFileState] = useState({
+        selectedFile: null
+    });
     const [nombreEvento, setNombre] = useState("");
     const [fechas, setFecha] = useState("");
     const [lugar, setLugar] = useState("");
@@ -17,22 +20,30 @@ const ModInicio = () => {
         validate();
       });
     const validate = () => {
-        console.log("huevos");
         if (nombreEvento==""||fechas==""||lugar==""||parrafo1==""){
             document.getElementById("guardar2").disabled=true;
         } else {
-            console.log("huevos2")
             document.getElementById("guardar2").disabled=false;
         }
     }
+    const handleFileChange = (e) => {
+        if (e.target.files[0].type == "image/png"){
+            setFileState({selectedFile: e.target.files[0]});
+            document.getElementById("guardar3").disabled=false;
+        } else {
+            document.getElementById("guardar3").disabled=true;
+        }
+    }
     const handleSave = async (e) =>{
+        var bannerReferencia = await handleFileUpload();
         e.preventDefault();
         const data = {
             nombreEvento,
             fechas,
             lugar,
             parrafo1,
-            parrafo2
+            parrafo2,
+            banner: bannerReferencia
         }
 
         try {
@@ -42,7 +53,14 @@ const ModInicio = () => {
             console.log(error)
         }
     }
-
+    const handleFileUpload = async () => {
+        const formData = new FormData();
+        formData.append("programa",
+            fileState.selectedFile);
+        formData.append("filename", fileState.selectedFile.name)
+        var res = await axios.post("http://localhost:4000/api/admin/save-programa", formData)
+        return res.data;
+    }
     return(
         <>
         <div className= "d-flex h-100 w-100 me-5 ms-5 mt-5">
@@ -79,6 +97,12 @@ const ModInicio = () => {
                             <Form.Label className="text-dark">Informacion adicional:</Form.Label>
                             <Form.Control as="textarea" rows={5} default = "Informacion que será mostrada como un parrafo adicional en la pagina"
                             onChange={(e) => setParrafo2(e.target.value)}></Form.Control>
+                        </Form.Group>
+                    </Row>
+                    <Row>
+                    <   Form.Group className="mb-3">
+                            <Form.Label className="text-dark">Archivo del banner * (.png)</Form.Label>
+                            <Form.Control name="poster" onChange = {handleFileChange} type ="file" accept = "image/png" controlId=""/>
                         </Form.Group>
                     </Row>
                     <Form.Text className="text-muted">
