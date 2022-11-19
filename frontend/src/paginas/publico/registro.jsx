@@ -125,14 +125,14 @@ const registro = () => {
                     <Row >
                         <Col>
                             <Form.Group>
-                                <Form.Label>Titulo</Form.Label>
+                                <Form.Label>Titulo * </Form.Label>
                                 <Form.Control onChange = {(e) => setTitulo(e.target.value)}/>
                             </Form.Group>
                         </Col>
                         <Col>
                             <Row>
                             
-                                <Col><Form.Label>Resumen</Form.Label>
+                                <Col><Form.Label>Resumen *</Form.Label>
                                 <OverlayTrigger
                                     placement="right"
                                     delay={{ show: 250, hide: 400 }}
@@ -148,7 +148,7 @@ const registro = () => {
                     <Row>
                     <Col>
                             <Form.Group>
-                                    <Form.Label>Modalidad</Form.Label>
+                                    <Form.Label>Modalidad *</Form.Label>
                                     <Form.Select onChange = {(e) => setModalidad(e.target.value)}>
                                         <option>Cartel</option>
                                         <option>Ponencia</option>
@@ -166,14 +166,14 @@ const registro = () => {
                     </div>
                             <Col>
                                 <Form.Group>
-                                    <Form.Label>Nombre completo</Form.Label>
+                                    <Form.Label>Nombre completo *</Form.Label>
                                     <Form.Control placeholder="Nombre completo del representante" onChange = {(e) => setRepresentante(e.target.value)}/>
                                 </Form.Group>
                             </Col>
                             <Col>
-                                <Form.Label>Correo electronico</Form.Label>
+                                <Form.Label>Correo electronico *</Form.Label>
                                 <Form.Control type="email" placeholder="Correo electronico del representante" onChange = {(e) => setCorreo(e.target.value)}/>
-                                {badMail && <Form.Label class="text-danger">Formato incorrecto!</Form.Label>}
+                                {badMail && <Form.Text class="text-danger">Formato incorrecto!</Form.Text>}
                             </Col>
                             
                     </Row>
@@ -181,12 +181,12 @@ const registro = () => {
                     <Row>
                             <Col>
                                 <Form.Group>
-                                    <Form.Label>Institucion</Form.Label>
+                                    <Form.Label>Institucion *</Form.Label>
                                     <Form.Control onChange = {(e) => setInstitucion(e.target.value)}/>
                                 </Form.Group>
                             </Col>
                             <Col>
-                                <Form.Label>Departamento</Form.Label>
+                                <Form.Label>Departamento *</Form.Label>
                                 <Form.Control onChange = {(e) => setDepartamento(e.target.value)}/>
                             </Col>
                     </Row>
@@ -194,9 +194,8 @@ const registro = () => {
                     <Row>
                             <Col>
                                 <Form.Group>
-                                    <Form.Label>Grado academico</Form.Label>
+                                    <Form.Label>Grado academico *</Form.Label>
                                     <Form.Select onChange = {(e) => setGrado(e.target.value)}>
-                                        <option>Estudiante</option>
                                         <option>Licenciatura</option>
                                         <option>Ingeniería</option>
                                         <option>Maestría</option>
@@ -243,6 +242,9 @@ const registro = () => {
                             })
                             }
                 </div>
+                <Form.Text className="text-muted">
+                            Los campos con * deben ser llenados para que se active el botón de guardar.
+                </Form.Text>
                 <div className="mt-5 mb-5">
                     <center>
                         {fileTypeError &&
@@ -255,6 +257,7 @@ const registro = () => {
                                 Se ha guardado exitosamente. Recibirá confirmación así como actualizaciones de su registro mediante correo electrónico.
                         </Alert> 
                         }
+                        
                         <Button id="guardar" onClick = {showModal}>Enviar</Button>
                     </center>
                 </div>
