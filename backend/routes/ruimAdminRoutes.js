@@ -4,6 +4,7 @@ import {
         resumenDashboard,
         obtenerRegistros,
         obtenerRegistrosFiltrados,
+        obtenerAutores,
         editarEstadoRegistro,
         editarPaginaInicio,
         editarPaginaContacto,
@@ -21,6 +22,7 @@ const router = express.Router();
 //Filtros para registros
 router.get('/registros-todos', obtenerRegistros);
 router.post('/registros-filtrados', obtenerRegistrosFiltrados);
+router.post('/obtener-autores',obtenerAutores);
 
 
 var storage = multer.diskStorage({
