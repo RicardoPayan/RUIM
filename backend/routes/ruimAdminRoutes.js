@@ -1,17 +1,19 @@
 import express from "express";
 import path from "path";
 import {
-        resumenDashboard,
-        obtenerRegistros,
-        obtenerRegistrosFiltrados,
-        obtenerAutores,
-        editarEstadoRegistro,
-        editarPaginaInicio,
-        editarPaginaContacto,
-        editarPaginaUbicacion,
-        editarPaginaPoster,
-        editarPaginaPrograma,
-        guardarPrograma
+    resumenDashboard,
+    obtenerRegistros,
+    obtenerRegistrosFiltrados,
+    obtenerAutores,
+    editarEstadoRegistro,
+    editarPaginaInicio,
+    editarPaginaContacto,
+    editarPaginaUbicacion,
+    editarPaginaPoster,
+    editarPaginaPrograma,
+    guardarPrograma,
+    descargarPdf,
+    sendPdf
 } from "../controllers/ruimAdminControllers.js";
 import multer from "multer";
 const router = express.Router();
@@ -49,4 +51,8 @@ router.post('/edit-pagina-programa',editarPaginaPrograma);
 router.post('/edit-pagina-contacto',editarPaginaContacto);
 router.post('/edit-pagina-ubicacion',editarPaginaUbicacion);
 router.post('/save-programa', upload.single('programa'), guardarPrograma);
+
+//Descargar pdf con ruta
+router.post('/descargar-pdf',descargarPdf);
+router.post('/send-pdf',sendPdf);
 export default router;

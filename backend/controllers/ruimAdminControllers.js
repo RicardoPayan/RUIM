@@ -210,6 +210,18 @@ const guardarPrograma = async (req, res) => {
         res.send(img);
     }
 }
+
+const descargarPdf = async(req,res)=>{
+    const{routePdf} = req.body;
+    res.download(routePdf);
+}
+
+const sendPdf = async(req,res)=>{
+    const{routePdf} = req.body;
+    res.sendFile(routePdf);
+}
+
+
 export  {
     resumenDashboard,
     obtenerRegistros,
@@ -222,4 +234,6 @@ export  {
     editarPaginaUbicacion,
     editarPaginaContacto,
     guardarPrograma,
+    descargarPdf,
+    sendPdf
 }
