@@ -15,6 +15,7 @@ function Lista () {
     const [empty, setEmpty] = useState(false);
     const [show, setShow] = useState(false);
     const [modalData, setModalData] = useState([]);
+    const [autores, setAutores] = useState("")
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     useEffect(() => {
@@ -63,6 +64,14 @@ function Lista () {
         alert("Se ha guardado el cambio. Se le notificará al representante por correo electronico.");
         handleClose();
     }
+    const getAutores = async (id) => {
+        const response = await axios.post("http://localhost:4000/api/admin/obtener-autores", {
+            idRegistro: id
+        });
+        console.log(response.data);
+        var nombres = response.data.map(a=> a.nombre)
+        setAutores(nombres.join(", "))
+    }
     return(
         <>
             <Title title="Lista de Registros"/>
@@ -109,6 +118,7 @@ function Lista () {
                                         data.map((data, index) => (
                                             <tr onClick={()=> {
                                                 setModalData(data);
+                                                getAutores(data.id);
                                                 setShow(true);
                                             }} key={data.id}>
                                                 <td>{data.id}</td>
@@ -150,7 +160,8 @@ function Lista () {
                     <p>Correo del representante: {modalData.correo}</p>
                     <p>Institucion: {modalData.institucion}</p>
                     <p>Departamento: {modalData.departamento}</p>
-                    <p>Grado academico: {modalData.gradoAcademico}</p></Modal.Body>
+                    <p>Grado academico: {modalData.gradoAcademico}</p>
+                    <p>Autores adicionales: {autores}</p></Modal.Body>
                 <Modal.Footer>
                 <Button variant="secondary" onClick={getPDF}>
                     Revisar resumen

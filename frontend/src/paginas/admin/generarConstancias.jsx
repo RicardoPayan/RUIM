@@ -18,6 +18,7 @@ function GenerarConstancias () {
     const [empty, setEmpty] = useState(false);
     const [show, setShow] = useState(false);
     const [modalData, setModalData] = useState([]);
+    const [autores, setAutores] = useState("");
     const handleClose = () => setShow(false);
     
     const handleShow = () => setShow(true);
@@ -104,6 +105,14 @@ function GenerarConstancias () {
         await createPDF();
         await handlePDFUpload();
     }
+    const getAutores = async (id) => {
+        const response = await axios.post("http://localhost:4000/api/admin/obtener-autores", {
+            idRegistro: id
+        });
+        console.log(response.data);
+        var nombres = response.data.map(a=> a.nombre)
+        setAutores(nombres.join(", "))
+    }
     return(
         <>             
         <Title title="Generación de constancias"/>
@@ -145,6 +154,7 @@ function GenerarConstancias () {
                                     data.map((data, index) => (
                                         <tr onClick={()=> {
                                             setModalData(data);
+                                            getAutores(data.id);
                                             setShow(true);
                                         }} key={data.id}>
                                             <td>{data.id}</td>
@@ -182,22 +192,25 @@ function GenerarConstancias () {
                                                 ? "Pendiente"
                                                 : modalData.estado == 1
                                                 ? "Aceptado"
-                                                : "Rechazado"}</p>
+                                                  : "Rechazado"}</p>
                 <p>Correo del representante: {modalData.correo}</p>
                 <p>Institucion: {modalData.institucion}</p>
                 <p>Departamento: {modalData.departamento}</p>
-                <p>Grado academico: {modalData.gradoAcademico}</p></Modal.Body>
+                <p>Grado academico: {modalData.gradoAcademico}</p>
+                <p>Autores adicionales: {autores}</p></Modal.Body>
             <Modal.Footer>
             <Button variant="secondary" onClick={createsendPDF}>
                 Generar constancia
             </Button>
             </Modal.Footer>
   </Modal>
-  <div className="w-100 h-100" style={{visibility: 'hidden'}}>
-        <div id="print" className="h-100 d-flex flex-column align-items-center justify-content-center" style={{width: 1123, height: 794, backgroundImage: `url(${imgReferencia})`}}>
-            <div className="w-100 p-5">
-            <div className="mb-5"><center><h4>{modalData.representante}</h4></center></div>
+  <div className="w-100 h-100" style={{opacity: 0}}>
+        <div id="print" className="h-100 d-flex flex-column align-items-center" style={{width: 1123, height: 794, backgroundImage: `url(${imgReferencia})`, backgroundSize: 'contain'}}>
+            <div className="w-100 p-5 pt-5 mt-5">
+            <div className="p-5 mt-5">
+            <div className="mb-5 mt-5 pt-5"><center><h4>{modalData.representante}, {autores}</h4></center></div>
             <div className="mt-3"><center><h5>Por su {modalData.modalidad} {modalData.titulo} presentada en la XXV Reunión Universitaria de Investigación en Materiales realizado del 26 al 28 de mayo del 2022.</h5></center>
+            </div>
             </div>
             </div>
         </div>
