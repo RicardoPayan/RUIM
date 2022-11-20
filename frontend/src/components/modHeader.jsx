@@ -5,6 +5,7 @@ import ModPoster from "./modPoster.jsx"
 import ModPrograma from "./modPrograma.jsx";
 import ModUbicacion from "./modUbicacion.jsx";
 import ModContacto from './modContacto.jsx';
+import ModFechas from './modFechas.jsx';
 import Navbar from "react-bootstrap/Navbar"
 import { Link } from "react-router-dom";
 function ModHeader () {
@@ -28,6 +29,9 @@ function ModHeader () {
         </Tab>
         <Tab eventKey="Contacto" title="Contacto">
             <ModContacto/>
+        </Tab>
+        <Tab eventKey="Registro" title="Registro">
+            <ModFechas/>
         </Tab>
     </Tabs>
         </>)

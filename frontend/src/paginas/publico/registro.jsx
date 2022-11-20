@@ -28,9 +28,34 @@ const registro = () => {
     const [shModal, setModal] = useState(false);
     const [email, setEmail] = useState(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
     const [badMail, setBM] = useState(false);
+    const [valid, setValid] = useState();
+    var [done, setDone] = useState(false);
     useEffect(() => {
-        validate();
+        if(valid){
+            validate();}
       });
+    useEffect(() => {
+        const validateDates = async () => {
+            const response = await axios.get("http://localhost:4000/api/admin/obtener-fechas-validas");
+            const fechaInicio = new Date(response.data.fechas[0].fechaInicio)
+            const fechaFinal = new Date(response.data.fechas[0].fechaFinal)
+            const fechaActual = new Date(response.data.todayFormat)
+            if(fechaActual>=fechaInicio&&fechaActual<=fechaFinal){
+                console.log("2true");
+                return true
+            } else {
+                console.log("2false");
+                return false;
+            } 
+        }
+        var x = validateDates();
+        x.then(value=>{
+            setValid(value);
+            setDone(true);
+        })
+        console.log(valid);
+    }, [])
+    
     const validate = () => {
         if (titulo==""||representante==""||correo==""||institucion==""||departamento==""||grado==""||modalidad==""||fileState.selectedFile==null||!email.test(correo)){
             document.getElementById("guardar").disabled=true;
@@ -114,6 +139,11 @@ const registro = () => {
         setModal(false);
     }
     return (
+        <>
+        {done && !valid &&
+        <div className= "d-flex h-100 mt-5 w-100 justify-content-center">
+        <h1>El periodo de registro no se encuentra abierto por el momento.</h1></div>}
+        { done && valid &&
         <div className= "d-flex h-100 w-100 justify-content-center">
             <Form className = "justify-content-center w-75">
             <h1 class="tm-section-title mb-5 mt-5 text-uppercase tm-color-primary">REGISTRO DE PARTICIPACIÓN</h1>
@@ -195,7 +225,7 @@ const registro = () => {
                             <Col>
                                 <Form.Group>
                                     <Form.Label>Grado academico *</Form.Label>
-                                    <Form.Select onChange = {(e) => setGrado(e.target.value)}>
+                                    <Form.Select onClick = {(e) => console.log(valid)} onChange = {(e) => setGrado(e.target.value)}>
                                         <option>Licenciatura</option>
                                         <option>Ingeniería</option>
                                         <option>Maestría</option>
@@ -277,6 +307,8 @@ const registro = () => {
                 </Button>
                 </Modal.Footer>
           </Modal>
-        </div>)
+        </div>}
+        
+        </>)
 }
 export default registro;
