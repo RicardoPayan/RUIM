@@ -4,6 +4,7 @@ import {PaginaPrograma} from "../models/paginasModels/PaginaPrograma.js";
 import {PaginaContacto} from "../models/paginasModels/PaginaContacto.js";
 import {PaginaPoster} from "../models/paginasModels/PaginaPoster.js";
 import Registro from "../models/registro/Registro.js";
+import {Constancia} from "../models/registro/Constancia.js";
 import {Autor} from "../models/registro/Autor.js";
 import emailRegistro from "../helpers/emailRegistro.js";
 
@@ -117,7 +118,21 @@ const registrarParticipacion = async (req,res) =>{
 }
 
 const buscarConstancia = async (req,res) =>{
-    res.json({msg : "Desde buscar constancia"})
+
+    const {token} = req.body;
+
+    try{
+        const constancia = await Constancia.findOne({where : {token}});
+
+        if(!constancia){
+            return res.json({msg : "No se encontro constancia con ese token"});
+        }
+
+        //Si la encontramos, descargamos el pdf desde la referencia
+        res.download(constancia.referencia)
+    }catch (error){
+
+    }
 }
 
 export {obtenerPaginaInicio,

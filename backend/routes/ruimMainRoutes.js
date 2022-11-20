@@ -8,6 +8,7 @@ import {
     obtenerPaginaContacto,
     obtenerPaginaPoster,
     registrarParticipacion,
+    buscarConstancia,
     guardarResumen}
     from "../controllers/ruimMainControllers.js";
 const router = express.Router();
@@ -30,7 +31,7 @@ router.get('/poster', obtenerPaginaPoster );
 router.get('/contacto', obtenerPaginaContacto);
 router.get('/ubicacion', obtenerPaginaUbicacion);
 router.post('/registro', registrarParticipacion);
-router.post('/buscar-constancia', registrarParticipacion);
+router.post('/buscar-constancia', buscarConstancia);
 router.post('/registro/upload', upload.single('resumen'), guardarResumen);
 
 export default router;
