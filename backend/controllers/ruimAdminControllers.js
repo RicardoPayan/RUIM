@@ -106,7 +106,7 @@ const obtenerFiltradosModalidad = async (req,res) =>{
     const {estado, modalidad} = req.body; //Extrayendo que tipo de registro quiere el usuario.
 
     try{
-        const registros = await Registro.findAll({where : {estado: estado}});
+        const registros = await Registro.findAll({where : {estado, modalidad}});
 
         //Si no hay registros, devolvemos mensaje de advertencia
         if(!Object.keys(registros).length){
