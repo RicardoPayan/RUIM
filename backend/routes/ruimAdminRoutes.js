@@ -4,6 +4,7 @@ import {
     resumenDashboard,
     obtenerRegistros,
     obtenerRegistrosFiltrados,
+    obtenerFiltradosModalidad,
     obtenerAutores,
     obtenerFechasValidas,
     editarEstadoRegistro,
@@ -27,6 +28,7 @@ const router = express.Router();
 //Filtros para registros
 router.get('/registros-todos', obtenerRegistros);
 router.post('/registros-filtrados', obtenerRegistrosFiltrados);
+router.post('/registros-filtrados-modalidad', obtenerFiltradosModalidad);
 router.post('/obtener-autores',obtenerAutores);
 router.get('/obtener-fechas-validas',obtenerFechasValidas);
 

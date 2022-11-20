@@ -23,6 +23,21 @@ const resumenDashboard = async (req,res)=>{
     promiseDB.push(Registro.findAll({where : {estado : 1}}));
     promiseDB.push(Registro.findAll({where : {estado : -1}}));
 
+    //CARTELES
+    promiseDB.push(Registro.findAll({where : {estado : 0, modalidad : "Cartel"}}));
+    promiseDB.push(Registro.findAll({where : {estado : 1, modalidad : "Cartel"}}));
+    promiseDB.push(Registro.findAll({where : {estado : -1, modalidad : "Cartel"}}));
+
+    //PONENCIAS
+    promiseDB.push(Registro.findAll({where : {estado : 0, modalidad : "Ponencia"}}));
+    promiseDB.push(Registro.findAll({where : {estado : 1, modalidad : "Ponencia"}}));
+    promiseDB.push(Registro.findAll({where : {estado : -1, modalidad : "Ponencia"}}));
+
+    //PLATICAS
+    promiseDB.push(Registro.findAll({where : {estado : 0, modalidad : "Platica"}}));
+    promiseDB.push(Registro.findAll({where : {estado : 1, modalidad : "Platica"}}));
+    promiseDB.push(Registro.findAll({where : {estado : -1, modalidad : "Platica"}}));
+
     //Los ultimos 5 de un tipo
     promiseDB.push(ultimoRegistro(Registro, 5));
 
@@ -35,7 +50,16 @@ const resumenDashboard = async (req,res)=>{
             registrosPendientes :  Object.keys(resultado[1]).length,
             registrosAceptados :  Object.keys(resultado[2]).length,
             registrosRechazados :  Object.keys(resultado[3]).length,
-            ultimosRegistros : resultado[4]
+            cartelesPendientes :  Object.keys(resultado[4]).length,
+            cartelesAceptados :  Object.keys(resultado[5]).length,
+            cartelesRechazados :  Object.keys(resultado[6]).length,
+            ponenciasPendientes :  Object.keys(resultado[7]).length,
+            ponenciasAceptadas :  Object.keys(resultado[8]).length,
+            ponenciasRechazadas :  Object.keys(resultado[9]).length,
+            platicasPendientes :  Object.keys(resultado[10]).length,
+            platicasAceptadas :  Object.keys(resultado[11]).length,
+            platicasRechazadas :  Object.keys(resultado[12]).length,
+            ultimosRegistros : resultado[13]
         });
     }catch (error) {
         console.log(error);
@@ -72,6 +96,25 @@ const obtenerRegistrosFiltrados = async (req,res) =>{
 
         res.json(registros);
         
+    }catch (error) {
+        console.log(error);
+    }
+}
+
+const obtenerFiltradosModalidad = async (req,res) =>{
+
+    const {estado, modalidad} = req.body; //Extrayendo que tipo de registro quiere el usuario.
+
+    try{
+        const registros = await Registro.findAll({where : {estado, modalidad}});
+
+        //Si no hay registros, devolvemos mensaje de advertencia
+        if(!Object.keys(registros).length){
+            return res.json({msg : "No hay registros"});
+        }
+
+        res.json(registros);
+
     }catch (error) {
         console.log(error);
     }
@@ -277,6 +320,7 @@ export  {
     resumenDashboard,
     obtenerRegistros,
     obtenerRegistrosFiltrados,
+    obtenerFiltradosModalidad,
     obtenerAutores,
     obtenerFechasValidas,
     editarEstadoRegistro,
