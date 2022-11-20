@@ -74,7 +74,7 @@ const registro = () => {
             gradoAcademico: grado,
             modalidad: modalidad,
             correo: correo,
-            estado: -1,
+            estado: 0,
             resumenReferencia: file}
         try{
             const response = await axios.post("http://localhost:4000/api/ruimMain/registro", data);
