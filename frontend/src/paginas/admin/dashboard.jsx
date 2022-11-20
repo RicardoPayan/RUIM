@@ -138,10 +138,10 @@ function AdminDashboard(){
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{data.cartelesAceptados + data.cartelesPendientes+ data.cartelesRechazados}</td>
+                                        <td>{data.cartelesPendientes}</td>
+                                        <td>{data.cartelesAceptados}</td>
+                                        <td>{data.cartelesRechazados}</td>
                                     </tr>
                                 </tbody>
                 </Table>
@@ -165,10 +165,10 @@ function AdminDashboard(){
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                    <td>{data.ponenciasAceptadas + data.ponenciasPendientes+ data.ponenciasRechazadas}</td>
+                                        <td>{data.ponenciasPendientes}</td>
+                                        <td>{data.ponenciasAceptadas}</td>
+                                        <td>{data.ponenciasRechazadas}</td>
                                     </tr>
                                 </tbody>
                 </Table>
@@ -192,10 +192,10 @@ function AdminDashboard(){
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                    <td>{data.platicasAceptadas + data.platicasPendientes+ data.platicasRechazadas}</td>
+                                        <td>{data.platicasPendientes}</td>
+                                        <td>{data.platicasAceptadas}</td>
+                                        <td>{data.platicasRechazadas}</td>
                                     </tr>
                                 </tbody>
                 </Table>
