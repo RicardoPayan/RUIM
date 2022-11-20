@@ -9,6 +9,7 @@ import {PaginaUbicacion} from "../models/paginasModels/PaginaUbicacion.js";
 import emailCambioEstado from "../helpers/emailCambioEstado.js";
 import {ultimoRegistro} from "../helpers/buscarUltimoRegistro.js";
 import { Constancia } from "../models/adminModels/Constancias.js";
+import emailConstancia from "../helpers/emailConstancia.js";
 
 
 
@@ -258,7 +259,13 @@ const sendPdf = async(req,res)=>{
 
 const guardarConstancia = async (req, res) => {
     try{
-        await Constancia.create(req.body);
+
+        const {correo,representante, titulo, token, referencia} = req.body
+
+        await Constancia.create({token,referencia});
+
+        emailConstancia({correo,representante,titulo,token});
+
         res.send("saved");
     }
     catch{
