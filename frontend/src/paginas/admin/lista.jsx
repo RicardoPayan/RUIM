@@ -6,6 +6,7 @@ import axios from "axios";
 import Title from '../../components/title.jsx'
 import Col from "react-bootstrap/Col"
 import Form from "react-bootstrap/Form";
+import { saveAs } from 'file-saver';
 import Alert from "react-bootstrap/Alert"
 import Button from "react-bootstrap/Button"
 import Modal from "react-bootstrap/Modal"
@@ -14,6 +15,7 @@ function Lista () {
     const [empty, setEmpty] = useState(false);
     const [show, setShow] = useState(false);
     const [modalData, setModalData] = useState([]);
+    const [autores, setAutores] = useState("")
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     useEffect(() => {
@@ -32,6 +34,14 @@ function Lista () {
         console.log(response.data);
         console.log(data);
     };
+    const getPDF = async () => {
+        const response = await axios.post("http://localhost:4000/api/admin/send-pdf", {
+            routePdf: modalData.resumenReferencia
+        });
+        var file = new Blob([response.data], {type: 'application/pdf'});
+        return saveAs(file, "resumen.pdf")
+
+    }
     const getFiltered = async (filter) => {
         const response = await axios.post("http://localhost:4000/api/admin/registros-filtrados", {
             estado: filter
@@ -53,6 +63,14 @@ function Lista () {
         handleFilter(document.getElementById("select").value);
         alert("Se ha guardado el cambio. Se le notificará al representante por correo electronico.");
         handleClose();
+    }
+    const getAutores = async (id) => {
+        const response = await axios.post("http://localhost:4000/api/admin/obtener-autores", {
+            idRegistro: id
+        });
+        console.log(response.data);
+        var nombres = response.data.map(a=> a.nombre)
+        setAutores(nombres.join(", "))
     }
     return(
         <>
@@ -100,6 +118,7 @@ function Lista () {
                                         data.map((data, index) => (
                                             <tr onClick={()=> {
                                                 setModalData(data);
+                                                getAutores(data.id);
                                                 setShow(true);
                                             }} key={data.id}>
                                                 <td>{data.id}</td>
@@ -141,11 +160,12 @@ function Lista () {
                     <p>Correo del representante: {modalData.correo}</p>
                     <p>Institucion: {modalData.institucion}</p>
                     <p>Departamento: {modalData.departamento}</p>
-                    <p>Grado academico: {modalData.gradoAcademico}</p></Modal.Body>
+                    <p>Grado academico: {modalData.gradoAcademico}</p>
+                    <p>Autores adicionales: {autores}</p></Modal.Body>
                 <Modal.Footer>
-                <a href={modalData.resumenReferencia} target="blank_"><Button variant="secondary">
+                <Button variant="secondary" onClick={getPDF}>
                     Revisar resumen
-                </Button></a>
+                </Button>
                 <Button variant="danger" onClick={() => changeStatus(modalData.id, -1)}>
                     Rechazar
                 </Button>

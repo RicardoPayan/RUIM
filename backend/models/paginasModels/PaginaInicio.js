@@ -23,6 +23,9 @@ export const PaginaInicio = db.define("paginainicio",{
      parrafo2: {
         type: Sequelize.TEXT,
     },
+    banner: {
+        type: Sequelize.STRING
+    }
 })
 
 await PaginaInicio.sync({alter: true});

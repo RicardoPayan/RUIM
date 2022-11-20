@@ -8,6 +8,7 @@ import {PaginaContacto} from "../models/paginasModels/PaginaContacto.js";
 import {PaginaUbicacion} from "../models/paginasModels/PaginaUbicacion.js";
 import emailCambioEstado from "../helpers/emailCambioEstado.js";
 import {ultimoRegistro} from "../helpers/buscarUltimoRegistro.js";
+import { Constancia } from "../models/adminModels/Constancias.js";
 
 
 
@@ -245,15 +246,26 @@ const editarFechas = async (req,res) =>{
 
 const descargarPdf = async(req,res)=>{
     const{routePdf} = req.body;
+    res.contentType("application/pdf");
     res.download(routePdf);
 }
 
 const sendPdf = async(req,res)=>{
     const{routePdf} = req.body;
+    res.contentType("application/pdf");
     res.sendFile(routePdf);
 }
 
+const guardarConstancia = async (req, res) => {
+    try{
+        await Constancia.create(req.body);
+        res.send("saved");
+    }
+    catch{
+        res.send("error");
+    }
 
+}
 export  {
     resumenDashboard,
     obtenerRegistros,
@@ -269,5 +281,6 @@ export  {
     editarFechas,
     guardarPrograma,
     descargarPdf,
-    sendPdf
+    sendPdf,
+    guardarConstancia
 }
