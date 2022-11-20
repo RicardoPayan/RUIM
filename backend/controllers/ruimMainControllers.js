@@ -116,10 +116,15 @@ const registrarParticipacion = async (req,res) =>{
     }
 }
 
+const buscarConstancia = async (req,res) =>{
+    res.json({msg : "Desde buscar constancia"})
+}
+
 export {obtenerPaginaInicio,
     obtenerPaginaUbicacion,
     obtenerPaginaContacto,
     obtenerPaginaPrograma,
     obtenerPaginaPoster,
     registrarParticipacion,
+    buscarConstancia,
     guardarResumen}
