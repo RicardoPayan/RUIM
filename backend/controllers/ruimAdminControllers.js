@@ -8,7 +8,7 @@ import {PaginaContacto} from "../models/paginasModels/PaginaContacto.js";
 import {PaginaUbicacion} from "../models/paginasModels/PaginaUbicacion.js";
 import emailCambioEstado from "../helpers/emailCambioEstado.js";
 import {ultimoRegistro} from "../helpers/buscarUltimoRegistro.js";
-import { Constancia } from "../models/adminModels/Constancias.js";
+import {Constancia} from "../models/registro/Constancia.js";
 import emailConstancia from "../helpers/emailConstancia.js";
 
 

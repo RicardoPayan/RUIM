@@ -86,6 +86,8 @@ function GenerarConstancias () {
         console.log(imgReferencia);
         const input = document.getElementById('print');
         const pdf = new jsPDF('l');
+        var token = makeToken();
+        setToken(token); 
         if (pdf) {
             domtoimage.toPng(input)
             .then(
@@ -111,7 +113,6 @@ function GenerarConstancias () {
     }
 
     const createsendPDF = async () =>{
-        setToken(makeToken());
         await createPDF();
         var referencia = await handlePDFUpload();
         saveConstancia(referencia);
