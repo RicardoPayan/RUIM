@@ -28,12 +28,15 @@ function GenerarConstancias () {
     const [fileState, setFileState] = useState({
         selectedFile: null
     });
+    const [fileState2, setFileState2] = useState({
+        selectedFile: null
+    });
     const [initFileState, setInitFileState] = useState({
         selectedFile: null
     })
     const handleFileChange = (e) => {
         if (e.target.files[0].type == "image/png"){
-            setFileState({selectedFile: e.target.files[0]});
+            setFileState2({selectedFile: e.target.files[0]});
             document.getElementById("guardar4").disabled=false;
         } else {
             document.getElementById("guardar4").disabled=true;
@@ -48,9 +51,9 @@ function GenerarConstancias () {
     const handleFileUpload = async () => {
         const formData = new FormData();
         formData.append("programa",
-            fileState.selectedFile);
-            console.log(fileState.selectedFile);
-        formData.append("filename", fileState.selectedFile.name)
+            fileState2.selectedFile);
+            console.log(fileState2.selectedFile);
+        formData.append("filename", fileState2.selectedFile.name)
         var res = await axios.post("http://localhost:4000/api/admin/save-programa", formData)
         setReferencia(res.data);
         console.log(res.data);
@@ -83,6 +86,8 @@ function GenerarConstancias () {
         console.log(imgReferencia);
         const input = document.getElementById('print');
         const pdf = new jsPDF('l');
+        var token = makeToken();
+        setToken(token); 
         if (pdf) {
             domtoimage.toPng(input)
             .then(
@@ -90,7 +95,7 @@ function GenerarConstancias () {
                     pdf.addImage(imgData, 'PNG', 0, 0);
                     pdf.addPage();
                     pdf.text(10,20,"token: "+token)
-                    var file = new File([pdf.output('blob')], "cosa.pdf",{type:"application/pdf", lastModified:new Date().getTime()})
+                    var file = new File([pdf.output('blob')], "cosa.pdf",{name: "cosa.pdf", type:"application/pdf", lastModified:new Date().getTime()})
                     setFileState(file);
                 }
             )
@@ -98,6 +103,7 @@ function GenerarConstancias () {
     }
     const handlePDFUpload = async () => {
         const formData = new FormData();
+        console.log(fileState);
         formData.append("resumen",
             fileState);
         formData.append("filename", fileState.name)
@@ -107,7 +113,6 @@ function GenerarConstancias () {
     }
 
     const createsendPDF = async () =>{
-        setToken(makeToken());
         await createPDF();
         var referencia = await handlePDFUpload();
         saveConstancia(referencia);
@@ -141,7 +146,7 @@ function GenerarConstancias () {
                         <Form.Label className="text-dark">Archivo del fondo * (.png)</Form.Label>
                         <Form.Control name="poster" onChange = {handleFileChange} type ="file" accept = "image/png" controlId=""/>
                     </Form.Group>
-                    <Button onClick={handleFileUpload}>Guardar</Button>
+                    <Button variant="secondary" onClick={handleFileUpload}>Guardar</Button>
         <hr></hr>
         <h3>Registros aceptados</h3>
                 <Row>

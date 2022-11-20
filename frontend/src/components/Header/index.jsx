@@ -16,6 +16,7 @@ import {
   Routes,
   Route
 } from "react-router-dom";
+import Verificar from "../../paginas/publico/verificar";
 
 const Header = () => {
 
@@ -73,7 +74,14 @@ const Header = () => {
                     <span class="d-inline-block tm-white-rect"></span>
                   </Link>
                 </li>
+                <li class="nav-item">
+                  <Link to="/verificar" class="nav-link">
+                    <span class="d-inline-block mr-3">Verificación</span>
+                    <span class="d-inline-block tm-white-rect"></span>
+                  </Link>
+                </li>
               </ul>
+              
               
               <footer class="text-center pt-5 mt-5 text-white small">
                 <div className="mt-5 pt-5">
@@ -91,6 +99,7 @@ const Header = () => {
               <Route exact path ="/ubicacion" element = {<Ubicacion/>}/>
               <Route exact path ="/registro" element = {<Registro/>}/>
               <Route exact path ="/contacto" element = {<Contacto/>}/>
+              <Route exact path ="/verificar" element = {<Verificar/>}/>
             </Routes>
         </Col>
         </Row>
