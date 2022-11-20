@@ -20,7 +20,7 @@ function GenerarConstancias () {
     const [modalData, setModalData] = useState([]);
     const [autores, setAutores] = useState("");
     const handleClose = () => setShow(false);
-    
+    const [token, setToken] = useState("");
     const handleShow = () => setShow(true);
     useEffect(() => {
         getData();
@@ -62,6 +62,9 @@ function GenerarConstancias () {
             posterReferencia: posterReferencia
         });
     }
+    const makeToken = () => {
+        return Math.random().toString(36).substr(2); // remove `0.`
+    };
     const getData = async () => {
         const response = await axios.post("http://localhost:4000/api/admin/registros-filtrados", {
             estado: 1
@@ -85,6 +88,8 @@ function GenerarConstancias () {
             .then(
                 imgData=>{
                     pdf.addImage(imgData, 'PNG', 0, 0);
+                    pdf.addPage();
+                    pdf.text(10,20,"token: "+token)
                     var file = new File([pdf.output('blob')], "cosa.pdf",{type:"application/pdf", lastModified:new Date().getTime()})
                     setFileState(file);
                 }
@@ -102,8 +107,17 @@ function GenerarConstancias () {
     }
 
     const createsendPDF = async () =>{
+        setToken(makeToken());
         await createPDF();
-        await handlePDFUpload();
+        var referencia = await handlePDFUpload();
+        saveConstancia(referencia);
+        alert("Se ha generado la constancia. Se le notificará al representante por correo electrónico")
+    }
+    const saveConstancia = async (referencia)=> {
+        const response = await axios.post("http://localhost:4000/api/admin/save-constancia", {
+            token: token,
+            referencia: referencia
+        });
     }
     const getAutores = async (id) => {
         const response = await axios.post("http://localhost:4000/api/admin/obtener-autores", {
@@ -206,7 +220,7 @@ function GenerarConstancias () {
   </Modal>
   <div className="w-100 h-100" style={{opacity: 0}}>
         <div id="print" className="h-100 d-flex flex-column align-items-center" style={{width: 1123, height: 794, backgroundImage: `url(${imgReferencia})`, backgroundSize: 'contain'}}>
-            <div className="w-100 p-5 pt-5 mt-5">
+            <div className="w-100 p-5 pt-5 h-100 mt-5">
             <div className="p-5 mt-5">
             <div className="mb-5 mt-5 pt-5"><center><h4>{modalData.representante}, {autores}</h4></center></div>
             <div className="mt-3"><center><h5>Por su {modalData.modalidad} {modalData.titulo} presentada en la XXV Reunión Universitaria de Investigación en Materiales realizado del 26 al 28 de mayo del 2022.</h5></center>

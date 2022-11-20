@@ -8,6 +8,7 @@ import {PaginaUbicacion} from "../models/paginasModels/PaginaUbicacion.js";
 import emailCambioEstado from "../helpers/emailCambioEstado.js";
 import {where} from "sequelize";
 import {ultimoRegistro} from "../helpers/buscarUltimoRegistro.js";
+import { Constancia } from "../models/adminModels/Constancias.js";
 
 
 const resumenDashboard = async (req,res)=>{
@@ -223,7 +224,16 @@ const sendPdf = async(req,res)=>{
     res.sendFile(routePdf);
 }
 
+const guardarConstancia = async (req, res) => {
+    try{
+        await Constancia.create(req.body);
+        res.send("saved");
+    }
+    catch{
+        res.send("error");
+    }
 
+}
 export  {
     resumenDashboard,
     obtenerRegistros,
@@ -237,5 +247,6 @@ export  {
     editarPaginaContacto,
     guardarPrograma,
     descargarPdf,
-    sendPdf
+    sendPdf,
+    guardarConstancia
 }
