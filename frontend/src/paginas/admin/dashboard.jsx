@@ -6,6 +6,9 @@ import Title from '../../components/title.jsx'
 import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"
 import Table from "react-bootstrap/Table"
+import Button from "react-bootstrap/Button"
+import { jsPDF } from "jspdf";
+import domtoimage from 'dom-to-image';
 function AdminDashboard(){
     const [data, setData] = useState("");
     const [registros, setRegistros] = useState([]);
@@ -20,6 +23,19 @@ function AdminDashboard(){
         setRegistros(response.data.ultimosRegistros);
         console.log(response.data.ultimosRegistros)
         console.log(registros);
+    }
+    const createPDF = async () => {
+        const input = document.getElementById('informe-parcial');
+        const pdf = new jsPDF();
+        if (pdf) {
+            domtoimage.toPng(input)
+            .then(
+                imgData=>{
+                    pdf.addImage(imgData, 'PNG', 5, 20, pdf.internal.pageSize.getWidth()-10, 59);
+                    pdf.save("informe.pdf");
+                }
+            )
+        }
     }
     return(
 
@@ -100,6 +116,91 @@ function AdminDashboard(){
                                 </tbody>
                 </Table>
             </div>
+            <div id="informe-parcial" className="me-5 pe-4">
+            <h2> Informe parcial:</h2>
+                <Table className="me-5" striped bordered hover>
+                                <thead>
+                                    <th variant="dark">Información de posters</th>
+                                    <tr>
+                                        <th>
+                                            Numero de registros
+                                        </th>
+                                        <th>
+                                            Registros pendientes
+                                        </th>
+                                        <th>
+                                            Registros aceptados
+                                        </th>
+                                        <th>
+                                            Registros rechazados
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                </Table>
+                <Table className="me-5" striped bordered hover>
+                                <thead>
+                                    <th variant="dark">Información de ponencias</th>
+                                    <tr>
+                                        <th>
+                                            Numero de registros
+                                        </th>
+                                        <th>
+                                            Registros pendientes
+                                        </th>
+                                        <th>
+                                            Registros aceptados
+                                        </th>
+                                        <th>
+                                            Registros rechazados
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                </Table>
+                <Table className="me-5" striped bordered hover>
+                                <thead>
+                                    <th variant="dark">Información de platicas</th>
+                                    <tr>
+                                        <th>
+                                            Numero de registros
+                                        </th>
+                                        <th>
+                                            Registros pendientes
+                                        </th>
+                                        <th>
+                                            Registros aceptados
+                                        </th>
+                                        <th>
+                                            Registros rechazados
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                </Table>
+            </div>
+            <Button className="mb-5 bg-dark" variant = "primary" onClick={createPDF}>Descargar informe parcial</Button>
         </div>
         </>
     )
