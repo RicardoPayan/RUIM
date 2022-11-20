@@ -116,7 +116,10 @@ function GenerarConstancias () {
     const saveConstancia = async (referencia)=> {
         const response = await axios.post("http://localhost:4000/api/admin/save-constancia", {
             token: token,
-            referencia: referencia
+            referencia: referencia,
+            correo: modalData.correo,
+            representante: modalData.representante,
+            titulo: modalData.titulo
         });
     }
     const getAutores = async (id) => {
