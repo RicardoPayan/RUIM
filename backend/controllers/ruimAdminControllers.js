@@ -182,11 +182,12 @@ const editarEstadoRegistro = async (req,res) =>{
 
 
 const editarPaginaInicio = async (req,res) =>{
+
+    const {year} = req.body;
+
     try {
         //Borramos la version pasada de la pagina
-        await PaginaInicio.destroy({
-            truncate: true
-        });
+        await PaginaInicio.destroy({where : {year}});
 
         //Creamos la nueva
         await PaginaInicio.create(req.body);
@@ -198,11 +199,12 @@ const editarPaginaInicio = async (req,res) =>{
 }
 
 const editarPaginaPoster = async (req,res) => {
+
+    const {year} = req.body;
+
     try {
         //Borramos la version pasada de la pagina
-        await PaginaPoster.destroy({
-            truncate: true
-        });
+        await PaginaPoster.destroy({where : {year}});
 
         //Creamos la nueva
         await PaginaPoster.create(req.body);
@@ -214,11 +216,12 @@ const editarPaginaPoster = async (req,res) => {
 }
 
 const editarPaginaPrograma = async (req,res) => {
+
+    const {year} = req.body;
+
     try {
         //Borramos la version pasada de la pagina
-        await PaginaPrograma.destroy({
-            truncate: true
-        });
+        await PaginaPrograma.destroy({where : {year}});
 
         //Creamos la nueva
         await PaginaPrograma.create(req.body);
@@ -230,11 +233,12 @@ const editarPaginaPrograma = async (req,res) => {
 }
 
 const editarPaginaContacto = async (req,res) => {
+
+    const {year} = req.body;
+
     try {
         //Borramos la version pasada de la pagina
-        await PaginaContacto.destroy({
-            truncate: true
-        });
+        await PaginaContacto.destroy({where : {year}});
 
         //Creamos la nueva
         await PaginaContacto.create(req.body);
@@ -246,11 +250,11 @@ const editarPaginaContacto = async (req,res) => {
 }
 
 const editarPaginaUbicacion = async (req,res) => {
+
+    const {year} = req.body;
     try {
         //Borramos la version pasada de la pagina
-        await PaginaUbicacion.destroy({
-            truncate: true
-        });
+        await PaginaUbicacion.destroy({where : {year}});
 
         //Creamos la nueva
         await PaginaUbicacion.create(req.body);
