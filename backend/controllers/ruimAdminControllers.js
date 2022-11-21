@@ -15,28 +15,30 @@ import emailConstancia from "../helpers/emailConstancia.js";
 
 const resumenDashboard = async (req,res)=>{
 
+    const {year} = req.body
+
     const promiseDB = []; //Arreglo para ejecutar todos los awaits al mismo tiempo
 
     //Todos los registros de un tipo
-    promiseDB.push(Registro.findAll());
-    promiseDB.push(Registro.findAll({where : {estado : 0}}));
-    promiseDB.push(Registro.findAll({where : {estado : 1}}));
-    promiseDB.push(Registro.findAll({where : {estado : -1}}));
+    promiseDB.push(Registro.findAll({where : {year}}));
+    promiseDB.push(Registro.findAll({where : {estado : 0, year}}));
+    promiseDB.push(Registro.findAll({where : {estado : 1, year}}));
+    promiseDB.push(Registro.findAll({where : {estado : -1, year}}));
 
     //CARTELES
-    promiseDB.push(Registro.findAll({where : {estado : 0, modalidad : "Cartel"}}));
-    promiseDB.push(Registro.findAll({where : {estado : 1, modalidad : "Cartel"}}));
-    promiseDB.push(Registro.findAll({where : {estado : -1, modalidad : "Cartel"}}));
+    promiseDB.push(Registro.findAll({where : {estado : 0, modalidad : "Cartel", year}}));
+    promiseDB.push(Registro.findAll({where : {estado : 1, modalidad : "Cartel", year}}));
+    promiseDB.push(Registro.findAll({where : {estado : -1, modalidad : "Cartel", year}}));
 
     //PONENCIAS
-    promiseDB.push(Registro.findAll({where : {estado : 0, modalidad : "Ponencia"}}));
-    promiseDB.push(Registro.findAll({where : {estado : 1, modalidad : "Ponencia"}}));
-    promiseDB.push(Registro.findAll({where : {estado : -1, modalidad : "Ponencia"}}));
+    promiseDB.push(Registro.findAll({where : {estado : 0, modalidad : "Ponencia", year}}));
+    promiseDB.push(Registro.findAll({where : {estado : 1, modalidad : "Ponencia", year}}));
+    promiseDB.push(Registro.findAll({where : {estado : -1, modalidad : "Ponencia", year}}));
 
     //PLATICAS
-    promiseDB.push(Registro.findAll({where : {estado : 0, modalidad : "Platica"}}));
-    promiseDB.push(Registro.findAll({where : {estado : 1, modalidad : "Platica"}}));
-    promiseDB.push(Registro.findAll({where : {estado : -1, modalidad : "Platica"}}));
+    promiseDB.push(Registro.findAll({where : {estado : 0, modalidad : "Platica", year}}));
+    promiseDB.push(Registro.findAll({where : {estado : 1, modalidad : "Platica", year}}));
+    promiseDB.push(Registro.findAll({where : {estado : -1, modalidad : "Platica", year}}));
 
     //Los ultimos 5 de un tipo
     promiseDB.push(ultimoRegistro(Registro, 5));
@@ -68,8 +70,11 @@ const resumenDashboard = async (req,res)=>{
 }
 
 const obtenerRegistros = async (req,res) =>{
+
+    const {year} = req.body;
+
     try{
-        const registros = await Registro.findAll();
+        const registros = await Registro.findAll({where : {year}});
 
         //Si no hay registros, devolvemos mensaje de advertencia
         if(!Object.keys(registros).length){
@@ -84,10 +89,10 @@ const obtenerRegistros = async (req,res) =>{
 
 const obtenerRegistrosFiltrados = async (req,res) =>{
 
-    const {estado} = req.body; //Extrayendo que tipo de registro quiere el usuario.
+    const {estado, year} = req.body; //Extrayendo que tipo de registro quiere el usuario.
 
     try{
-        const registros = await Registro.findAll({where : {estado: estado}});
+        const registros = await Registro.findAll({where : {estado,year}});
 
         //Si no hay registros, devolvemos mensaje de advertencia
         if(!Object.keys(registros).length){
@@ -103,10 +108,10 @@ const obtenerRegistrosFiltrados = async (req,res) =>{
 
 const obtenerFiltradosModalidad = async (req,res) =>{
 
-    const {estado, modalidad} = req.body; //Extrayendo que tipo de registro quiere el usuario.
+    const {estado, modalidad, year} = req.body; //Extrayendo que tipo de registro quiere el usuario.
 
     try{
-        const registros = await Registro.findAll({where : {estado, modalidad}});
+        const registros = await Registro.findAll({where : {estado, modalidad, year}});
 
         //Si no hay registros, devolvemos mensaje de advertencia
         if(!Object.keys(registros).length){

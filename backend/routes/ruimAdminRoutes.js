@@ -23,10 +23,10 @@ import multer from "multer";
 const router = express.Router();
 
 
- router.get('/', resumenDashboard);
+ router.post('/', resumenDashboard);
 
 //Filtros para registros
-router.get('/registros-todos', obtenerRegistros);
+router.post('/registros-todos', obtenerRegistros);
 router.post('/registros-filtrados', obtenerRegistrosFiltrados);
 router.post('/registros-filtrados-modalidad', obtenerFiltradosModalidad);
 router.post('/obtener-autores',obtenerAutores);
