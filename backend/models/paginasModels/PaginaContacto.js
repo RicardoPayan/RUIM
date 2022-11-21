@@ -9,6 +9,10 @@ export const PaginaContacto = db.define("paginaContacto",{
     contacto: {
         type: Sequelize.STRING
     },
+
+    year: {
+        type: Sequelize.STRING
+    }
     
 })
 

@@ -19,6 +19,10 @@ export const PaginaUbicacion = db.define("paginaUbicacion",{
     },
     link: {
         type: Sequelize.TEXT('long')
+    },
+
+    year: {
+        type: Sequelize.STRING
     }
 })
 

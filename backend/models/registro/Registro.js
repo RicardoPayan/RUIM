@@ -44,6 +44,10 @@ const Registro = db.define("registros",{
         type: Sequelize.STRING,
         required : true
     },
+
+    year: {
+        type: Sequelize.STRING
+    }
 })
 await Registro.sync({alter: true});
 

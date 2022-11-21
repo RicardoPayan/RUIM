@@ -11,9 +11,12 @@ import emailRegistro from "../helpers/emailRegistro.js";
 import {ultimoRegistro} from "../helpers/buscarUltimoRegistro.js"; //Funcion para obtener el ultimo registro de la base de datos
 
 const obtenerPaginaInicio = async (req, res) =>{
+
+    const {year} = req.body
+
     try {
         //Buscamos el ultimo registros den la base de datos
-        const cuerpoPagina = await ultimoRegistro(PaginaInicio,1);
+        const cuerpoPagina = await PaginaInicio.findOne({where : {year}});
         res.json(cuerpoPagina);
 
     }catch (error){
@@ -23,9 +26,12 @@ const obtenerPaginaInicio = async (req, res) =>{
 
 
 const obtenerPaginaPrograma = async (req,res) =>{
+
+    const {year} = req.body;
+
     try {
         //Buscamos el ultimo registros den la base de datos
-        const cuerpoPagina = await ultimoRegistro(PaginaPrograma,1);
+        const cuerpoPagina = await PaginaPrograma.findOne({where : {year}});
         res.json(cuerpoPagina);
 
     }catch (error){
@@ -34,9 +40,12 @@ const obtenerPaginaPrograma = async (req,res) =>{
 }
 
 const obtenerPaginaPoster = async (req,res)=>{
+
+    const {year} = req.body
+
     try {
         //Buscamos el ultimo registros den la base de datos
-        const cuerpoPagina = await ultimoRegistro(PaginaPoster,1);
+        const cuerpoPagina = await PaginaPoster.findOne({where : {year}});
         res.json(cuerpoPagina);
 
     }catch (error){
@@ -45,9 +54,12 @@ const obtenerPaginaPoster = async (req,res)=>{
 }
 
 const obtenerPaginaContacto = async (req,res) =>{
+
+    const {year} = req.body
+
     try {
         //Buscamos el ultimo registros den la base de datos
-        const cuerpoPagina = await ultimoRegistro(PaginaContacto,1);
+        const cuerpoPagina = await PaginaContacto.findOne({where : {year}});
         res.json(cuerpoPagina);
 
     }catch (error){
@@ -56,9 +68,12 @@ const obtenerPaginaContacto = async (req,res) =>{
 }
 
 const obtenerPaginaUbicacion = async (req, res) =>{
+
+    const {year} = req.body
+
     try {
         //Buscamos el ultimo registros den la base de datos
-        const cuerpoPagina = await ultimoRegistro(PaginaUbicacion,1);
+        const cuerpoPagina = await PaginaUbicacion.findOne({where : {year}});
         res.json(cuerpoPagina);
 
     }catch (error){
@@ -78,7 +93,7 @@ const guardarResumen = async (req, res) => {
 }
 const registrarParticipacion = async (req,res) =>{
     const {institucion, departamento
-    , gradoAcademico, modalidad, correo, estado, resumenReferencia, autores, titulo, representante} = req.body;
+    , gradoAcademico, modalidad, correo, estado, resumenReferencia, autores, titulo, representante, year} = req.body;
 
 
     //TODO Implementar validacion para que los campos no esten vacios
@@ -93,7 +108,8 @@ const registrarParticipacion = async (req,res) =>{
             estado,
             resumenReferencia,
             titulo,
-            representante
+            representante,
+            year
             }
         );
 

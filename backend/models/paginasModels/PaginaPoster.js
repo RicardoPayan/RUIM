@@ -6,6 +6,10 @@ export const PaginaPoster = db.define("paginaposter",{
         type: Sequelize.STRING
     },
 
+    year: {
+        type: Sequelize.STRING
+    }
+
 })
 
 await PaginaPoster.sync({alter: true});

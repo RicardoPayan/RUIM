@@ -5,6 +5,10 @@ export const PaginaPrograma = db.define("paginaPrograma",{
    posterReferencia: {
         type: Sequelize.STRING
     },
+
+    year: {
+        type: Sequelize.STRING
+    }
     
 })
 

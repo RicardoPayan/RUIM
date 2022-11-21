@@ -25,6 +25,10 @@ export const PaginaInicio = db.define("paginainicio",{
     },
     banner: {
         type: Sequelize.STRING
+    },
+
+    year: {
+        type: Sequelize.STRING
     }
 })
 

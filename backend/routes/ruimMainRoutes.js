@@ -25,11 +25,11 @@ var upload = multer({
     storage: storage
 });
 
-router.get('/', obtenerPaginaInicio);
-router.get('/programa', obtenerPaginaPrograma );
-router.get('/poster', obtenerPaginaPoster );
-router.get('/contacto', obtenerPaginaContacto);
-router.get('/ubicacion', obtenerPaginaUbicacion);
+router.post('/', obtenerPaginaInicio);
+router.post('/programa', obtenerPaginaPrograma );
+router.post('/poster', obtenerPaginaPoster );
+router.post('/contacto', obtenerPaginaContacto);
+router.post('/ubicacion', obtenerPaginaUbicacion);
 router.post('/registro', registrarParticipacion);
 router.post('/buscar-constancia', buscarConstancia);
 router.post('/registro/upload', upload.single('resumen'), guardarResumen);
