@@ -5,7 +5,7 @@ import cors from "cors";
 import ruimMainRoutes from "./routes/ruimMainRoutes.js";
 import ruimLoginRoutes from "./routes/ruimLoginRoutes.js";
 import ruimAdminRoutes from "./routes/ruimAdminRoutes.js";
-
+import ruimYearsRoutes from "./routes/ruimYearsRoutes.js";
 //Iniciando express
 const app = express();
 
@@ -49,7 +49,7 @@ app.use('/api/adminLogin', ruimLoginRoutes);
 //Rutas de administracion
 app.use('/api/admin', ruimAdminRoutes);
 
-
+app.use('/api/years', ruimYearsRoutes);
 //Ruta publica
 
 app.use("/uploads", express.static(process.cwd() + '/uploads'))

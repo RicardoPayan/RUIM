@@ -13,6 +13,8 @@ const ModPoster = () => {
         selectedFile: null
     })
     const [saved, setSaved] = useState(false);
+    const [activeYear, setYear] = useState("");
+    const [years, setYears] = useState([]);
     const handleFileChange = (e) => {
         if (e.target.files[0].type == "image/png"){
             setFileState({selectedFile: e.target.files[0]});
@@ -34,9 +36,19 @@ const ModPoster = () => {
         var posterReferencia = await handleFileUpload();
         console.log(posterReferencia);
         var res = await axios.post("http://localhost:4000/api/admin/edit-pagina-poster", {
-            referencia: posterReferencia
+            referencia: posterReferencia,
+            year: activeYear
         });
         setSaved(true);
+    }
+    useEffect(() => {
+        getYears();
+    }, []);
+    const getYears = async () => {
+        const response = await axios.get("http://localhost:4000/api/years");
+        setYear(response.data[0].year)
+        setYears(response.data);
+        console.log(response.data);
     }
     return(
         <>
@@ -48,9 +60,19 @@ const ModPoster = () => {
                             <Form.Label className="text-dark">Archivo del poster * (.png)</Form.Label>
                             <Form.Control name="poster" onChange = {handleFileChange} type ="file" accept = "image/png" controlId=""/>
                         </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label className="text-dark">Año de la publicación</Form.Label>
+                            <Form.Select className="" onChange = {(e) => setYear(e.target.value)}>
+                                    {
+                                        years.map((years, index) => (
+                                            <option value={years.year}>{years.year}</option>
+                                        ))
+                                    }
+                                </Form.Select>
+                        </Form.Group>
                         <Form.Text className="text-muted">
                         Los campos con * deben ser llenados para que se active el botón de guardar.
-                    </Form.Text>
+                        </Form.Text>
                     {saved &&
                         <Alert key="success" variant="success">
                                 Se ha guardado exitosamente. Los cambios han sido reflejados en el sitio público.

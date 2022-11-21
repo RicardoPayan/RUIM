@@ -9,15 +9,26 @@ import Table from "react-bootstrap/Table"
 import Button from "react-bootstrap/Button"
 import { jsPDF } from "jspdf";
 import domtoimage from 'dom-to-image';
+import Form from "react-bootstrap/Form"
 function AdminDashboard(){
     const [data, setData] = useState("");
     const [registros, setRegistros] = useState([]);
+    const [newYear, setNYear] = useState("");
+    const [years, setYears] = useState([]);
+    const [active, setActive] = useState("");
+    const [nactive, setNActive] = useState("");
     useEffect(() => {
+        getYears();
         getData();
         console.log(registros);
     }, []);
     const getData = async () => {
-        const response = await axios.get("http://localhost:4000/api/admin/");
+        const activeyear = await axios.get("http://localhost:4000/api/years/active");
+        setActive(activeyear.data.year);
+        console.log(activeyear.data);
+        const response = await axios.post("http://localhost:4000/api/admin/",{
+            year: activeyear.data.year
+        });
         console.log(response.data);
         setData(response.data);
         setRegistros(response.data.ultimosRegistros);
@@ -36,6 +47,26 @@ function AdminDashboard(){
                 }
             )
         }
+    }
+    const AddYear = async () => {
+        const response = await axios.post("http://localhost:4000/api/years", {
+            year: newYear,
+            active: false
+        });
+        console.log(response);
+        getYears();
+    }
+    const getYears = async () => {
+        const response = await axios.get("http://localhost:4000/api/years");
+        setYears(response.data);
+        console.log(response.data);
+    }
+    const changeActive = async () => {
+        const response = await axios.post("http://localhost:4000/api/years/change-active",{
+            oldyear: active,
+            newyear: nactive
+        })
+        getData();
     }
     return(
 
@@ -58,6 +89,48 @@ function AdminDashboard(){
                         <RCard title="Registros rechazados:" text={data.registrosRechazados}></RCard>
                     </Col>
                 </Row>
+            </div>
+            <div className="w-100 mt-4 mb-5">
+                <Col className="ps-0">
+                <h2>Años</h2>
+                    <Row className="ps-2">
+                            <Row>
+                                Año activo: {active}
+                            </Row>
+                    </Row>
+                    <Row className="ps-2">
+                            <Row>
+                                Cambiar de año activo:
+                            </Row>
+                            <Row>
+                                <Form.Select className="w-25" onChange = {(e) => setNActive(e.target.value)}>
+                                    {
+                                        years.map((years, index) => (
+                                            <option value={years.year}>{years.year}</option>
+                                        ))
+                                    }
+                                </Form.Select>
+                            </Row>
+                            <Row>
+                            <div className="w-25 p-0">
+                                <Button className="mb-3 mt-3 w-25" onClick={changeActive}>Cambiar</Button>
+                            </div>
+                            </Row>
+                    </Row>
+                    <Row className="ps-2">
+                            <Row>
+                                Agregar nuevo año: 
+                            </Row>
+                            <Row>
+                                <Form.Control className="mb-3 mt-2 w-25" placeholder = "" onChange = {(e) => setNYear(e.target.value)}/>
+                            </Row>
+                            <Row>
+                                <div className="w-25 p-0">
+                                <Button className="mb-3 w-25" onClick={AddYear}>Guardar</Button>
+                                </div>
+                            </Row>
+                    </Row>
+                </Col>
             </div>
             <h2> Últimos registros:</h2>
             <div className="me-5 pe-4">

@@ -10,11 +10,14 @@ const ModContacto = () => {
     const [instrucciones, setNombre] = useState("");
     const [contacto, setDireccion] = useState("");
     const [saved, setSaved] = useState("");
+    const [activeYear, setYear] = useState("");
+    const [years, setYears] = useState([]);
     const handleSave = async (e) =>{
         e.preventDefault();
         const data = {
             instrucciones,
             contacto,
+            year: activeYear
         }
 
         try {
@@ -34,6 +37,15 @@ const ModContacto = () => {
             document.getElementById("guardar6").disabled=false;
         }
     }
+    useEffect(() => {
+        getYears();
+    }, []);
+    const getYears = async () => {
+        const response = await axios.get("http://localhost:4000/api/years");
+        setYear(response.data[0].year)
+        setYears(response.data);
+        console.log(response.data);
+    }
     return(
         <>
         <div className= "d-flex h-100 w-100 me-5 ms-5 mt-5">
@@ -52,6 +64,16 @@ const ModContacto = () => {
                                     <Form.Control onChange={(e) => setDireccion(e.target.value)}></Form.Control>
                             </Form.Group>
                         </Row>
+                        <Form.Group className="mb-3">
+                            <Form.Label className="text-dark">Año de la publicación</Form.Label>
+                            <Form.Select className="" onChange = {(e) => setYear(e.target.value)}>
+                                    {
+                                        years.map((years, index) => (
+                                            <option value={years.year}>{years.year}</option>
+                                        ))
+                                    }
+                                </Form.Select>
+                        </Form.Group>
                         <Form.Text className="text-muted">
                         Los campos con * deben ser llenados para que se active el botón de guardar.
                     </Form.Text>

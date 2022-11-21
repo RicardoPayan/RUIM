@@ -88,6 +88,8 @@ const registro = () => {
         setMembers(arr)
     }
     const handleSave = async (e) => {
+        const activeyear = await axios.get("http://localhost:4000/api/years/active");
+        console.log(activeyear)
         var file = await handleFileUpload();
         e.preventDefault();
         const data = {
@@ -100,7 +102,8 @@ const registro = () => {
             modalidad: modalidad,
             correo: correo,
             estado: 0,
-            resumenReferencia: file}
+            resumenReferencia: file,
+            year: activeyear.data.year}
         try{
             const response = await axios.post("http://localhost:4000/api/ruimMain/registro", data);
         }catch(error){
@@ -182,6 +185,7 @@ const registro = () => {
                                     <Form.Select onChange = {(e) => setModalidad(e.target.value)}>
                                         <option>Cartel</option>
                                         <option>Ponencia</option>
+                                        <option>Platica</option>
                                     </Form.Select>
                             </Form.Group>
                             </Col>

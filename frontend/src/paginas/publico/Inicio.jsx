@@ -2,6 +2,7 @@ import {useState, useEffect, createContext} from "react";
 import clienteAxios from "../../../config/axios.jsx";
 import data from "bootstrap/js/src/dom/data.js";
 import programa from "../../../archivos/posterPrograma/banner.png"
+import axios from "axios";
 const Inicio = () =>{
   
   //Solicitando cuerpo de la paginas desde el servidor
@@ -11,18 +12,22 @@ const Inicio = () =>{
     const [banner, setBanner] = useState("");
     useEffect(() =>{
         const obtenerCuerpoPagina = async  () =>{
-
+          
             try {
+              const activeyear = await axios.get("http://localhost:4000/api/years/active");
+              console.log(activeyear)
                 const config = {
                     headers: {
                         "Content-Type" : "application/json"
                     }
                 }
-                const {data} = await clienteAxios('/ruimMain', config);
+                const {data} = await axios.post("http://localhost:4000/api/ruimMain", {
+                  year: activeyear.data.year
+                })
                 console.log(data)
-                setCuerpoPagina(data[0]);
-                setBanner(data[0].banner);
-                console.log(data[0].banner)
+                setCuerpoPagina(data);
+                setBanner(data.banner);
+                console.log(data.banner)
                 setDone(true);
             }catch (error){
                 console.log(error);

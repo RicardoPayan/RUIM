@@ -16,9 +16,20 @@ const ModInicio = () => {
     const [parrafo1, setParrafo] = useState("");
     const [parrafo2, setParrafo2] = useState("");
     const [saved, setSaved] = useState(false);
+    const [activeYear, setYear] = useState("");
+    const [years, setYears] = useState([]);
     useEffect(() => {
         validate();
       });
+    useEffect(() => {
+        getYears();
+    }, []);
+    const getYears = async () => {
+        const response = await axios.get("http://localhost:4000/api/years");
+        setYear(response.data[0].year)
+        setYears(response.data);
+        console.log(response.data);
+    }
     const validate = () => {
         if (nombreEvento==""||fechas==""||lugar==""||parrafo1==""){
             document.getElementById("guardar2").disabled=true;
@@ -43,7 +54,8 @@ const ModInicio = () => {
             lugar,
             parrafo1,
             parrafo2,
-            banner: bannerReferencia
+            banner: bannerReferencia,
+            year: activeYear
         }
 
         try {
@@ -103,6 +115,18 @@ const ModInicio = () => {
                     <   Form.Group className="mb-3">
                             <Form.Label className="text-dark">Archivo del banner * (.png)</Form.Label>
                             <Form.Control name="poster" onChange = {handleFileChange} type ="file" accept = "image/png" controlId=""/>
+                        </Form.Group>
+                    </Row>
+                    <Row>
+                        <Form.Group className="mb-3">
+                            <Form.Label className="text-dark">Año de la publicación</Form.Label>
+                            <Form.Select className="" onChange = {(e) => setYear(e.target.value)}>
+                                    {
+                                        years.map((years, index) => (
+                                            <option value={years.year}>{years.year}</option>
+                                        ))
+                                    }
+                                </Form.Select>
                         </Form.Group>
                     </Row>
                     <Form.Text className="text-muted">

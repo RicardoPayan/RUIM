@@ -16,6 +16,7 @@ function Lista () {
     const [show, setShow] = useState(false);
     const [modalData, setModalData] = useState([]);
     const [autores, setAutores] = useState("")
+    const [active, setActive] = useState("");
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     useEffect(() => {
@@ -29,7 +30,18 @@ function Lista () {
         }
     }
     const getData = async () => {
-        const response = await axios.get("http://localhost:4000/api/admin/registros-todos");
+        const activeyear = await axios.get("http://localhost:4000/api/years/active");
+        setActive(activeyear.data.year);
+        console.log(activeyear.data);
+        const response = await axios.post("http://localhost:4000/api/admin/registros-todos", {
+            year: activeyear.data.year
+        });
+        if(response.data.hasOwnProperty('msg')){
+            setEmpty(true);
+            
+        } else {
+            setEmpty(false);
+        }
         setData(response.data);
         console.log(response.data);
         console.log(data);
@@ -44,10 +56,12 @@ function Lista () {
     }
     const getFiltered = async (filter) => {
         const response = await axios.post("http://localhost:4000/api/admin/registros-filtrados", {
-            estado: filter
+            estado: filter,
+            year: active
         });
         if(response.data.hasOwnProperty('msg')){
             setEmpty(true);
+            
         } else {
             setEmpty(false);
         }

@@ -11,12 +11,15 @@ const ModFechas = () => {
     const [closeDate, setFDate] = useState("");
     const [saved, setSaved] = useState("");
     const [BDate, setBDate] = useState(false);
+    const [activeYear, setYear] = useState("");
+    const [years, setYears] = useState([]);
     const handleSave = async (e) =>{
         e.preventDefault();
         try {
             await clienteAxios.post('/admin/edit-fechas', {
                 fechaInicio: startDate,
                 fechaFinal: closeDate,
+                year: activeYear
             });
             setSaved(true);
         } catch (error) {
@@ -37,6 +40,15 @@ const ModFechas = () => {
             setBDate(false);
         }
     }
+    useEffect(() => {
+        getYears();
+    }, []);
+    const getYears = async () => {
+        const response = await axios.get("http://localhost:4000/api/years");
+        setYear(response.data[0].year)
+        setYears(response.data);
+        console.log(response.data);
+    }
     return(
         <>
         <div className= "d-flex h-100 w-100 me-5 ms-5 mt-5">
@@ -55,6 +67,16 @@ const ModFechas = () => {
                                 <input type="date" className="form-control" onChange={(e)=> setFDate(e.target.value)}/>
                             </Form.Group>
                         </Row>
+                        <Form.Group className="mb-3">
+                            <Form.Label className="text-dark">Año de la publicación</Form.Label>
+                            <Form.Select className="" onChange = {(e) => setYear(e.target.value)}>
+                                    {
+                                        years.map((years, index) => (
+                                            <option value={years.year}>{years.year}</option>
+                                        ))
+                                    }
+                                </Form.Select>
+                        </Form.Group>
                         <Form.Text className="text-muted">
                         Los campos con * deben ser llenados para que se active el botón de guardar.
                     </Form.Text>

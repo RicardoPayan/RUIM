@@ -1,6 +1,7 @@
 import {useState, useEffect, createContext} from "react";
 import clienteAxios from "../../../config/axios.jsx";
 import data from "bootstrap/js/src/dom/data.js";
+import axios from "axios";
 const Programa = () =>{
 
     //Solicitando cuerpo de la paginas desde el servidor
@@ -11,15 +12,18 @@ const Programa = () =>{
         const obtenerCuerpoPagina = async  () =>{
 
             try {
+                const activeyear = await axios.get("http://localhost:4000/api/years/active");
                 const config = {
                     headers: {
                         "Content-Type" : "application/json"
                     }
                 }
-                const {data} = await clienteAxios('/ruimMain/programa', config);
+                const {data} = await axios.post("http://localhost:4000/api/ruimMain/programa", {
+                    year: activeyear.data.year
+                  })
                 console.log(data)
                 setCuerpoPagina(data);
-                setPrograma(data[0].posterReferencia);
+                setPrograma(data.posterReferencia);
                 console.log(programa);
             }catch (error){
                 console.log(error);

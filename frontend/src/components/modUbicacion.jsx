@@ -13,6 +13,8 @@ const ModUbicacion = () => {
     const [ciudad, setCiudad] = useState("");
     const [link, setLink] = useState("");
     const [saved, setSaved] = useState("");
+    const [activeYear, setYear] = useState("");
+    const [years, setYears] = useState([]);
     const handleSave = async (e) =>{
         e.preventDefault();
         const data = {
@@ -20,11 +22,13 @@ const ModUbicacion = () => {
             direccion,
             colonia,
             ciudad,
-            link
+            link,
+            year: activeYear
         }
 
         try {
             await clienteAxios.post('/admin/edit-pagina-ubicacion', data);
+            setSaved(true);
         }catch (error) {
             console.log(error)
         }
@@ -38,6 +42,15 @@ const ModUbicacion = () => {
         } else {
             document.getElementById("guardar5").disabled=false;
         }
+    }
+    useEffect(() => {
+        getYears();
+    }, []);
+    const getYears = async () => {
+        const response = await axios.get("http://localhost:4000/api/years");
+        setYear(response.data[0].year)
+        setYears(response.data);
+        console.log(response.data);
     }
     return(
         <>
@@ -75,6 +88,16 @@ const ModUbicacion = () => {
                                 <Form.Control onChange={(e) => setLink(e.target.value)}></Form.Control>
                             </Form.Group>
                         </Row>
+                        <Form.Group className="mb-3">
+                            <Form.Label className="text-dark">Año de la publicación</Form.Label>
+                            <Form.Select className="" onChange = {(e) => setYear(e.target.value)}>
+                                    {
+                                        years.map((years, index) => (
+                                            <option value={years.year}>{years.year}</option>
+                                        ))
+                                    }
+                                </Form.Select>
+                        </Form.Group>
                         <Form.Text className="text-muted">
                         Los campos con * deben ser llenados para que se active el botón de guardar.
                     </Form.Text>
