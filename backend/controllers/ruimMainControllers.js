@@ -129,7 +129,7 @@ const buscarConstancia = async (req,res) =>{
         }
 
         //Si la encontramos, descargamos el pdf desde la referencia
-        res.download(constancia.referencia)
+        res.download(constancia.referencia);
     }catch (error){
 
     }
