@@ -10,6 +10,7 @@ import { saveAs } from 'file-saver';
 const Verificar = () => {
     const [token, setToken] = useState("");
     const [failed, setFailed] = useState(false);
+    const [found, setFound] = useState(false);
     const handleSave = async (e) =>{
         e.preventDefault();
 
@@ -26,14 +27,7 @@ const Verificar = () => {
             if(result.data.msg == "No se encontro constancia con ese token"){
                 setFailed(true);
             }else{
-                //     var file = new Blob([result.data], {type: 'application/pdf'});
-                // return saveAs(file, "constancia.pdf")
-                const url = window.URL.createObjectURL(new Blob([result.data]));
-                const link = document.createElement('a');
-                link.href = url;
-                link.setAttribute('download', 'file.pdf'); //or any other extension
-                document.body.appendChild(link);
-                link.click();
+                setFound(true);
             }
         }catch (error) {
             console.log(error)
@@ -52,6 +46,7 @@ const Verificar = () => {
     const handleChange = (e) => {
         setToken(e.target.value)
         setFailed(false);
+        setFound(false);
     }
     return(
         <>
@@ -73,6 +68,11 @@ const Verificar = () => {
                             {failed &&
                                 <Alert key="danger" variant="danger">
                                     No se ha encontrado la constancia.
+                                </Alert>
+                            }
+                            {found &&
+                                <Alert key="success" variant="success">
+                                    La constancia esta registrada en el sistema.
                                 </Alert>
                             }
                             <div className="d-flex justify-content-end w-100">
