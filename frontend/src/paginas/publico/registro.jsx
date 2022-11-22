@@ -9,6 +9,7 @@ import axios from "axios"
 import Alert from "react-bootstrap/Alert"
 import OverlayTrigger from "react-bootstrap/OverlayTrigger"
 import Tooltip from 'react-bootstrap/Tooltip';
+import { useParams } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 const registro = () => {
     const [counter, setCounter] = useState([]);
@@ -29,7 +30,8 @@ const registro = () => {
     const [email, setEmail] = useState(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
     const [badMail, setBM] = useState(false);
     const [valid, setValid] = useState();
-    var [done, setDone] = useState(false);
+    var [done, setDone] = useState(false);   
+    let {year} = useParams();
     useEffect(() => {
         if(valid){
             validate();}
@@ -92,6 +94,9 @@ const registro = () => {
         console.log(activeyear)
         var file = await handleFileUpload();
         e.preventDefault();
+        if(year==null){
+            year = activeyear.data.year;
+          }
         const data = {
             titulo: titulo,
             representante: representante,
@@ -103,7 +108,7 @@ const registro = () => {
             correo: correo,
             estado: 0,
             resumenReferencia: file,
-            year: activeyear.data.year}
+            year: year}
         try{
             const response = await axios.post("http://localhost:4000/api/ruimMain/registro", data);
         }catch(error){

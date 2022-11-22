@@ -1,14 +1,15 @@
 import {useState, useEffect, createContext} from "react";
 import clienteAxios from "../../../config/axios.jsx";
 import data from "bootstrap/js/src/dom/data.js";
-
 import axios from "axios";
+import { useParams } from "react-router-dom";
 const Ubicacion = () =>{
 
     //Solicitando cuerpo de la paginas desde el servidor
 
     const [cuerpoPagina, setCuerpoPagina] = useState({});
     const [parse, setParse] = useState("");
+    let {year} = useParams();
     useEffect(() =>{
         const obtenerCuerpoPagina = async  () =>{
 
@@ -19,8 +20,11 @@ const Ubicacion = () =>{
                         "Content-Type" : "application/json"
                     }
                 }
+                if(year==null){
+                    year = activeyear.data.year;
+                  }
                 const {data} = await axios.post("http://localhost:4000/api/ruimMain/ubicacion", {
-                    year: activeyear.data.year
+                    year: year
                   })
                 setCuerpoPagina(data);
 

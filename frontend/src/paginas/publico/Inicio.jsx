@@ -3,6 +3,7 @@ import clienteAxios from "../../../config/axios.jsx";
 import data from "bootstrap/js/src/dom/data.js";
 import programa from "../../../archivos/posterPrograma/banner.png"
 import axios from "axios";
+import { useParams } from "react-router-dom";
 const Inicio = () =>{
   
   //Solicitando cuerpo de la paginas desde el servidor
@@ -10,6 +11,7 @@ const Inicio = () =>{
     const [cuerpoPagina, setCuerpoPagina] = useState({});
     const [done, setDone] = useState(false);
     const [banner, setBanner] = useState("");
+    let {year} = useParams();
     useEffect(() =>{
         const obtenerCuerpoPagina = async  () =>{
           
@@ -21,10 +23,14 @@ const Inicio = () =>{
                         "Content-Type" : "application/json"
                     }
                 }
+                if(year==null){
+                  year = activeyear.data.year;
+                }
                 const {data} = await axios.post("http://localhost:4000/api/ruimMain", {
-                  year: activeyear.data.year
+                  year: year
                 })
                 console.log(data)
+                console.log("RAAAAAAAH" + year)
                 setCuerpoPagina(data);
                 setBanner(data.banner);
                 console.log(data.banner)
