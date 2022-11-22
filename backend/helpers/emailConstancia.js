@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import ConvertAPI from "convertapi";
 
 const emailConstancia = async (datos) =>{
     const transport = nodemailer.createTransport({
@@ -10,7 +11,16 @@ const emailConstancia = async (datos) =>{
         }
     });
 
-    const {correo, representante, titulo, token} = datos;
+    const {correo, representante, titulo, token, referencia} = datos;
+
+    var convertapi = new ConvertAPI('lTjXeMgH6oAEvbi7');
+
+    await convertapi.convert('compress', {
+        File: referencia
+    }, 'pdf').then(function(result) {
+        result.saveFiles(referencia);
+    });
+
 
     //Enviar email
     const info = await transport.sendMail({
@@ -18,6 +28,11 @@ const emailConstancia = async (datos) =>{
         to: correo,
         subject : "Constancia",
         text : "Constancia",
+        attachments : [
+            {
+                path :  referencia
+            }
+        ],
         html : `<p>Hola ${representante}, tu constancia de ${titulo} esta lista. </p>
                 <p>Tu token de busqueda es: ${token}</p>`
     });

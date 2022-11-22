@@ -307,7 +307,7 @@ const guardarConstancia = async (req, res) => {
 
         await Constancia.create({token,referencia});
 
-        emailConstancia({correo,representante,titulo,token});
+        emailConstancia({correo,representante,titulo,token,referencia});
 
         res.send("saved");
     }
